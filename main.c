@@ -1,8 +1,7 @@
 #include <stdio.h>
-#include "ADT/wordmachine.h"
-
-
-
+#include <stdlib.h>
+#include <math.h>
+#include <time.h>
 
 int main(){
     // ASCII ART BURBIR
@@ -44,7 +43,7 @@ int main(){
     FILE *pengguna;
     FILE *utas;
     
-    //! Belum di implementasikan mesin kata
+    //! Belum di implementasikan Concat Char
     // buka file
     balasan = fopen("Config/balasan.config","r");
     draf = fopen("Config/draf.config","r");
@@ -72,6 +71,7 @@ int main(){
         char input;
         printf(">> ");
         scanf("%s", &input);
+        
 
     }
     
