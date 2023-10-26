@@ -5,7 +5,7 @@
 // Deskripsi        : File "wordmachine.c"
 
 #include <stdio.h>
-#include "boolean.h"
+#include "../boolean.h"
 #include "wordmachine.h"
 
 boolean EndWord;
