@@ -16,7 +16,7 @@ void IgnoreBlanks()
    I.S. : currentChar sembarang
    F.S. : currentChar ≠ BLANK atau currentChar = MARK */
 {
-   while (currentChar == BLANK) {
+   while (currentChar == BLANK || currentChar == LINEFEED) {
       ADV();
    }
 }
@@ -63,7 +63,7 @@ void CopyWord()
           Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
 {
    int i = 0;
-   while (currentChar != MARK && currentChar != BLANK){
+   while (currentChar != MARK && currentChar != BLANK && currentChar != LINEFEED){
       currentWord.TabWord[i] = currentChar;
       ADV();
       i++;
@@ -77,3 +77,35 @@ void CopyWord()
       currentWord.Length = i;
    }
 }
+
+boolean CheckInput(char *s){
+   int length = 0;
+   while (s[length] != '\0')
+   {
+      length++;
+   }
+
+   if (currentWord.Length != length){
+      return false;
+   }
+
+   int i;
+   for ( i = 0; i < length; i++){
+      if (currentWord.TabWord[i] != s[i]){
+         return false;
+      }
+   }
+
+   return true;
+}
+
+void displayWord (Word s){
+
+    int i;
+    for (i = 0; i < s.Length; i++){
+        printf("%c", s.TabWord[i]);
+    }
+
+    printf("\n");
+}
+
