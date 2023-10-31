@@ -1,13 +1,9 @@
 #include <stdio.h>
-#include "ADT/Mesin-Kata/wordmachine.h"
-#include "ADT/Mesin-Kata/charmachine.h"
 #include "ADT/Function/string-function.h"
-
-
-
-
+#include "ADT/Kicauan/kicauan.h"
 
 int main(){
+
     // ASCII ART BURBIR
     printf("              _____                    _____                    _____                    _____                    _____                    _____           \n");
     printf("             /\\    \\                  /\\    \\                  /\\    \\                  /\\    \\                  /\\    \\                  /\\    \\          \n");
@@ -55,10 +51,10 @@ int main(){
     
 
     // Cek file
-    if (balasan == NULL|| draf == NULL|| kicauan == NULL|| pengguna == NULL|| utas == NULL) {
-        printf("File tidak dapat dibuka.\n");
-        return 1;
-    }
+    // if (balasan == NULL|| draf == NULL|| kicauan == NULL|| pengguna == NULL|| utas == NULL) {
+    //     printf("File tidak dapat dibuka.\n");
+    //     return 1;
+    // }
 
     printf("File konfigurasi berhasil dimuat!\n\n");
     
@@ -72,9 +68,9 @@ int main(){
         STARTWORD();
 
         if (CheckInput("DAFTAR")){
-            //Do smth
+            printf("Anda telah memilih untuk mendaftar.\n");
         } else if (CheckInput("MASUK")) {
-            //Do smth
+            Kicau();
         } else if (CheckInput("KELUAR")) {
             //Do smth
         } 

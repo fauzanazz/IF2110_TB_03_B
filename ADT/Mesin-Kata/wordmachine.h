@@ -7,7 +7,7 @@
 #include "../boolean.h"
 #include "charmachine.h"
 
-#define NMax 50
+#define NMax 280
 #define BLANK ' '
 #define LINEFEED '\n'
 
@@ -48,6 +48,12 @@ void CopyWord();
           Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
 
 boolean CheckInput(char *s);
+
 void displayWord(Word s);
+
+void MakeWord(Word *s);
+/* Mengakuisisi kata, menyimpan dalam currentWord
+   I.S. : currentWord ada
+   F.S. : Word S telah ter concat dengan word selanjutnya */
 
 #endif
