@@ -14,7 +14,7 @@ void CreateGraf(Graf *G){
     int i, j;
     for (i = 0; i < MaxEl; i++){
         for (j = 0; j < MaxEl; j++){
-            ELMT(*G, i, j) = Nil;
+            ELMTG(*G, i, j) = Nil;
         }
     }
     NEFF(*G) = 0;
@@ -34,11 +34,27 @@ boolean IsGrafFull(Graf G){
 }
 
 /* ************ Fungsi Primitif Graf ************ */
-void addVertex(Graf *G, vertex *V, int ID);
+void addVertex(Graf *G, vertex *V, int ID){
+    int i, j, idx;
+    idx = NEFF(*G);
+    IDX(*V) = idx;
+    for (i = 0; i < idx + 1; i++){
+        if (i != idx){
+            ELMTG(*G, i, idx) = 0;
+            ELMTG(*G, idx, i) = 0;
+        } else {
+            ELMTG(*G, i, idx) = 1;
+        }
+    }
+    NEFF(*G) = NEFF(*G) + 1;
 /* I.S. Graf G terdefinisi, mungkin kosong */
 /* F.S. Menambahkan sebuah vertex V pada graf G */
+}
 
-void addEdge(Graf *G, vertex V1, vertex V2);
+void addEdge(Graf *G, vertex V1, vertex V2){
+    ELMTG(*G, IDX(V1), IDX(V2)) = 1;
+    ELMTG(*G, IDX(V2), IDX(V1)) = 1;
+}
 /* I.S. Graf G terdefinisi, V1 dan V2 adalah vertex yang valid pada Graf */
 /* F.S. Menghubungkan V1 dan V2 dengan penambahan edge, elemen adjacency matrix berubah (0 -> 1) */
 

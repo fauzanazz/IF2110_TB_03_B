@@ -28,7 +28,7 @@ typedef struct {
 #define USERID(V) (V).UserID
 #define IDX(V) (V).idxAdjMtx
 #define NEFF(G) (G).NEff
-#define ELMT(G, i, j) (G).mat[(i)][(j)]
+#define ELMTG(G, i, j) (G).mat[(i)][(j)]
 
 /* *** Konstruktor *** */
 void CreateVertex(vertex *V, int uid, int idx);
