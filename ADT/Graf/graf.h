@@ -22,7 +22,7 @@ typedef struct {
   int NEff;
 } Graf;
 /* Definisi Graf G kosong : G.Neff = Nil */
-/* ElType M.mat[i][j]: bernilai 0 jika i tidak berhubungan dengan j, bernilai 1 jika i berhubungan dengan j, bernilai -1 jika i atau j belum terdefinisi */
+/* ElType M.mat[i][j]: bernilai 0 jika i tidak berhubungan dengan j, bernilai 1 jika i berhubungan dengan j */
 
 /* Definisi akses dengan Selektor : Set dan Get */
 #define USERID(V) (V).UserID
@@ -31,13 +31,13 @@ typedef struct {
 #define ELMTG(G, i, j) (G).mat[(i)][(j)]
 
 /* *** Konstruktor *** */
-void CreateVertex(vertex *V, int uid, int idx);
-/* I.S. uid dan idx bernilai valid */
-/* F.S. Terbentuk vertex V yang berisi UserID uid dan idxAdjMtx idx */
+void CreateVertex(vertex *V, int uid);
+/* I.S. uid bernilai valid */
+/* F.S. Terbentuk vertex V yang berisi UserID uid dan idxAdjMtx -1 */
 
 void CreateGraf(Graf *G);
 /* I.S. sembarang; */
-/* F.S. Membuat sebuah graf G yang kosong berkapasitas MaxEl yang berisi Nil */
+/* F.S. Membuat sebuah graf G yang kosong berkapasitas MaxEl */
 
 /* ************ Cek Kondisi Graf ************ */
 boolean IsGrafEmpty(Graf G);
@@ -47,7 +47,7 @@ boolean IsGrafFull(Graf G);
 /* Mengirim true jika adjacency matrix penuh */
 
 /* ************ Fungsi Primitif Graf ************ */
-void addVertex(Graf *G, vertex *V, int ID);
+void addVertex(Graf *G, vertex *V);
 /* I.S. Graf G terdefinisi, mungkin kosong */
 /* F.S. Menambahkan sebuah vertex V pada graf G */
 
