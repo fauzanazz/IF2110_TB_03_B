@@ -1,3 +1,9 @@
+// NIM              : 13521024
+// Nama             : Ahmad Nadil
+// Tanggal          : 27 September 2022
+// Topik praktikum  : ADT Mesin Kata
+// Deskripsi        : File "wordmachine.c"
+
 #include <stdio.h>
 #include "../boolean.h"
 #include "wordmachine.h"
@@ -103,18 +109,3 @@ void displayWord (Word s){
     printf("\n");
 }
 
-void MakeWord(Word *s){
-   // Spasi
-   if (s->Length + 1 <= 280){
-      s->TabWord[s->Length] = ' ';
-      s->Length++;      
-   }
-
-   // Concat
-   int lengthawal = s->Length;
-   for (int i = 0; i < currentWord.Length && s->Length < 280; i++ ){
-      s->TabWord[lengthawal + i] = currentWord.TabWord[i];
-      s->Length++;
-   }
-   currentWord.Length = 0;
-}
