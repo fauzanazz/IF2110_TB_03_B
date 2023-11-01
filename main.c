@@ -1,8 +1,4 @@
 #include <stdio.h>
-#include "ADT/wordmachine.h"
-
-
-
 
 int main(){
     // ASCII ART BURBIR
