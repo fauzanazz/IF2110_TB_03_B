@@ -1,6 +1,9 @@
 #include <stdio.h>
+#include "ADT/Function/string-function.h"
+#include "ADT/Kicauan/kicauan.h"
 
 int main(){
+
     // ASCII ART BURBIR
     printf("              _____                    _____                    _____                    _____                    _____                    _____           \n");
     printf("             /\\    \\                  /\\    \\                  /\\    \\                  /\\    \\                  /\\    \\                  /\\    \\          \n");
@@ -50,10 +53,10 @@ int main(){
 
 
     // Cek file
-    if (balasan == NULL|| draf == NULL|| kicauan == NULL|| pengguna == NULL|| utas == NULL) {
-        printf("File tidak dapat dibuka.\n");
-        return 1;
-    }
+    // if (balasan == NULL|| draf == NULL|| kicauan == NULL|| pengguna == NULL|| utas == NULL) {
+    //     printf("File tidak dapat dibuka.\n");
+    //     return 1;
+    // }
 
     printf("File konfigurasi berhasil dimuat!\n");
     
@@ -67,9 +70,17 @@ int main(){
         // Buat input
         char input;
         printf(">> ");
-        scanf("%s", &input);
+        STARTWORD();
 
+        if (CheckInput("DAFTAR")){
+            printf("Anda telah memilih untuk mendaftar.\n");
+        } else if (CheckInput("MASUK")) {
+            Kicau();
+        } else if (CheckInput("KELUAR")) {
+            //Do smth
+        } 
     }
     
+    printf("\nAnda telah keluar dari program BurBir.\nSampai jumpa di penjelajahan berikutnya.");
     return 0;
 }

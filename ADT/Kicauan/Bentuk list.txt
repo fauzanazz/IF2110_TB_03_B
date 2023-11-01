@@ -1,0 +1,12 @@
+Listdin Kicauan
+    Kicau kicau[]
+    NEFF
+
+Struct Kicau
+    int IdKicau
+    int IdProfile
+    DATETIME TanggalTerbit
+    WORD IsiKicauan
+    int BanyakLike
+
+    
