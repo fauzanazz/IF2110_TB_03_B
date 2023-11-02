@@ -1,9 +1,9 @@
-/* deklarasi Graf yang diimplementasi dengan adjacency matrix */
+/* Deklarasi Graf yang diimplementasi dengan adjacency matrix */
 /* Implementasi dalam bahasa C dengan alokasi statik */
 #ifndef GRAF_H
 #define GRAF_H
 
-#include "boolean.h"
+#include "../boolean.h"
 
 #define Nil -1 /* isi adjacency matrix belum terdefinisi */
 #define MaxEl 20 /* verteks maksimum graf 20 */
