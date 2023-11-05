@@ -6,6 +6,7 @@
 #include "../Mesin-Kata/charmachine.h"
 #include "../Time/datetime.h"
 #include "../Function/string-function.h"
+#include "../listdin/listdin.h"
 #include "time.h"
 
 typedef struct {
@@ -13,8 +14,10 @@ typedef struct {
    int IdProfile;
    DATETIME TanggalTerbit;
    Word IsiKicauan;
+   Word Tagar;
    int JumlahLike;
 } Kicau_struct;
+
 
 void Kicau(ListDin * listKicauan);
 /* I.S. : list kicauan terdefinisi
@@ -39,4 +42,5 @@ void ShowKicau(Kicau_struct kicauan);
 int cariKicauan(ListDin ListKicauan, int idKicauan);
 /* I.S. : list kicauan terdefinisi
    F.S. : mengembalikan index kicauan yang sesuai dengan idKicauan */
+
 #endif

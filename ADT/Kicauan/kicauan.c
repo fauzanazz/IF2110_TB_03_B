@@ -1,10 +1,10 @@
 #include "kicauan.h"
-#include "../listdin/listdin.h"
 #include <stdio.h>
 
 DATETIME currentTime;
 Word profile;
 Word IsiKicauan;
+Word tagar;
 time_t current_time;
 
 
@@ -32,7 +32,22 @@ void Kicau(ListDin * listKicauan){
 
         if (blank) currentWord.TabWord[i] = currentChar;
     }
+    IsiKicauan = currentWord;
+
+    printf("Masukkan tagar: ");
+    START();
+    int i = 0;
+    boolean blank = false;
+    while (currentChar != MARK) {
+        if (currentChar != BLANK){
+            blank = true;
+        }
+
+        if (blank) currentWord.TabWord[i] = currentChar;
+    }
+    tagar = currentWord;
     
+    currentWord = IsiKicauan;
     // Cek apakah kicauan kosong
     if (!CheckInput("")) {
 
@@ -40,12 +55,12 @@ void Kicau(ListDin * listKicauan){
         time(&current_time);
         ConvertTimeTtoDATETIME(current_time, &currentTime);
 
-        // Buat Struct Kicauan  
         Kicau_struct kicauan;
         kicauan.IdKicau = IdKicau;
         kicauan.IdProfile = idProfile;
         kicauan.TanggalTerbit = currentTime;
         kicauan.IsiKicauan = IsiKicauan;
+        kicauan.Tagar = tagar;
         kicauan.JumlahLike = disukai;
 
 
