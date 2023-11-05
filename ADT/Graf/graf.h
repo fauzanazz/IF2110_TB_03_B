@@ -5,7 +5,7 @@
 
 #include "../boolean.h"
 
-#define Nil -1 /* isi adjacency matrix belum terdefinisi */
+#define Nil -1
 #define MaxEl 20 /* verteks maksimum graf 20 */
 /* Nil adalah stack dengan elemen kosong . */
 
