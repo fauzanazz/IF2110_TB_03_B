@@ -75,9 +75,9 @@ int main(){
         if (CheckInput("DAFTAR")){
             printf("Anda telah memilih untuk mendaftar.\n");
         } else if (CheckInput("MASUK")) {
-            Kicau();
+            
         } else if (CheckInput("KELUAR")) {
-            //Do smth
+            
         } 
     }
     

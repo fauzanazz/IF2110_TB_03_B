@@ -22,16 +22,19 @@ void Kicau(ListDin * listKicauan){
 
 
     printf("Masukkan kicauan: \n");
-    STARTWORD();
-    IsiKicauan = currentWord;
-    while (!EndWord)
-    {
-        ADVWORD();
-        MakeWord(&IsiKicauan);
-    }
+    START();
+    int i = 0;
+    boolean blank = false;
+    while (currentChar != MARK) {
+        if (currentChar != BLANK){
+            blank = true;
+        }
 
+        if (blank) currentWord.TabWord[i] = currentChar;
+    }
+    
     // Cek apakah kicauan kosong
-    if (CheckInput("")) {
+    if (!CheckInput("")) {
 
         // Ambil waktu local
         time(&current_time);
@@ -53,7 +56,9 @@ void Kicau(ListDin * listKicauan){
 
         // Tambahkan ke list kicauan
         insertLast(&listKicauan, kicauan);
-    }
+    } else {
+        printf("Kicauan tidak boleh hanya berisi spasi!\n");
+    } 
 }
 
 void Kicauan(ListDin listKicau, int idPengguna){

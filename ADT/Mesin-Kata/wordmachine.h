@@ -50,9 +50,5 @@ boolean CheckInput(char *s);
 
 void displayWord(Word s);
 
-void MakeWord(Word *s);
-/* Mengakuisisi kata, menyimpan dalam currentWord
-   I.S. : currentWord ada
-   F.S. : Word S telah ter concat dengan word selanjutnya */
 
 #endif
