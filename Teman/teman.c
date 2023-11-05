@@ -34,28 +34,57 @@ void hapusTeman(Graf *GFriend, ListVertex LVertex, int UIDSelf, int UIDFriend){
 
     /* KAMUS LOKAL */
     vertex VSelf, VFriend;
+    Word username, confirm, yes, no;
+    boolean valid;
+    int i;
 
     /* ALGORITMA */
+    /* Siapkan token yes dan no */
+    yes.TabWord[0] = 'Y';
+    yes.TabWord[1] = 'A';
+    yes.Length = 2;
+    no.TabWord[0] = 'T';
+    no.TabWord[1] = 'I';
+    no.TabWord[2] = 'D';
+    no.TabWord[3] = 'A';
+    no.TabWord[4] = 'K';
+    no.Length = 5;
+
+    /* Input nama user yang ingin dihapus */
     printf("Masukkan nama pengguna:\n");
-    /* mesin kata ngab */
-
-    printf("Apakah anda yakin ingin menghapus [User Friend] dari daftar teman anda? (YA/TIDAK)");
-    /* mesin kata lagi */
-
-    if (false){ // jika TIDAK
-        printf("Penghapusan teman dibatalkan.\n");
-    } else { // jika YA
-        VSelf = vertexWithIDX(LVertex, uidtoIdx(LVertex, UIDSelf));
-        VFriend = vertexWithIDX(LVertex, uidtoIdx(LVertex, UIDFriend));
-        if (isConnected(*GFriend, VSelf, VFriend)){ // jika berteman
-            removeEdge(&(*GFriend), VSelf, VFriend);
-            printf("[User Ex-Friend] berhasil dihapus dari daftar teman Anda.\n");
-        } else { // jika tidak berteman
-            printf("[User Random] bukan teman Anda.\n");
-        }
-        
+    START();
+    i = 0;
+    while (currentChar != MARK){
+        username.TabWord[i] = currentChar;
+        i++;
+        ADV();
     }
-    
+    username.Length = i;
+
+    if (true){ // Jika username ada pada daftar pengguna dan merupakan teman current user (butuh database)
+        /* Konfirmasi */
+        printf("Apakah anda yakin ingin menghapus [User Friend] dari daftar teman anda? (YA/TIDAK)");
+        STARTWORD();
+        confirm = currentWord;
+        if (confirm == no){ // jika TIDAK
+            printf("Penghapusan teman dibatalkan.\n");
+        } else if (confirm == yes) { // jika YA
+            VSelf = vertexWithIDX(LVertex, uidtoIdx(LVertex, UIDSelf));
+            VFriend = vertexWithIDX(LVertex, uidtoIdx(LVertex, UIDFriend));
+            if (isConnected(*GFriend, VSelf, VFriend)){ // jika berteman
+                removeEdge(&(*GFriend), VSelf, VFriend);
+                printf("[User Ex-Friend] berhasil dihapus dari daftar teman Anda.\n");
+            } else { // jika tidak berteman
+                printf("[User Random] bukan teman Anda.\n");
+            }
+        } else {
+            printf("Input tidak valid.\n");
+        }
+    } else if (true){ // Jika username ada pada daftar pengguna tetapi bukan teman current user
+        printf("[user] bukan teman Anda.");
+    } else { // Input tidak valid
+        printf("Input tidak valid.\n");
+    }
 }
 
 int hitungTeman(Graf GFriend, int idx){

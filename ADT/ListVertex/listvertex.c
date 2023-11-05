@@ -38,7 +38,7 @@ boolean isLVFull(ListVertex lv){
 /* ********** MENAMBAH ELEMEN ********** */
 /* *** Menambahkan elemen terakhir *** */
 void insertLast(ListVertex *lv, vertex V){
-/* Proses: Menambahkan vertex V sebagai elemen terakhir List Vertex lv */
+/* Proses: Menambahkan vertex V sebagai elemen terakhir List Vertex lv, nilai efektif bertambah 1 */
 /* I.S. ListVertex lv boleh kosong, tetapi tidak penuh */
 /* F.S. V adalah elemen terakhir lv yang baru */
 
@@ -48,6 +48,7 @@ void insertLast(ListVertex *lv, vertex V){
     /* ALGORITMA */
     idxInsert = NEFFLV(*lv);
     VTX((*lv), idxInsert) = V;
+    NEFFLV(*lv)++;
 }
 
 /* ********** ADDITIONAL PROCEDURE/FUNCTION ********** */
