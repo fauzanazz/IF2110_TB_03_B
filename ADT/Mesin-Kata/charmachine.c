@@ -1,3 +1,7 @@
+
+/* File: charmachine.c */
+/* Implementasi Mesin Karakter */
+
 #include "charmachine.h"
 #include <stdio.h>
 
@@ -36,4 +40,3 @@ void ADV()
        {
               fclose(pita);
        }
-}

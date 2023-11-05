@@ -1,6 +1,16 @@
 #include <stdio.h>
+
 #include "ADT/Function/string-function.h"
 #include "ADT/Kicauan/kicauan.h"
+
+#include "ADT/Mesin-Kata/wordmachine.h"
+#include "ADT/Mesin-Kata/charmachine.h"
+#include "ADT/Function/string-function.h"
+
+
+
+
+
 
 int main(){
 
@@ -31,10 +41,8 @@ int main(){
     //* Inisialisasi ---------------------------------
 
     // Load path konfigurasi
-    char folder;
     printf("Silahkan masukkan folder untuk dimuat: ");
-    //TODO: Implementasikan mesin kata
-    scanf("%s", &folder);
+    STARTWORD();
 
     // Load File
     FILE *balasan;
@@ -45,12 +53,12 @@ int main(){
     
     //! Belum di implementasikan mesin kata
     // buka file
-    balasan = fopen("Config/balasan.config","r");
-    draf = fopen("Config/draf.config","r");
-    kicauan = fopen("Config/kicauan.config","r");
-    pengguna = fopen("Config/pengguna.config","r");
-    utas = fopen("Config/utas.config","r");
-
+    balasan = fopen(stringConcat(currentWord,"/balasan.config"),"r");
+    draf = fopen(stringConcat(currentWord,"/draf.config"),"r");
+    kicauan = fopen(stringConcat(currentWord,"/kicauan.config"),"r");
+    pengguna = fopen(stringConcat(currentWord,"/pengguna.config"),"r");
+    utas = fopen(stringConcat(currentWord,"/utas.config"),"r");
+    
 
     // Cek file
     // if (balasan == NULL|| draf == NULL|| kicauan == NULL|| pengguna == NULL|| utas == NULL) {
@@ -58,26 +66,25 @@ int main(){
     //     return 1;
     // }
 
-    printf("File konfigurasi berhasil dimuat!\n");
+    printf("File konfigurasi berhasil dimuat!\n\n");
     
     //* Inisialisasi ---------------------------------
 
     //* Input -------------------------------------
 
-    //TODO: Implementasikan Mesin kata
-    while (1)
-    {
-        // Buat input
-        char input;
+    //TODO: Implementasikan Mesin kata    
+    while (!CheckInput("TUTUP_PROGRAM")){
         printf(">> ");
         STARTWORD();
 
         if (CheckInput("DAFTAR")){
-            printf("Anda telah memilih untuk mendaftar.\n");
+
+            //Do smth
         } else if (CheckInput("MASUK")) {
-            
+            //Do smth
         } else if (CheckInput("KELUAR")) {
-            
+            //Do smth
+
         } 
     }
     
