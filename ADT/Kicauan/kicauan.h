@@ -1,11 +1,11 @@
 #ifndef __KICAUAN_H__
 #define __KICAUAN_H__
 
-#include "../../ADT/boolean.h"
-#include "../../ADT/Mesin-Kata/wordmachine.h"
-#include "../../ADT/Mesin-Kata/charmachine.h"
-#include "../../ADT/Time/datetime.h"
-#include "../../ADT/Function/string-function.h"
+#include "../boolean.h"
+#include "../Mesin-Kata/wordmachine.h"
+#include "../Mesin-Kata/charmachine.h"
+#include "../Time/datetime.h"
+#include "../Function/string-function.h"
 #include "time.h"
 
 typedef struct {
