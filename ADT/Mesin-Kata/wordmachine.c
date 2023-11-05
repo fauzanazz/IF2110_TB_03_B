@@ -1,9 +1,3 @@
-// NIM              : 13521024
-// Nama             : Ahmad Nadil
-// Tanggal          : 27 September 2022
-// Topik praktikum  : ADT Mesin Kata
-// Deskripsi        : File "wordmachine.c"
-
 #include <stdio.h>
 #include "../boolean.h"
 #include "wordmachine.h"
@@ -21,10 +15,12 @@ void IgnoreBlanks()
    }
 }
 void STARTWORD()
+
 /* I.S. : currentChar sembarang
    F.S. : EndWord = true, dan currentChar = MARK;
           atau EndWord = false, currentWord adalah kata yang sudah diakuisisi,
           currentChar karakter pertama sesudah karakter terakhir kata */
+
 {
    START();
    IgnoreBlanks();
@@ -38,6 +34,7 @@ void STARTWORD()
 }
 
 void ADVWORD()
+
 /* I.S. : currentChar adalah karakter pertama kata yang akan diakuisisi
    F.S. : currentWord adalah kata terakhir yang sudah diakuisisi,
           currentChar adalah karakter pertama dari kata berikutnya, mungkin MARK
@@ -100,7 +97,6 @@ boolean CheckInput(char *s){
 }
 
 void displayWord (Word s){
-
     int i;
     for (i = 0; i < s.Length; i++){
         printf("%c", s.TabWord[i]);

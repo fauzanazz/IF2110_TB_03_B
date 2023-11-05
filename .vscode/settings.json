@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "kicauan.h": "c",
+        "listdin.h": "c",
+        "stdio.h": "c",
+        "charmachine.h": "c",
+        "time.h": "c"
+    }
+}
