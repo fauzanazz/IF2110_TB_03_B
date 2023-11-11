@@ -1,8 +1,4 @@
-/* MODUL INTEGER DYNAMIC LIST */
-/* Berisi definisi dan semua primitif pemrosesan list integer */
-/* Penempatan elemen selalu rapat kiri */
-/* Versi II : dengan banyaknya elemen didefinisikan secara eksplisit,
-   memori list dinamik */
+/* List Dinamik Kicauan*/
 
 #ifndef LISTDIN_H
 #define LISTDIN_H
@@ -25,6 +21,7 @@ typedef struct
     int nEff;       /* >=0, banyaknya elemen efektif */
     int capacity;   /* ukuran elemen */
 } ListDin;
+
 /* Indeks yang digunakan [0..capacity-1] */
 /* Jika l adalah : ListDin, cara deklarasi dan akses: */
 /* Deklarasi : l : ListDin */

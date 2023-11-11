@@ -97,11 +97,10 @@ boolean CheckInput(char *s){
 }
 
 void displayWord (Word s){
-    int i;
-    for (i = 0; i < s.Length; i++){
-        printf("%c", s.TabWord[i]);
-    }
-
-    printf("\n");
+   int i;
+   for (i = 0; i < s.Length; i++){
+      printf("%c", s.TabWord[i]);
+   }
+   printf("\n");
 }
 
