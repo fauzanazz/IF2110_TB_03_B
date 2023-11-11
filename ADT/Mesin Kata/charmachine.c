@@ -2,6 +2,7 @@
 /* Implementasi Mesin Karakter */
 
 #include "ADT/Mesin Kata/charmachine.h"
+
 #include <stdio.h>
 
 char currentChar;
