@@ -1,7 +1,11 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <time.h>
+#include "ADT/Mesin-Kata/wordmachine.h"
+#include "ADT/Mesin-Kata/charmachine.h"
+#include "ADT/Function/string-function.h"
+
+
+
+
 
 int main(){
     // ASCII ART BURBIR
@@ -31,10 +35,8 @@ int main(){
     //* Inisialisasi ---------------------------------
 
     // Load path konfigurasi
-    char folder;
     printf("Silahkan masukkan folder untuk dimuat: ");
-    //TODO: Implementasikan mesin kata
-    scanf("%s", &folder);
+    STARTWORD();
 
     // Load File
     FILE *balasan;
@@ -45,12 +47,12 @@ int main(){
     
     //! Belum di implementasikan Concat Char
     // buka file
-    balasan = fopen("Config/balasan.config","r");
-    draf = fopen("Config/draf.config","r");
-    kicauan = fopen("Config/kicauan.config","r");
-    pengguna = fopen("Config/pengguna.config","r");
-    utas = fopen("Config/utas.config","r");
-
+    balasan = fopen(stringConcat(currentWord,"/balasan.config"),"r");
+    draf = fopen(stringConcat(currentWord,"/draf.config"),"r");
+    kicauan = fopen(stringConcat(currentWord,"/kicauan.config"),"r");
+    pengguna = fopen(stringConcat(currentWord,"/pengguna.config"),"r");
+    utas = fopen(stringConcat(currentWord,"/utas.config"),"r");
+    
 
     // Cek file
     if (balasan == NULL|| draf == NULL|| kicauan == NULL|| pengguna == NULL|| utas == NULL) {
@@ -58,22 +60,26 @@ int main(){
         return 1;
     }
 
-    printf("File konfigurasi berhasil dimuat!\n");
+    printf("File konfigurasi berhasil dimuat!\n\n");
     
     //* Inisialisasi ---------------------------------
 
     //* Input -------------------------------------
 
-    //TODO: Implementasikan Mesin kata
-    while (1)
-    {
-        // Buat input
-        char input;
+    //TODO: Implementasikan Mesin kata    
+    while (!CheckInput("TUTUP_PROGRAM")){
         printf(">> ");
-        scanf("%s", &input);
-        
+        STARTWORD();
 
+        if (CheckInput("DAFTAR")){
+            //Do smth
+        } else if (CheckInput("MASUK")) {
+            //Do smth
+        } else if (CheckInput("KELUAR")) {
+            //Do smth
+        } 
     }
     
+    printf("\nAnda telah keluar dari program BurBir.\nSampai jumpa di penjelajahan berikutnya.");
     return 0;
 }
