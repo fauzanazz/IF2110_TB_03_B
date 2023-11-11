@@ -45,7 +45,7 @@ int main(){
     FILE *pengguna;
     FILE *utas;
     
-    //! Belum di implementasikan mesin kata
+    //! Belum di implementasikan Concat Char
     // buka file
     balasan = fopen(stringConcat(currentWord,"/balasan.config"),"r");
     draf = fopen(stringConcat(currentWord,"/draf.config"),"r");
