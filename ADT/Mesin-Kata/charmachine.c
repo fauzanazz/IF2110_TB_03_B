@@ -1,3 +1,4 @@
+
 /* File: charmachine.c */
 /* Implementasi Mesin Karakter */
 
@@ -36,9 +37,7 @@ void ADV()
        /* Algoritma */
        retval = fscanf(pita, "%c", &currentChar);
        EOP = (currentChar == MARK);
-
-       // if (EOP)
-       // {
-       //        fclose(pita);
-       // }
-}
+       if (EOP)
+       {
+              fclose(pita);
+       }

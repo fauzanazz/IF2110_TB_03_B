@@ -1,1 +1,1 @@
-gcc main.c ADT/Mesin-Kata/wordmachine.c ADT/Mesin-Kata/charmachine.c ADT/Function/string-function.c -o main
+gcc main.c ADT/Mesin-Kata/wordmachine.c ADT/Mesin-Kata/charmachine.c ADT/Function/string-function.c ADT/Kicauan/kicauan.c ADT/Time/datetime.c ADT/Time/time.c  -o main
