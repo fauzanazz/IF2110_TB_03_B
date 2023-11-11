@@ -1,7 +1,8 @@
 /* File: charmachine.c */
 /* Implementasi Mesin Karakter */
 
-#include "charmachine.h"
+#include "ADT/Mesin Kata/charmachine.h"
+
 #include <stdio.h>
 
 char currentChar;
