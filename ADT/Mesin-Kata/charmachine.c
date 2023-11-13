@@ -2,7 +2,7 @@
 /* File: charmachine.c */
 /* Implementasi Mesin Karakter */
 
-#include "ADT/Mesin Kata/charmachine.h"
+#include "charmachine.h"
 
 #include <stdio.h>
 
