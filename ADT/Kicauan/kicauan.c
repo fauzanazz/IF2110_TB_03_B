@@ -3,7 +3,6 @@
 #include "../boolean.h"
 #include "kicauan.h"
 
-
 void CreateListDinKicau(ListDin *l, int capacity){
     BUFFER(*l) = (Kicau_struct *) malloc (capacity * sizeof(Kicau_struct));
     CAPACITY(*l) = capacity;

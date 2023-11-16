@@ -1,9 +1,7 @@
 #ifndef UTAS_H
 #define UTAS_H
 
-#include "../Mesin-Kata/charmachine.h"
 #include "../Kicauan/kicauan.h"
-#include "../Time/datetime.h"
 
 typedef struct nodeUtas* AddressUtas;
 typedef struct node { //Id Kicau -1
@@ -23,8 +21,12 @@ typedef struct{ // List Dinamis
     int capacity;
 } ListKicauanUtas;
 
-#define ListKicauanWUtasElmt(L,i) (L).ListuUtas[(i)]
-#define ListKicauanWUtasNeff(L) (L).neff
+#define ELMTUtas(L,i) (L).ListUtas[(i)]
+#define LISTUTAS(L) (L).ListUtas
+#define NEFFUtas(L) (L).neff
+#define CAPACITYUtas(L) (L).capacity
+#define INFOUtas(U) (U)->info
+#define NEXTUtas(U) (U)->next
 
 void CreateListUtas(ListUtas *l, int capacity);
 void dealocateListUtas(ListUtas *l);
@@ -105,5 +107,33 @@ void compressListUtas(ListUtas *l);
 /* Proses : Mengubah capacity sehingga capacity = nEff */
 /* I.S. List tidak kosong */
 /* F.S. Ukuran capacity = nEff */
+
+void CreateUtas(AddressUtas *l);
+/* I.S. sembarang             */
+/* F.S. Terbentuk AddressUtas kosong */
+
+/****************** TEST AddressUtas KOSONG ******************/
+boolean isEmptyUtas(AddressUtas l);
+/* Mengirim true jika AddressUtas kosong */
+
+void insertLastUtas(AddressUtas *l, NodeUtas val);
+/* I.S. l mungkin kosong */
+/* F.S. Melakukan alokasi sebuah elemen dan */
+/* menambahkan elemen AddressUtas di akhir: elemen terakhir yang baru */
+/* bernilai val jika alokasi berhasil. Jika alokasi gagal: I.S.= F.S. */
+
+void deleteAt(AddressUtas *l, int idx, NodeUtas *val);
+/* I.S. AddressUtas tidak kosong, idx indeks yang valid dalam l, yaitu 0..length(l) */
+/* F.S. val diset dengan elemen l pada indeks ke-idx. */
+/*      Elemen l pada indeks ke-idx dihapus dari l */
+
+/****************** PROSES SEMUA ELEMEN AddressUtas ******************/
+void displayUtas(AddressUtas l);
+// void printInfo(AddressUtas l);
+/* I.S. LinkedList mungkin kosong */
+/* F.S. Jika LinkedList tidak kosong, iai LinkedList dicetak ke kanan: [e1,e2,...,en] */
+/* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
+/* Jika LinkedList kosong : menulis [] */
+/* Tidak ada tambahan karakter apa pun di awal, akhir, atau di tengah */
 
 #endif
