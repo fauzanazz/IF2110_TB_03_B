@@ -2,8 +2,7 @@
 #define BALASAN_H
 
 #include "../Tree/tree.h"
-#include "../kicauan/kicauan.h"
-#include "../listdin/listdin.h"
+#include "../Kicauan/kicauan.h"
 
 typedef treeCDT ElType;
 

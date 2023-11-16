@@ -55,10 +55,6 @@ void addEdge(Graf *G, vertex V1, vertex V2);
 /* I.S. Graf G terdefinisi, V1 dan V2 adalah vertex yang valid pada Graf */
 /* F.S. Menghubungkan V1 dan V2 dengan penambahan edge, elemen adjacency matrix berubah (0 -> 1) */
 
-void removeVertex(Graf *G, vertex *V);
-/* I.S. Graf G terdefinisi dan vertex V ada pada graf G */
-/* F.S. Menghapus vertex V dari Graf G, elemen adjacency matrix diubah menjadi Nil */
-
 void removeEdge(Graf *G, vertex V1, vertex V2);
 /* I.S. Graf G terdefinisi dan vertex V1 dan V2 berhubungan (memiliki edge) */
 /* F.S. Edge vertex V1 dan V2 dihapus, elemen adjacency matrix berubah (1 -> 0) */

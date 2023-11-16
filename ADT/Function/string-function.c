@@ -44,6 +44,69 @@ char *stringConcat(Word str1, char *str2) {
         *pResult = '\0';
     }
 
+    return result;
+}
+
+char *stringConcatChar(char *str, char x){
+    char *result;
+    int len1 = stringLength(str);
+    int len2 = 1;
+
+    result = (char *)malloc(len1 + len2 + 1); 
+
+    if (result != NULL) {
+        char *pResult = result;
+
+        int i = 0;
+        while (i < len1) {
+            *pResult++ = str[i++];
+        }
+        *pResult++ = x;
+        *pResult = '\0';
+    }
+
+    return result;
+}
+
+void printString(char *str) {
+    while (*str) {
+        printf("%c", *str);
+        str++;
+    }
+}
+
+boolean stringCompare(char *str1, char *str2) {
+    while (*str1 && *str2) {
+        if (*str1 != *str2) {
+            return false;
+        }
+        str1++;
+        str2++;
+    }
+    return true;
+}
+
+char *concatWordToString(Word w1, Word w2){
+    char *result;
+    int len1 = w1.Length;
+    int len2 = w2.Length;
+
+    result = (char *)malloc(len1 + len2 + 1); 
+
+    if (result != NULL) {
+        char *pResult = result;
+
+        int i = 0;
+        while (i < w1.Length) {
+            *pResult++ = w1.TabWord[i++];
+        }
+        
+        i = 0;
+        while (i < w2.Length) {
+            *pResult++ = w2.TabWord[i++];
+        }
+        *pResult = '\0';
+    }
 
     return result;
 }

@@ -76,13 +76,6 @@ void addEdge(Graf *G, vertex V1, vertex V2){
     ELMTG(*G, IDX(V2), IDX(V1)) = 1;
 }
 
-void removeVertex(Graf *G, vertex *V){
-/* I.S. Graf G terdefinisi dan vertex V ada pada graf G */
-/* F.S. Menghapus vertex V dari Graf G, elemen adjacency matrix diubah menjadi Nil */
-    NEFF(*G) = NEFF(*G);
-/* Belum/Tidak diimplementasikan karena tidak berguna dalam tubes ini */
-}
-
 void removeEdge(Graf *G, vertex V1, vertex V2){
 /* I.S. Graf G terdefinisi dan vertex V1 dan V2 berhubungan (memiliki edge) */
 /* F.S. Edge vertex V1 dan V2 dihapus, elemen adjacency matrix berubah (1 -> 0) */

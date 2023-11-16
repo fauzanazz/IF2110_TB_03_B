@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "listvertex.c"
+#include "listvertex.h"
 
 int main(){
     ListVertex L;

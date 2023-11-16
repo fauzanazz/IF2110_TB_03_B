@@ -104,3 +104,30 @@ void displayWord (Word s){
    printf("\n");
 }
 
+Word createWordfromString(char *s){
+   Word w;
+   int i = 0;
+   while (s[i] != '\0'){
+      w.TabWord[i] = s[i];
+      i++;
+   }
+   w.Length = i;
+   
+   return w;
+}
+
+boolean isWordEqual(Word s1, Word s2){
+   if (s1.Length != s2.Length){
+      return false;
+   }
+
+   int i;
+   for (i = 0; i < s1.Length; i++){
+      if (s1.TabWord[i] != s2.TabWord[i]){
+         return false;
+      }
+   }
+
+   return true;
+}
+

@@ -7,10 +7,9 @@
 #define LinkedList_H
 
 #include "../boolean.h"
-#include "../Kicauan/kicauan.h"
 
 /* Definisi Node : */
-typedef Kicau_struct ElType;
+typedef int ElType;
 typedef struct node* Address;
 typedef struct node {
     ElType info;

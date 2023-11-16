@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>  
 #include <math.h>
 #include "time.h"
 
@@ -47,6 +48,8 @@ long TIMEToDetik (TIME T){
    if (IsTIMEValid(Hour(T), Minute(T), Second(T))){
       return (3600*Hour(T) + 60*Minute(T) + Second(T));
    }
+
+   return -1;
 }
 /* Diberikan sebuah TIME, mengkonversi menjadi jumlah detik dari pukul 0:0:0 */
 /* Rumus : detik = 3600*HH + 60*MM + SS */
@@ -76,7 +79,7 @@ TIME DetikToTIME (volatile long N){
 
 /* *** Kelompok Operator Relational *** */
 boolean TEQ (TIME T1, TIME T2){
-   return fabs(TIMEToDetik(T1)-TIMEToDetik(T2)) < EPSILON;
+   return labs(TIMEToDetik(T1)-TIMEToDetik(T2)) < EPSILON;
 }
 /* Mengirimkan true jika T1=T2, false jika tidak */
 boolean TNEQ (TIME T1, TIME T2){

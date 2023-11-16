@@ -1,47 +1,63 @@
 #ifndef PENGGUNA_H
 #define PENGGUNA_H
 
+#include "../Mesin-Kata/charmachine.h"
+#include "../Mesin-Kata/wordmachine.h"
+#include "../matrixprofil/matrixprofil.h"
+#include "../boolean.h"
+
 #define pahing "pahing"
 #define kliwon "kliwon"
 #define wage "wage"
 #define pon "pon"
 #define legi "legi"
 
-#include "../Mesin-Kata/charmachine.h"
-#include "../Mesin-Kata/wordmachine.h"
-// #include "matrix.h"
-#include "boolean.h"
-
 typedef struct {
-    char Nama[20];
-    char Pass[20];
-    char Bio[135];
-    Word Number;
+    Word Nama;
+    Word Pass;
+    Word Bio;
+    Word Phone;
     Word Weton;
-    boolean privat;
-    // Matrix foto;
-    int id_pengguna;
+    boolean Publik;
+    Foto ProfilePic;
 } Pengguna;
 
-long long int stringToInt(Word word);
+typedef struct {
+    Pengguna user[20];
+    int usercount;
+} ListPengguna;
 
-boolean cekSimbol(Word word);
+extern boolean logged;
+extern int currentId;
 
-boolean cekAngka(Word weton);
+#define USER(lp ,i) (lp).user[i]
+#define COUNT(lp) (lp).usercount
 
-void convertLower(Word weton);
+#define FOTO(user) (user).profilepic
 
-boolean cekLengthUsername(Word name);
+void convertLower(Word *word);
 
-boolean cekLengthBio(Word bio);
+void createListPengguna(ListPengguna *lp);
 
-void writePengguna(Word word);
+void inisialisasiNamaPengguna(Pengguna *user);
 
-int idIncrement();
+void inisialisasiPassPengguna(Pengguna *user);
 
-void Daftar();
+void inisialisasiBioPengguna(Pengguna *user);
 
-void Masuk();
+void inisialisasiPhonePengguna(Pengguna *user);
+
+void inisialisasiWetonPengguna(Pengguna *user);
+
+void inisialisasiStatusPengguna(Pengguna *user);
+
+void inisialisasiFotoPengguna(Pengguna *user);
+
+void inisialisasiPengguna(Pengguna *user);
+
+void Daftar(ListPengguna *lp);
+
+void Masuk(ListPengguna *lp);
 
 void Keluar();
 

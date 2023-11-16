@@ -1,5 +1,7 @@
-#include "../ADT/Graf/graf.c"
-#include "../ADT/ListVertex/listvertex.c"
+#ifndef _TEMAN_H
+#define _TEMAN_H
+
+#include "../ListVertex/listvertex.h"
 
 void daftarTeman(Graf GFriend, ListVertex LVertex, int UID);
 /* I.S. UID adalah User ID yang valid */
@@ -17,3 +19,5 @@ int idxToUID(ListVertex LVertex, int idx);
 
 int uidtoIdx(ListVertex LVertex, int UID);
 /* Mengembalikan index user dengan User ID UID yang di-assign pada adjacency matrix graf GFriend */
+
+#endif

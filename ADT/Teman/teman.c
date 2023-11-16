@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "teman.h"
+#include "../Mesin-Kata/wordmachine.h"
 
 void daftarTeman(Graf GFriend, ListVertex LVertex, int UID){
 /* I.S. UID adalah User ID yang valid */
@@ -66,9 +67,9 @@ void hapusTeman(Graf *GFriend, ListVertex LVertex, int UIDSelf, int UIDFriend){
         printf("Apakah anda yakin ingin menghapus [User Friend] dari daftar teman anda? (YA/TIDAK)");
         STARTWORD();
         confirm = currentWord;
-        if (confirm == no){ // jika TIDAK
+        if (confirm.TabWord == no.TabWord){ // jika TIDAK
             printf("Penghapusan teman dibatalkan.\n");
-        } else if (confirm == yes) { // jika YA
+        } else if (confirm.TabWord == yes.TabWord) { // jika YA
             VSelf = vertexWithIDX(LVertex, uidtoIdx(LVertex, UIDSelf));
             VFriend = vertexWithIDX(LVertex, uidtoIdx(LVertex, UIDFriend));
             if (isConnected(*GFriend, VSelf, VFriend)){ // jika berteman

@@ -1,90 +1,90 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../boolean.h"
-#include "listdin.h"
+#include "kicauan.h"
 
 
-void CreateListDin(ListDin *l, int capacity){
-    BUFFER(*l) = (ElType *) malloc (capacity * sizeof(ElType));
+void CreateListDinKicau(ListDin *l, int capacity){
+    BUFFER(*l) = (Kicau_struct *) malloc (capacity * sizeof(Kicau_struct));
     CAPACITY(*l) = capacity;
-    NEFF(*l) = 0;
+    NEFFKicau(*l) = 0;
 }
-void dealocateList(ListDin *l){
+void dealocateListKicau(ListDin *l){
     free(BUFFER(*l));
     CAPACITY(*l) = 0;
-    NEFF(*l) = 0;
+    NEFFKicau(*l) = 0;
 }
 
-int listLength(ListDin l){
-    return NEFF(l);
+int listLengthKicau(ListDin l){
+    return NEFFKicau(l);
 }
 
-IdxType getFirstIdx(ListDin l){
+IdxType getFirstIdxKicau(ListDin l){
     return IDX_MIN;
 }
 
-IdxType getLastIdx(ListDin l){
-    return NEFF(l) - 1;
+IdxType getLastIdxKicau(ListDin l){
+    return NEFFKicau(l) - 1;
 }
 
-boolean isIdxValid(ListDin l, IdxType i){
+boolean isIdxValidKicau(ListDin l, IdxType i){
     return (i >= IDX_MIN && i < CAPACITY(l));
 }
 
-boolean isIdxEff(ListDin l, IdxType i){
-    return (i >= IDX_MIN && i <= NEFF(l));
+boolean isIdxEffKicau(ListDin l, IdxType i){
+    return (i >= IDX_MIN && i <= NEFFKicau(l));
 }
 
-boolean isEmpty(ListDin l){
-    return (NEFF(l) == 0);
+boolean isEmptyKicau(ListDin l){
+    return (NEFFKicau(l) == 0);
 }
 
-boolean isFull(ListDin l){
-    return (NEFF(l) == CAPACITY(l));
+boolean isFullKicau(ListDin l){
+    return (NEFFKicau(l) == CAPACITY(l));
 }
 
 
-void printList(ListDin l){
+void printListKicau(ListDin l){
     int i;
     printf("[");
-    for (i = 0; i < NEFF(l); i++){
+    for (i = 0; i < NEFFKicau(l); i++){
         ShowKicau(ELMT(l, i));
-        if (i != NEFF(l) - 1){
+        if (i != NEFFKicau(l) - 1){
             printf(", ");
         }
     }
     printf("]");
 }
 
-void copyList(ListDin lIn, ListDin *lOut){
-    CreateListDin(lOut, CAPACITY(lIn));
-    NEFF(*lOut) = NEFF(lIn);
+void copyListKicau(ListDin lIn, ListDin *lOut){
+    CreateListDinKicau(lOut, CAPACITY(lIn));
+    NEFFKicau(*lOut) = NEFFKicau(lIn);
     int i;
-    for (i = 0; i < NEFF(lIn); i++){
+    for (i = 0; i < NEFFKicau(lIn); i++){
         ELMT(*lOut, i) = ELMT(lIn, i);
     }
 }
 
-void insertLast(ListDin *l, ElType val){
-    NEFF(*l)++;
-    ELMT(*l, getLastIdx(*l)) = val;
+void insertLastKicau(ListDin *l, Kicau_struct val){
+    NEFFKicau(*l)++;
+    ELMT(*l, getLastIdxKicau(*l)) = val;
 }
 
-void deleteLast(ListDin *l, ElType *val){
-    *val = ELMT(*l, getLastIdx(*l));
-    NEFF(*l)--;
+void deleteLastKicau(ListDin *l, Kicau_struct *val){
+    *val = ELMT(*l, getLastIdxKicau(*l));
+    NEFFKicau(*l)--;
 }
 
-void expandList(ListDin *l, int num){
+void expandListKicau(ListDin *l, int num){
     CAPACITY(*l) += num;
 }
 
-void shrinkList(ListDin *l, int num){
+void shrinkListKicau(ListDin *l, int num){
     CAPACITY(*l) -= num;
 }
 
-void compressList(ListDin *l){
-    CAPACITY(*l) = NEFF(*l);
+void compressListKicau(ListDin *l){
+    CAPACITY(*l) = NEFFKicau(*l);
 }
 
 // Kicauan -------------------------------------
@@ -132,7 +132,7 @@ void Kicau(ListDin * listKicauan){
         ConvertTimeTtoDATETIME(current_time, &currentTime);
 
         Kicau_struct kicauan;
-        kicauan.IdKicau = getLastIdx(*listKicauan) + 1;
+        kicauan.IdKicau = getLastIdxKicau(*listKicauan) + 1;
         kicauan.IdProfile = idProfile;
         kicauan.TanggalTerbit = currentTime;
         kicauan.IsiKicauan = IsiKicauan;
@@ -146,7 +146,7 @@ void Kicau(ListDin * listKicauan){
         ShowKicau(kicauan);
 
         // Tambahkan ke list kicauan
-        insertLast(listKicauan, kicauan);
+        insertLastKicau(listKicauan, kicauan);
     } else {
         printf("Kicauan tidak boleh hanya berisi spasi!\n");
     } 

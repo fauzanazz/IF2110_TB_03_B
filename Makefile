@@ -18,7 +18,7 @@ OBJ_DATETIME = $(SRC_DATETIME:.c=.o)
 SRC_TIME = ADT/Time/time.c
 OBJ_TIME = $(SRC_TIME:.c=.o)
 
-SRC_LISTDIN = ADT/listdin/listdin.c
+SRC_LISTDIN = ADT/Kicauan/kicauan.c
 OBJ_LISTDIN = $(SRC_LISTDIN:.c=.o)
 
 SRC_PRIOQUEUE = ADT/PrioQue/prioqueuefriendrequest.c

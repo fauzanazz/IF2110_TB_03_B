@@ -1,32 +1,26 @@
 #ifndef DRAF_H
 #define DRAF_H
 
-#include "../listdin/listdin.h"
-#include "../Mesin-Kata/charmachine.h"
-#include "../time/datetime.h"
+typedef struct {
+    char *nama_pengguna;
+    int jumlahdraf;
+} listDrafPengguna;
 
 typedef struct {
     listDrafPengguna *list_draf_pengguna;
     int neff;
 } ListPenggunaDraf;
 
-typedef struct  {
-    char *nama_pengguna;
-    int jumlahdraf;
-
-} listDrafPengguna;
+typedef struct{
+    char *isidraf;
+    DATETIME tanggaledit;
+    int id;
+} draf;
 
 typedef struct {
     draf *draf;
     int neff;
 } listDraf;
-
-typedef struct draf {
-    char *isidraf;
-    DATETIME tanggaledit;
-    int id;
-};
-
 
 void createListPenggunaDraf(ListPenggunaDraf *L);
 void createListDrafPengguna(listDrafPengguna *L);

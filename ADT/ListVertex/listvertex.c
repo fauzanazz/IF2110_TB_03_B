@@ -66,4 +66,6 @@ vertex vertexWithIDX(ListVertex lv, int idx){
         }
     }
 
+    return VTX(lv, i);
+
 }

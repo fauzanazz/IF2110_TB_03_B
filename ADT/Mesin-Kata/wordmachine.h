@@ -7,7 +7,7 @@
 #include "../boolean.h"
 #include "charmachine.h"
 
-#define NMax 50
+#define NMax 280
 #define BLANK ' '
 #define LINEFEED '\n'
 
@@ -50,5 +50,7 @@ void CopyWord();
 
 boolean CheckInput(char *s);
 void displayWord(Word s);
+Word createWordfromString(char *s);
+boolean isWordEqual(Word s1, Word s2);
 
 #endif

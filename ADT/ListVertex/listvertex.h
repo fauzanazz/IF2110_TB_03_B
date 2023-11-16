@@ -5,7 +5,7 @@
 #define LISTVERTEX_H
 
 #include "../boolean.h"
-#include "../Graf/graf.c"
+#include "../Graf/graf.h"
 
 /*  Kamus Umum */
 #define CAPACITYLV 20
