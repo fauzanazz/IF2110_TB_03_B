@@ -1,22 +1,23 @@
-#ifndef UTAS_H
-#define UTAS_H
+#ifndef _UTAS_H
+#define _UTAS_H
 
 #include "../Kicauan/kicauan.h"
+#include<stdlib.h>
 
 typedef struct nodeUtas* AddressUtas;
-typedef struct node { //Id Kicau -1
+typedef struct nodeUtas{ //Id Kicau -1
     Kicau_struct info;
     AddressUtas next;
 } NodeUtas;
 
 typedef struct{ // Linked List
     int id_kicauan;
-    AddressUtas *Kicau_struct;
+    AddressUtas *Utas;
     int neff;
 }  ListUtas;
 
 typedef struct{ // List Dinamis
-    ListUtas *ListuUtas;
+    ListUtas *ListUtas;
     int neff;
     int capacity;
 } ListKicauanUtas;
@@ -28,50 +29,41 @@ typedef struct{ // List Dinamis
 #define INFOUtas(U) (U)->info
 #define NEXTUtas(U) (U)->next
 
-void CreateListUtas(ListUtas *l, int capacity);
-void dealocateListUtas(ListUtas *l);
+void CreateListUtas(ListKicauanUtas *l, int capacity);
+void dealocateListUtas(ListKicauanUtas *l);
 /* ********** SELEKTOR (TAMBAHAN) ********** */
 /* *** Banyaknya elemen *** */
-int lisUtastLength(ListUtas l);
+int lisUtastLength(ListKicauanUtas l);
 /* Mengirimkan banyaknya elemen efektif list */
 /* Mengirimkan nol jika list l kosong */
 /* *** Daya tampung container *** */
 
 /* *** Selektor INDEKS *** */
-int getFirstIdxUtas(ListUtas l);
+int getFirstIdxUtas(ListKicauanUtas l);
 /* Prekondisi : List l tidak kosong */
 /* Mengirimkan indeks elemen l pertama */
-int getLastIdxUtas(ListUtas l);
+int getLastIdxUtas(ListKicauanUtas l);
 /* Prekondisi : List l tidak kosong */
 /* Mengirimkan indeks elemen l terakhir */
 
 /* ********** Test Indeks yang valid ********** */
-boolean isIdxUtasValid(ListUtas l, int i);
+boolean isIdxUtasValid(ListKicauanUtas l, int i);
 /* Mengirimkan true jika i adalah indeks yang valid utk kapasitas list l */
 /* yaitu antara indeks yang terdefinisi utk container*/
-boolean isIdxUtasEff(ListUtas l, int i);
+boolean isIdxUtasEff(ListKicauanUtas l, int i);
 /* Mengirimkan true jika i adalah indeks yang terdefinisi utk list */
 /* yaitu antara 0..NEFF(l) */
 
 /* ********** TEST KOSONG/PENUH ********** */
 /* *** Test list kosong *** */
-boolean isListUtasEmpty(ListUtas l);
+boolean isListUtasEmpty(ListKicauanUtas l);
 /* Mengirimkan true jika list l kosong, mengirimkan false jika tidak */
 /* *** Test list penuh *** */
-boolean isListUtasFull(ListUtas l);
+boolean isListUtasFull(ListKicauanUtas l);
 /* Mengirimkan true jika list l penuh, mengirimkan false jika tidak */
 
-void printListUtas(ListUtas l);
-/* Proses : Menuliskan isi list dengan traversal, list ditulis di antara kurung siku;
-   antara dua elemen dipisahkan dengan separator "koma", tanpa tambahan karakter di depan,
-   di tengah, atau di belakang, termasuk spasi dan enter */
-/* I.S. l boleh kosong */
-/* F.S. Jika l tidak kosong: [e1,e2,...,en] */
-/* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
-/* Jika list kosong : menulis [] */
-
 /* ********** OPERASI LAIN ********** */
-void copyListUtas(ListUtas lIn, ListUtas *lOut);
+void copyListUtas(ListKicauanUtas lIn, ListKicauanUtas *lOut);
 /* I.S. lIn terdefinisi tidak kosong, lOut sembarang */
 /* F.S. lOut berisi salinan dari lIn (identik, nEff dan capacity sama) */
 /* Proses : Menyalin isi lIn ke lOut */ 
@@ -80,35 +72,31 @@ void copyListUtas(ListUtas lIn, ListUtas *lOut);
 
 /* ********** MENAMBAH DAN MENGHAPUS ELEMEN DI AKHIR ********** */
 /* *** Menambahkan elemen terakhir *** */
-void insertLastListUtas(ListUtas *l, Kicau_struct val);
+void insertLastListUtas(ListKicauanUtas *l, ListUtas val);
 /* Proses: Menambahkan val sebagai elemen terakhir list */
 /* I.S. List l boleh kosong, tetapi tidak penuh */
 /* F.S. val adalah elemen terakhir l yang baru */
 /* ********** MENGHAPUS ELEMEN ********** */
-void deleteLastUtas(ListUtas *l, Kicau_struct *val);
-/* Proses : Menghapus elemen terakhir list */
-/* I.S. List tidak kosong */
-/* F.S. val adalah nilai elemen terakhir l sebelum penghapusan, */
-/*      Banyaknya elemen list berkurang satu */
-/*      List l mungkin menjadi kosong */
 
 /* ********* MENGUBAH UKURAN ARRAY ********* */
-void expandListUtas(ListUtas *l, int num);
+void expandListUtas(ListKicauanUtas *l, int num);
 /* Proses : Menambahkan capacity l sebanyak num */
 /* I.S. List sudah terdefinisi */
 /* F.S. Ukuran list bertambah sebanyak num */
 
-void shrinkListUtas(ListUtas *l, int num);
+void shrinkListUtas(ListKicauanUtas *l, int num);
 /* Proses : Mengurangi capacity sebanyak num */
 /* I.S. List sudah terdefinisi, ukuran capacity > num, dan nEff < capacity - num. */
 /* F.S. Ukuran list berkurang sebanyak num. */
 
-void compressListUtas(ListUtas *l);
+void compressListUtas(ListKicauanUtas *l);
 /* Proses : Mengubah capacity sehingga capacity = nEff */
 /* I.S. List tidak kosong */
 /* F.S. Ukuran capacity = nEff */
 
-void CreateUtas(AddressUtas *l);
+AddressUtas newUtas(Kicau_struct val);
+
+void CreateUtas(ListUtas *l, int id_kicauan);
 /* I.S. sembarang             */
 /* F.S. Terbentuk AddressUtas kosong */
 
@@ -116,24 +104,30 @@ void CreateUtas(AddressUtas *l);
 boolean isEmptyUtas(AddressUtas l);
 /* Mengirim true jika AddressUtas kosong */
 
-void insertLastUtas(AddressUtas *l, NodeUtas val);
+void insertLastUtas(AddressUtas *l, Kicau_struct val);
 /* I.S. l mungkin kosong */
 /* F.S. Melakukan alokasi sebuah elemen dan */
 /* menambahkan elemen AddressUtas di akhir: elemen terakhir yang baru */
 /* bernilai val jika alokasi berhasil. Jika alokasi gagal: I.S.= F.S. */
 
-void deleteAt(AddressUtas *l, int idx, NodeUtas *val);
+void deleteAt(AddressUtas *l, int idx);
 /* I.S. AddressUtas tidak kosong, idx indeks yang valid dalam l, yaitu 0..length(l) */
 /* F.S. val diset dengan elemen l pada indeks ke-idx. */
 /*      Elemen l pada indeks ke-idx dihapus dari l */
 
 /****************** PROSES SEMUA ELEMEN AddressUtas ******************/
-void displayUtas(AddressUtas l);
+void cetakUtas(AddressUtas l);
 // void printInfo(AddressUtas l);
 /* I.S. LinkedList mungkin kosong */
 /* F.S. Jika LinkedList tidak kosong, iai LinkedList dicetak ke kanan: [e1,e2,...,en] */
 /* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
 /* Jika LinkedList kosong : menulis [] */
 /* Tidak ada tambahan karakter apa pun di awal, akhir, atau di tengah */
+
+void BuatUtas();
+
+void TambahUtas();
+
+void HapusUtas();
 
 #endif
