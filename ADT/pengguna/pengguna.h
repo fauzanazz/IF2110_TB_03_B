@@ -6,12 +6,6 @@
 #include "../matrixprofil/matrixprofil.h"
 #include "../boolean.h"
 
-#define pahing "pahing"
-#define kliwon "kliwon"
-#define wage "wage"
-#define pon "pon"
-#define legi "legi"
-
 typedef struct {
     Word Nama;
     Word Pass;

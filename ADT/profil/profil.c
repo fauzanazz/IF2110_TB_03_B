@@ -11,6 +11,7 @@ void gantiProfil(Pengguna *user){
     while(!Valid){
         printf("Masukkan Bio:\n");
         START();
+        i=0;
         while (currentChar != MARK /* && currentChar != LINEFEED */){
             if(currentChar != LINEFEED){
                 currentWord.TabWord[i]=currentChar;
@@ -19,12 +20,13 @@ void gantiProfil(Pengguna *user){
             i++;
         }
         ADV();
-        currentWord.Length=i;
+        
         if(i>135){
             printf("Bio Terlalu Panjang!\n");
         }
         else{
             Valid=true;
+            currentWord.Length=i;
         }
     }
     for (i=0;i<currentWord.Length;i++){
@@ -69,12 +71,46 @@ void gantiProfil(Pengguna *user){
         (*user).Phone.TabWord[i]=currentWord.TabWord[i];
     }
     printf("\n");
+
     Valid=false;
-    printf("Masukkan Weton:\n");
+    Word pon,wage,legi,kliwon,pahing;
+    pon.TabWord[0]='p';
+    pon.TabWord[1]='o';
+    pon.TabWord[2]='n';
+    pon.Length=3;
+
+    wage.TabWord[0]='w';
+    wage.TabWord[1]='a';
+    wage.TabWord[2]='g';
+    wage.TabWord[3]='e';
+    wage.Length=4;
+
+    legi.TabWord[0]='l';
+    legi.TabWord[1]='e';
+    legi.TabWord[2]='g';
+    legi.TabWord[3]='i';
+    legi.Length=4;
+
+    kliwon.TabWord[0]='k';
+    kliwon.TabWord[1]='l';
+    kliwon.TabWord[2]='i';
+    kliwon.TabWord[3]='w';
+    kliwon.TabWord[4]='o';
+    kliwon.TabWord[5]='n';
+    kliwon.Length=6;
+
+    kliwon.TabWord[0]='p';
+    kliwon.TabWord[1]='a';
+    kliwon.TabWord[2]='h';
+    kliwon.TabWord[3]='i';
+    kliwon.TabWord[4]='n';
+    kliwon.TabWord[5]='g';
+    kliwon.Length=6;
+
     while (!Valid){
+        printf("Masukkan Weton:\n");
         START();
         i=0;
-        flagVal=true;
         while (currentChar != MARK /* && currentChar != LINEFEED */){
             if(currentChar != LINEFEED){
                 currentWord.TabWord[i]=currentChar;
@@ -91,59 +127,14 @@ void gantiProfil(Pengguna *user){
         convertLower(&Temp);
         displayWord(Temp);
 
-        if (currentWord.Length==0){
+        if (identik(Temp,pon) || identik(Temp,wage) || identik(Temp,legi) || identik(Temp,pahing) || identik(Temp,kliwon) || Temp.Length==0){
             Valid=true;
-        }
-        else if (currentWord.Length==3){
-            for (j=0;j<3;j++){
-                if (Temp.TabWord[j]!=pon[j]){
-                    flagVal=false;
-                }
-            }
-        }
-        else if (currentWord.Length==4){
-            if (Temp.TabWord[0]='w'){
-                for (j=1;j<4;j++){
-                    if (Temp.TabWord[j]!=wage[j]){
-                        flagVal=false;
-                    }
-                }
-            }
-            else{
-                for (j=1;j<4;j++){
-                    if (Temp.TabWord[j]!=legi[j]){
-                        flagVal=false;
-                    }
-                }
-            }
-        }
-        else if (currentWord.Length==6){
-            if (Temp.TabWord[0]='p'){
-                for (j=1;j<6;j++){
-                    if (Temp.TabWord[j]!=pahing[j]){
-                        flagVal=false;
-                    }
-                }
-            }
-            else{
-                for (j=1;j<6;j++){
-                    if (Temp.TabWord[j]!=kliwon[j]){
-                        flagVal=false;
-                    }
-                }
-            }
-        }
-        else {
-            flagVal=false;
-        }
-        if(!flagVal){
-            printf("Weton tidak valid. Masukkan lagi yuk!\n");
         }
         else{
-            Valid=true;
+            printf("Weton tidak valid. Masukkan lagi yuk!\n");
         }
     }
-    (*user).Weton.Length=i;
+    (*user).Weton.Length=currentWord.Length;
     for(i=0;i<(*user).Weton.Length;i++){
         (*user).Weton.TabWord[i]=currentWord.TabWord[i];
     }
