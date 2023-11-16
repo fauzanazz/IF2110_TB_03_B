@@ -1,10 +1,14 @@
 /* List Dinamik Kicauan*/
-
-#ifndef LISTDIN_H
-#define LISTDIN_H
+#ifndef KICAUAN_H
+#define KICAUAN_H
 
 #include "../boolean.h"
-#include "../Kicauan/kicauan.h"
+#include "../Mesin-Kata/wordmachine.h"
+#include "../Mesin-Kata/charmachine.h"
+#include "../Time/datetime.h"
+#include "../Function/string-function.h"
+#include "../listdin/listdin.h"
+#include <time.h>
 
 /*  Kamus Umum */
 #define IDX_MIN 0
@@ -13,26 +17,25 @@
 /* Indeks tak terdefinisi*/
 
 /* Definisi elemen dan koleksi objek */
+
+typedef struct {
+   int IdKicau;
+   int IdProfile;
+   DATETIME TanggalTerbit;
+   Word IsiKicauan;
+   Word Tagar;
+   int JumlahLike;
+} Kicau_struct ;
+
 typedef Kicau_struct ElType; /* type elemen list */
 typedef int IdxType;
+
 typedef struct
 {
-    ElType *buffer; /* memori tempat penyimpan elemen (container) */
-    int nEff;       /* >=0, banyaknya elemen efektif */
-    int capacity;   /* ukuran elemen */
+    ElType *buffer;
+    int nEff;
+    int capacity;
 } ListDin;
-
-/* Indeks yang digunakan [0..capacity-1] */
-/* Jika l adalah : ListDin, cara deklarasi dan akses: */
-/* Deklarasi : l : ListDin */
-/* Maka cara akses:
-   l.nEff      untuk mengetahui banyaknya elemen
-   l.buffer    untuk mengakses seluruh nilai elemen list
-   l.buffer[i] untuk mengakses elemen ke-i */
-/* Definisi :
-  list kosong: l.nEff = 0
-  Definisi elemen pertama : l.buffer[i] dengan i=0
-  Definisi elemen terakhir yang terdefinisi: l.buffer[i] dengan i=l.capacity */
 
 /* ********** SELEKTOR ********** */
 #define NEFF(l) (l).nEff
@@ -102,13 +105,6 @@ void printList(ListDin l);
 /* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
 /* Jika list kosong : menulis [] */
 
-/* ********** OPERATOR ARITMATIKA ********** */
-/* *** Aritmatika list : Penjumlahan, pengurangan, perkalian, ... *** */
-
-/* ********** OPERATOR RELASIONAL ********** */
-/* *** Operasi pembandingan list : < =, > *** */
-boolean isListEqual(ListDin l1, ListDin l2);
-/* Mengirimkan true jika l1 sama dengan l2 yaitu jika nEff l1 = l2 dan semua elemennya sama */
 
 /* ********** SEARCHING ********** */
 /* ***  Perhatian : list boleh kosong!! *** */
@@ -119,7 +115,6 @@ IdxType indexOf(ListDin l, ElType val);
 /* Menghasilkan indeks tak terdefinisi (IDX_UNDEF) jika List l kosong */
 /* Skema Searching yang digunakan bebas */
 
-/* ********** NILAI EKSTREM ********** */
 
 /* ********** OPERASI LAIN ********** */
 void copyList(ListDin lIn, ListDin *lOut);
@@ -127,7 +122,6 @@ void copyList(ListDin lIn, ListDin *lOut);
 /* F.S. lOut berisi salinan dari lIn (identik, nEff dan capacity sama) */
 /* Proses : Menyalin isi lIn ke lOut */ 
 
-/* ********** SORTING ********** */
 
 /* ********** MENAMBAH DAN MENGHAPUS ELEMEN DI AKHIR ********** */
 /* *** Menambahkan elemen terakhir *** */
@@ -158,5 +152,29 @@ void compressList(ListDin *l);
 /* Proses : Mengubah capacity sehingga capacity = nEff */
 /* I.S. List tidak kosong */
 /* F.S. Ukuran capacity = nEff */
+
+void Kicau(ListDin * listKicauan);
+/* I.S. : list kicauan terdefinisi
+   F.S. : Terbuat kicauan baru */
+
+void Kicauan(ListDin listKicauan);
+/* I.S. : list kicauan terdefinisi
+   F.S. : Menampilkan semua kicauan yang sesuai dengan id Pengguna */
+
+void Suka_Kicau(ListDin * ListKicauan, int idKicauan);
+/* I.S. : list kicauan terdefinisi
+   F.S. :  */
+
+void Ubah_Kicau(ListDin * ListKicauan, int idKicauan, int idPengguna);
+/* I.S. : list kicauan terdefinisi
+   F.S. : kicauan dengan index tertentu telah berubah */
+
+void ShowKicau(Kicau_struct kicauan);
+/* I.S. : Kicauan terdefinisi
+   F.S. : menampilkan kicauan */
+
+int cariKicauan(ListDin ListKicauan, int idKicauan);
+/* I.S. : list kicauan terdefinisi
+   F.S. : mengembalikan index kicauan yang sesuai dengan idKicauan */
 
 #endif
