@@ -40,7 +40,6 @@ void createListPengguna(ListPengguna *lp){
 }
 
 void inisialisasiNamaPengguna(Pengguna *user){
-    (*user).Nama.Length=0;
     int i;
     for (i=0;i<20;i++){
         (*user).Nama.TabWord[i]=' ';
@@ -49,7 +48,6 @@ void inisialisasiNamaPengguna(Pengguna *user){
 }
 
 void inisialisasiPassPengguna(Pengguna *user){
-    (*user).Pass.Length=0;
     int i;
     for (i=0;i<20;i++){
         (*user).Pass.TabWord[i]=' ';
@@ -65,7 +63,6 @@ void inisialisasiBioPengguna(Pengguna *user){
     (*user).Bio.Length=0;
 }
 void inisialisasiPhonePengguna(Pengguna *user){
-    (*user).Phone.Length=0;
     int i;
     for (i=0;i<15;i++){
         (*user).Phone.TabWord[i]=' ';
@@ -157,6 +154,7 @@ void Daftar(ListPengguna *lp){
                 printf("Password Terlalu Panjang!\n");
             }
             else{
+                currentWord.Length = i;
                 Valid=true;
             }   
         }
