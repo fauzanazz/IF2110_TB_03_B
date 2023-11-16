@@ -12,17 +12,17 @@ OBJ_MESINKATA = $(SRC_MESINKATA:.c=.o)
 SRC_INISIALISASI = ADT/Function/string-function.c
 OBJ_INISIALISASI = $(SRC_INISIALISASI:.c=.o)
 
-SRC_LISTDIN = ADT/listdin/listdin.c
-OBJ_LISTDIN = $(SRC_LISTDIN:.c=.o)
-
-SRC_KICAUAN = ADT/Kicauan/kicauan.c
-OBJ_KICAUAN = $(SRC_KICAUAN:.c=.o)
-
 SRC_DATETIME = ADT/Time/datetime.c
 OBJ_DATETIME = $(SRC_DATETIME:.c=.o)
 
 SRC_TIME = ADT/Time/time.c
 OBJ_TIME = $(SRC_TIME:.c=.o)
+
+SRC_LISTDIN = ADT/listdin/listdin.c
+OBJ_LISTDIN = $(SRC_LISTDIN:.c=.o)
+
+SRC_PRIOQUEUE = ADT/PrioQue/prioqueuefriendrequest.c
+OBJ_PRIOQUEUE = $(SRC_PRIOQUEUE:.c=.o)
 
 SRC_MAIN = main.c
 OBJ_MAIN = $(SRC_MAIN:.c=.o)
@@ -32,7 +32,7 @@ OBJ_MAIN = $(SRC_MAIN:.c=.o)
 
 all: main_program
 
-main_program: $(OBJ_MESINKAR) $(OBJ_MESINKATA) $(OBJ_INISIALISASI) $(OBJ_LISTDIN)  $(OBJ_DATETIME) $(OBJ_TIME) $(OBJ_MAIN)
+main_program: $(OBJ_MESINKAR) $(OBJ_MESINKATA) $(OBJ_INISIALISASI) $(OBJ_LISTDIN) $(SRC_PRIOQUEUE) $(OBJ_DATETIME) $(OBJ_TIME) $(OBJ_MAIN)
 	$(CC) $(CFLAGS) -o $@ $^
 
 %.o: %.c
