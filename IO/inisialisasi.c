@@ -223,6 +223,7 @@ void BacaKicauan(){
             ADVFILE();
         }
 
+        //Mencari id Pengguna berdasarkan nama
         kicauan.IdProfile = idPengguna(temp);
 
         //TAGAR
@@ -298,8 +299,8 @@ void BacaKicauan(){
         
         kicauan.TanggalTerbit = currentTime;
 
+        //Masukkan kicauan ke List Dinamis Data Kicauan
         insertLastKicau(&dataKicau, kicauan);
-
         ADVFILE();
 
         k--;
@@ -307,10 +308,14 @@ void BacaKicauan(){
     
 }
 
-
+void BacaUtas(){
+    
+}
 int main(){
     BacaPengguna();
     BacaKicauan();
-    printListKicau(dataKicau);
-
+    BuatUtas(1);
+    cetakUtas(0);
+    HapusUtas(0, 1);
+    cetakUtas(0);
 }

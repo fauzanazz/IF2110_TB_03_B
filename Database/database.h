@@ -21,5 +21,7 @@ extern PrioQueueFriendRequest dataFriendRequest;
 extern ListDin dataKicau;
 extern ListPenggunaDraf dataDraf;
 extern ListKicauanUtas dataUtas;
+extern int ActiveUser;
+extern boolean isLogin;
 
 #endif

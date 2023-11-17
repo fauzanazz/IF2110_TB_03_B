@@ -6,5 +6,5 @@ PrioQueueFriendRequest dataFriendRequest;
 ListDin dataKicau;
 ListPenggunaDraf dataDraf;
 ListKicauanUtas dataUtas;
-int ActiveUser;
+int ActiveUser = 0;
 boolean isLogin = false;

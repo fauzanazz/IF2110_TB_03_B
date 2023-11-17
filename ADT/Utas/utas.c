@@ -1,4 +1,5 @@
 #include "utas.h"
+#include "../../Database/database.h"
 
 void CreateListUtas(ListKicauanUtas *l, int capacity){
     LISTUTAS(*l) = (ListUtas *) malloc (capacity * sizeof(ListUtas));
@@ -42,7 +43,7 @@ boolean isListUtasFull(ListKicauanUtas l){
 
 void insertLastListUtas(ListKicauanUtas *l, ListUtas val){
     if (isListUtasFull(*l)){
-        expandListUtas(l, 1);
+        expandListUtas(l, 10);
     }
 
     ELMTUtas(*l, NEFFUtas(*l)) = val;
@@ -79,6 +80,7 @@ AddressUtas newUtas(Kicau_struct val){
         INFOUtas(p) = val;
         NEXTUtas(p) = NULL;
     }
+
     return p;
 }
 
@@ -92,18 +94,43 @@ boolean isEmptyUtas(AddressUtas l){
     return (l == NULL);
 }
 
-void insertLastUtas(AddressUtas *l, Kicau_struct val){
-    AddressUtas p = *l;
+void displayUtas(AddressUtas l){
+    while (l != NULL)
+    {
+        ShowKicau(l->info);
+        l = NEXTUtas(l);
+    }
+    
+}
+
+void insertLastUtas(ListUtas *l, Kicau_struct val){
+    AddressUtas p = (*l).Utas;
     AddressUtas new = newUtas(val);
     if (new != NULL){
         if (p == NULL){
-            *l = new;
+            (*l).Utas = new;
         } else {
             while (NEXTUtas(p) != NULL){
                 p = NEXTUtas(p);
             }
             NEXTUtas(p) = new;
+            (*l).neff++;
         }
+    }
+}
+
+void insertAtUtas(ListUtas *l, Kicau_struct val, int idx){
+    AddressUtas p = (*l).Utas;
+    AddressUtas new = newUtas(val);
+    if (new != NULL){
+        int i;
+        for (i = 0; i < idx-1; i++){
+            p = NEXTUtas(p);
+        }
+
+        NEXTUtas(new) = NEXTUtas(p);
+        NEXTUtas(p) = new;
+        (*l).neff++;
     }
 }
 
@@ -124,4 +151,171 @@ void deleteAt(AddressUtas *l, int idx){
 
 }
 
-void cetakUtas(AddressUtas l);
+//TODO Handle Akun Private
+void cetakUtas(int idUtas){
+    if (!isIdxUtasEff(dataUtas, idUtas)){
+        printf("Utas tidak ditemukan\n");
+        return;
+    }
+
+    ListUtas tempUtas = dataUtas.ListUtas[idUtas];
+    AddressUtas p = tempUtas.Utas;
+    Word user =  databasePengguna.user[tempUtas.Utas->info.IdProfile].Nama;
+
+    printf("| ID = %d\n", tempUtas.id_kicauan);
+    printf("| ");
+    displayWord(user);
+    printf("| ");
+    TulisDATETIME(p->info.TanggalTerbit);
+    printf("\n");
+    printf("| ");
+    displayWord(p->info.IsiKicauan);
+    printf("\n");
+
+    p = NEXTUtas(p);
+    int i = 1;
+    while (p != NULL){
+        printf("    | INDEX = %d\n", i++);
+        printf("    | ");
+        displayWord(user);
+        printf("    | ");
+        TulisDATETIME(p->info.TanggalTerbit);
+        printf("\n");
+        printf("    | ");
+        displayWord(p->info.IsiKicauan);
+        printf("\n");
+         
+        p = NEXTUtas(p);
+    }
+};
+
+void BuatUtas(int idKicau){
+    if (!isIdxValidKicau(dataKicau, idKicau)){
+        printf("Utas ini bukan milik Anda\n");
+        return;
+    }
+
+    int idxIdKicau = cariKicauan(dataKicau, idKicau);
+    if (dataKicau.buffer[idxIdKicau].IdProfile != ActiveUser){
+        printf("Utas ini bukan milik Anda\n");
+        return;
+    }
+
+    printf("Utas berhasil dibuat!\n");
+    
+
+    char *lanjut = "YA";
+
+    ListUtas tempUtas;
+    CreateUtas(&tempUtas, idKicau);
+
+    do {
+        printf("Masukkan kicauan:\n");
+
+        Kicau_struct tempKicauan;
+        Word isi = createWordfromString("");
+
+        START();
+        IgnoreBlanks();
+        int i = 0;
+        while (!EOP){
+            isi.TabWord[i++] = currentChar;
+            isi.Length++;
+            ADV();
+        }
+        time_t current_time;
+        DATETIME current_time2;
+        time(&current_time);
+        ConvertTimeTtoDATETIME(current_time, &current_time2);
+
+        tempKicauan.IdKicau = -1;
+        tempKicauan.IdProfile = ActiveUser;
+        tempKicauan.TanggalTerbit = current_time2;
+        tempKicauan.IsiKicauan = isi;
+        tempKicauan.Tagar = dataKicau.buffer[idKicau].Tagar;
+        tempKicauan.JumlahLike = 0;
+
+        insertLastUtas(&tempUtas, tempKicauan);
+
+        printf("Apakah Anda ingin melanjutkan utas ini? (YA/TIDAK)");
+
+        STARTWORD();
+        displayWord(currentWord);
+
+    } while (CheckInput("YA"));
+
+    insertLastListUtas(&dataUtas, tempUtas);
+}
+
+void SambungUtas(int idUtas, int idx){
+    if (!isIdxUtasEff(dataUtas, idUtas)){
+        printf("Utas tidak ditemukan\n");
+        return;
+    }
+
+    if (idx >= dataUtas.ListUtas[idUtas].neff || idx <= 0){
+        printf("Index tidak valid\n");
+        return;
+    }
+
+    if (dataUtas.ListUtas[idUtas].Utas->info.IdProfile != ActiveUser){
+        printf("Utas ini bukan milik Anda\n");
+        return;
+    }
+
+    printf("Masukkan kicauan: \n");
+    Word isi = createWordfromString("");
+
+    START();
+    IgnoreBlanks();
+    int i = 0;
+    while (!EOP){
+        isi.TabWord[i++] = currentChar;
+        isi.Length++;
+        ADV();
+    }
+
+    Kicau_struct tempKicauan;
+
+    time_t current_time;
+    DATETIME current_time2;
+    time(&current_time);
+    ConvertTimeTtoDATETIME(current_time, &current_time2);
+
+    tempKicauan.IdKicau = -1;
+    tempKicauan.IdProfile = ActiveUser;
+    tempKicauan.TanggalTerbit = current_time2;
+    tempKicauan.IsiKicauan = isi;
+    tempKicauan.Tagar = dataKicau.buffer[dataUtas.ListUtas[idUtas].id_kicauan].Tagar;
+    tempKicauan.JumlahLike = 0;
+
+    insertAtUtas(&dataUtas.ListUtas[idUtas], tempKicauan, idx);
+
+}
+
+void HapusUtas(int idUtas, int idx){
+    if (!isIdxUtasEff(dataUtas, idUtas)){
+        printf("Utas tidak ditemukan.\n");
+        return;
+    }
+
+    if (idx == 0){
+        printf("Tidak dapat menghapus utas utama.\n");
+        return;
+    }
+
+    if (idx >= dataUtas.ListUtas[idUtas].neff || idx < 0){
+        printf("Index tidak valid.\n");
+        return;
+    }
+
+    if (dataUtas.ListUtas[idUtas].Utas->info.IdProfile != ActiveUser){
+        printf("Anda tidak bisa menghapus kicauan dalam utas ini.\n");
+        return;
+    }
+
+    deleteAt(&dataUtas.ListUtas[idUtas].Utas, idx);
+    dataUtas.ListUtas[idUtas].neff--;
+
+    printf("Kicauan sambungan berhasil dihapus.\n");
+}

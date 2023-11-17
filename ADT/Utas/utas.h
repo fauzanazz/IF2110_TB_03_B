@@ -12,7 +12,7 @@ typedef struct nodeUtas{ //Id Kicau -1
 
 typedef struct{ // Linked List
     int id_kicauan;
-    AddressUtas *Utas;
+    AddressUtas Utas;
     int neff;
 }  ListUtas;
 
@@ -104,19 +104,23 @@ void CreateUtas(ListUtas *l, int id_kicauan);
 boolean isEmptyUtas(AddressUtas l);
 /* Mengirim true jika AddressUtas kosong */
 
-void insertLastUtas(AddressUtas *l, Kicau_struct val);
+void insertLastUtas(ListUtas *l, Kicau_struct val);
 /* I.S. l mungkin kosong */
 /* F.S. Melakukan alokasi sebuah elemen dan */
 /* menambahkan elemen AddressUtas di akhir: elemen terakhir yang baru */
 /* bernilai val jika alokasi berhasil. Jika alokasi gagal: I.S.= F.S. */
+
+void insertAtUtas(ListUtas *l, Kicau_struct val, int idx);
 
 void deleteAt(AddressUtas *l, int idx);
 /* I.S. AddressUtas tidak kosong, idx indeks yang valid dalam l, yaitu 0..length(l) */
 /* F.S. val diset dengan elemen l pada indeks ke-idx. */
 /*      Elemen l pada indeks ke-idx dihapus dari l */
 
+void displayUtas(AddressUtas l);
+
 /****************** PROSES SEMUA ELEMEN AddressUtas ******************/
-void cetakUtas(AddressUtas l);
+void cetakUtas(int idUtas);
 // void printInfo(AddressUtas l);
 /* I.S. LinkedList mungkin kosong */
 /* F.S. Jika LinkedList tidak kosong, iai LinkedList dicetak ke kanan: [e1,e2,...,en] */
@@ -124,10 +128,12 @@ void cetakUtas(AddressUtas l);
 /* Jika LinkedList kosong : menulis [] */
 /* Tidak ada tambahan karakter apa pun di awal, akhir, atau di tengah */
 
-void BuatUtas();
 
-void TambahUtas();
+/****************** FUNGSI UTAS ******************/
+void BuatUtas(int idKicau);
 
-void HapusUtas();
+void SambungUtas(int idUtas, int idx);
+
+void HapusUtas(int idUtas, int idx);
 
 #endif
