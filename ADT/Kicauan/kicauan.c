@@ -45,14 +45,12 @@ boolean isFullKicau(ListDin l){
 
 void printListKicau(ListDin l){
     int i;
-    printf("[");
     for (i = 0; i < NEFFKicau(l); i++){
         ShowKicau(ELMT(l, i));
         if (i != NEFFKicau(l) - 1){
-            printf(", ");
+            printf("\n");
         }
     }
-    printf("]");
 }
 
 void copyListKicau(ListDin lIn, ListDin *lOut){
@@ -222,7 +220,7 @@ int cariKicauan(ListDin ListKicauan, int idKicauan){
         }
         i++;
     }
-    if (founded) return i;
+    if (founded) return i - 1;
     else return -1;
 }
 
