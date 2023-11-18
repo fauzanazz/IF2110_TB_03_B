@@ -20,6 +20,16 @@ boolean isEmpty(LinkedList l){
     return (l == NULL);
 }
 
+int LengthLinkedList(LinkedList l){
+    int count = 0;
+    Address p = l;
+    while (p != NULL) {
+        count++;
+        p = NEXT(p);
+    }
+    return count;
+}
+
 void insertFirst(LinkedList *l, ElType val){
     Address new = newNode(val);
     if (new != NULL){
@@ -70,7 +80,7 @@ void deleteFirst(LinkedList *l, ElType *val){
 
 void deleteLast(LinkedList *l, ElType *val){
     Address p = *l;
-    int len = length(*l);
+    int len = LengthLinkedList(*l);
     int  i;
     if (len == 1) {
         *val = INFO(*l);
@@ -101,10 +111,10 @@ void deleteAt(LinkedList *l, int idx, ElType *val){
 }
 void displayLinkedList(LinkedList l){
     Address p = l;
-    int len = length(l);
+    int len = LengthLinkedList(l);
     int i;
     for (i = 0; i < len; i++){
-        ShowKicauan(INFO(p));
+        ShowKicau(INFO(p));
         p = NEXT(p);
     }
 }

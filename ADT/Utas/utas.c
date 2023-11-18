@@ -213,9 +213,6 @@ void BuatUtas(int idKicau){
     }
 
     printf("Utas berhasil dibuat!\n");
-    
-
-    char *lanjut = "YA";
 
     ListUtas tempUtas;
     CreateUtas(&tempUtas, idKicau);

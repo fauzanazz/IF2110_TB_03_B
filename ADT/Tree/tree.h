@@ -1,7 +1,7 @@
 #ifndef TREE_H
 #define TREE_H
 
-#include "boolean.h"
+#include "../boolean.h"
 
 /* Definisi elemen dan koleksi objek */
 typedef struct TreeNode {

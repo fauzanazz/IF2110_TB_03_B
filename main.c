@@ -1,4 +1,6 @@
 #include "Database/database.h"
+#include "IO/muat.h"
+#include "IO/simpan.h"
 
 int main(){
 
@@ -31,7 +33,7 @@ int main(){
     Muat();
  
     printf("File konfigurasi berhasil dimuat! Selamat berkicau!\n");
-    
+
     while (!CheckInput("TUTUP_PROGRAM")){
         printf(">> ");
         STARTWORD();

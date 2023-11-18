@@ -49,7 +49,7 @@ void addVertex(Graf *G, vertex *V){
 /* F.S. Menambahkan sebuah vertex V pada graf G */
 
     /* KAMUS LOKAL */
-    int i, j, idx;
+    int i, idx;
 
     /* ALGORITMA */
     idx = NEFF(*G);

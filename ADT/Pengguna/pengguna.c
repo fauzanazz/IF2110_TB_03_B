@@ -101,9 +101,9 @@ void inisialisasiPengguna(Pengguna *user){
 
 void Daftar(ListPengguna *lp){
     if (!logged){
-        int i,cnt;
+        int i;
         boolean Valid=false;
-        cnt=COUNT(*lp);
+        int cnt = COUNT(*lp);
         while (!Valid){
             printf("Masukkan nama:\n");
             START();
@@ -177,9 +177,9 @@ void Daftar(ListPengguna *lp){
 
 void Masuk(ListPengguna *lp){
     if (!logged){
-        int i,cnt;
-        boolean Valid=false;
-        cnt=COUNT(*lp);
+        int i;
+        boolean Valid = false;
+        int cnt = COUNT(*lp);
         while (!Valid){
             printf("Masukkan nama:\n");
             START();
@@ -198,10 +198,10 @@ void Masuk(ListPengguna *lp){
             }
             else{
                 i=0;
-                while(i<COUNT(*lp) && identik(currentWord,USER(*lp, i).Nama)==false){
+                while(i<cnt && identik(currentWord,USER(*lp, i).Nama)==false){
                     i++;
                 }
-                if (i<COUNT(*lp)){
+                if (i<cnt){
                     Valid=true;
                 }
                 else{

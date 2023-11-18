@@ -9,6 +9,7 @@ void gantiProfil(Pengguna *user){
     lihatProfil(*user);
     
     while(!Valid){
+        int i = 0;
         printf("Masukkan Bio:\n");
         START();
         while (currentChar != MARK /* && currentChar != LINEFEED */){
@@ -102,7 +103,7 @@ void gantiProfil(Pengguna *user){
             }
         }
         else if (currentWord.Length==4){
-            if (Temp.TabWord[0]='w'){
+            if (Temp.TabWord[0] == 'w'){
                 for (j=1;j<4;j++){
                     if (Temp.TabWord[j]!=wage[j]){
                         flagVal=false;
@@ -118,7 +119,7 @@ void gantiProfil(Pengguna *user){
             }
         }
         else if (currentWord.Length==6){
-            if (Temp.TabWord[0]='p'){
+            if (Temp.TabWord[0]=='p'){
                 for (j=1;j<6;j++){
                     if (Temp.TabWord[j]!=pahing[j]){
                         flagVal=false;
@@ -239,6 +240,6 @@ void UBAH_FOTO_PROFIL(Pengguna *user){
     printf("Foto profil Anda saat ini adalah\n");
     displayFotoProfil((*user).ProfilePic);
     printf("Masukkan foto profil yang baru\n");
-    readFotoProfil(&(*user).ProfilePic);
+    // readFotoProfil(&(*user).ProfilePic);
     printf("Foto profil anda sudah berhasil diganti!\n");
 }

@@ -45,8 +45,9 @@ void DeAlokasi(PrioQueueFriendRequest *Q) {
 }
 
 void Enqueue(PrioQueueFriendRequest *Q, friendRequest X) {
-    boolean found;
-    int idx;
+    // error karena gakepake di makefile
+    // boolean found;
+    // int idx;
     int i, j;
     friendRequest temp;
 

@@ -14,8 +14,8 @@ SRC_MESINKARFILE = ADT/Mesin-Kata/charmachine-file.c
 OBJ_MESINKARFILE = $(SRC_MESINKARFILE:.c=.o)
 
 # String Function
-SRC_INISIALISASI = ADT/Function/string-function.c
-OBJ_INISIALISASI = $(SRC_INISIALISASI:.c=.o)
+SRC_STRINGFUNC = ADT/Function/string-function.c
+OBJ_STRINGFUNC = $(SRC_STRINGFUNC:.c=.o)
 
 # Pcolor
 SRC_PCOLOR = ADT/Pcolor/pcolor.c
@@ -49,13 +49,13 @@ OBJ_LISTDIN = $(SRC_LISTDIN:.c=.o)
 SRC_PRIOQUEUE = ADT/PrioQue/prioqueuefriendrequest.c
 OBJ_PRIOQUEUE = $(SRC_PRIOQUEUE:.c=.o)
 
-# Linked List
-SRC_LINKEDLIST = ADT/LinkedList/LinkedList.c
-OBJ_LINKEDLIST = $(SRC_LINKEDLIST:.c=.o)
+# # Linked List
+# SRC_LINKEDLIST = ADT/LinkedList/LinkedList.c
+# OBJ_LINKEDLIST = $(SRC_LINKEDLIST:.c=.o)
 
-# Tagar
-SRC_TAGAR = ADT/Tagar/tagar.c
-OBJ_TAGAR = $(SRC_TAGAR:.c=.o)
+# # Tagar
+# SRC_TAGAR = ADT/Tagar/tagar.c
+# OBJ_TAGAR = $(SRC_TAGAR:.c=.o)
 
 # Graf
 SRC_GRAF = ADT/Graf/graf.c
@@ -69,15 +69,27 @@ OBJ_LISTVERTEX = $(SRC_LISTVERTEX:.c=.o)
 SRC_TEMAN = ADT/Teman/teman.c
 OBJ_TEMAN = $(SRC_LISTTEMAN:.c=.o)
 
-# Tree
+# Tree masih error
 SRC_TREE = ADT/Tree/tree.c
 OBJ_TREE = $(SRC_TREE:.c=.o)
 
-# Balasan Masih erro
+# Balasan Masih error
 
 # Utas
 SRC_UTAS = ADT/Utas/utas.c
-OBJ_UTAS = $(SRC_LISTUTAS:.c=.o)
+OBJ_UTAS = $(SRC_UTAS:.c=.o)
+
+# Database
+SRC_DATABASE = Database/database.c
+OBJ_DATABASE = $(SRC_DATABASE:.c=.o)
+
+# Muat
+SRC_MUAT = IO/muat.c
+OBJ_MUAT = $(SRC_MUAT:.c=.o)
+
+# Simpan
+SRC_SIMPAN = IO/simpan.c
+OBJ_SIMPAN = $(SRC_SIMPAN:.c=.o)
 
 SRC_MAIN = main.c
 OBJ_MAIN = $(SRC_MAIN:.c=.o)
@@ -86,7 +98,7 @@ OBJ_MAIN = $(SRC_MAIN:.c=.o)
 
 all: main_program
 
-main_program: $(OBJ_MESINKAR) $(OBJ_MESINKATA) $(OBJ_INISIALISASI) $(OBJ_LISTDIN) $(OBJ_PRIOQUEUE) $(OBJ_DATETIME) $(OBJ_TIME) $(OBJ_MAIN) $(OBJ_PCOLOR) $(OBJ_MATRIXPROFIL) $(OBJ_PENGGUNA) $(OBJ_PROFIL) $(OBJ_LINKEDLIST) $(OBJ_TAGAR) $(OBJ_GRAF) $(OBJ_LISTVERTEX) $(OBJ_TEMAN) $(OBJ_TREE) $(OBJ_UTAS) $(OBJ_MESINKARFILE)
+main_program: $(OBJ_MESINKAR) $(OBJ_MESINKATA) $(OBJ_MESINKARFILE) $(OBJ_STRINGFUNC) $(OBJ_LISTDIN) $(OBJ_PRIOQUEUE) $(OBJ_DATETIME) $(OBJ_TIME) $(OBJ_MAIN) $(OBJ_PCOLOR) $(OBJ_MATRIXPROFIL) $(OBJ_PENGGUNA) $(OBJ_PROFIL) $(OBJ_GRAF) $(OBJ_LISTVERTEX) $(OBJ_TEMAN) $(OBJ_UTAS) $(OBJ_DATABASE) $(OBJ_MUAT) $(OBJ_SIMPAN)
 	$(CC) $(CFLAGS) -o $@ $^
 
 %.o: %.c

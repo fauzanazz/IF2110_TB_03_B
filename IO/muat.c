@@ -1,4 +1,5 @@
 #include "muat.h"
+#include "../ADT/Utas/utas.h"
 
 int idPengguna(char *nama){
     int i = 0;
@@ -13,7 +14,7 @@ int idPengguna(char *nama){
     return -1;
 }
 
-void MuatPengguna(){
+void MuatPengguna(char* file_path){
     STARTFILE("IO/Input/Dummy/pengguna.config");
 
     databasePengguna.usercount = currentCharF - '0';
@@ -175,7 +176,7 @@ void PrintPengguna(){
     }
 }
 
-void MuatKicauan(){
+void MuatKicauan(char *file_path){
     STARTFILE("IO/Input/Dummy/kicauan.config");
 
     int k = currentCharF - '0';
@@ -311,7 +312,7 @@ void MuatKicauan(){
     
 }
 
-void MuatUtas(){
+void MuatUtas(char *file_path){
     CreateListUtas(&dataUtas, 10);
 
     STARTFILE("IO/Input/Dummy/utas.config");

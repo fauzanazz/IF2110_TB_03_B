@@ -7,9 +7,10 @@
 #define LinkedList_H
 
 #include "../boolean.h"
+#include "../Kicauan/kicauan.h"
 
 /* Definisi Node : */
-typedef int ElType;
+typedef Kicau_struct ElType;
 typedef struct node* Address;
 typedef struct node {
     ElType info;
@@ -28,7 +29,6 @@ Address newNode(ElType val);
 
 typedef Address LinkedList;
 
-#define IDX_UNDEF (-1)
 #define FIRST(l) (l)
 
 /* PROTOTYPE */
@@ -41,6 +41,7 @@ void CreateLinkedList(LinkedList *l);
 boolean isEmpty(LinkedList l);
 /* Mengirim true jika LinkedList kosong */
 
+int LengthLinkedList(LinkedList l);
 
 /****************** PRIMITIF BERDASARKAN NILAI ******************/
 /*** PENAMBAHAN ELEMEN ***/

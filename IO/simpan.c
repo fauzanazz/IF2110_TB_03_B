@@ -136,7 +136,7 @@ void SimpanUtas(char *folder_path){
 
         AddressUtas P = dataUtas.ListUtas[i].Utas;
 
-        while (P != Nil){
+        while (P != NULL){
             fprintf(file, "%s\n", P->info.IsiKicauan.TabWord);
             fprintf(file, "%s\n", databasePengguna.user[P->info.IdProfile].Nama.TabWord);
 
