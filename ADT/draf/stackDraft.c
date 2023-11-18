@@ -8,7 +8,6 @@ void CreateEmptyDraft(Draft *D){
 
     /* ALGORITMA */
     DCONTENT(*D).Length = 0;
-    DDATE(*D) = NilS;
 }
 
 void CreateEmptyStackDraft(StackDraft *SD){
@@ -95,22 +94,23 @@ boolean isUserDraft(ListUserDraft LUD, Word UserName){
     /* ALGORITMA */
     len = NEFFUD(LUD);
     for (i = 0; i < len; i++){
-        if (UNAME(LUD_IDX(LUD, i)).TabWord == UserName.TabWord){
+        if (isWordEqual(UNAME(LUD_IDX(LUD, i)), UserName)){
             return true;
         }
     }
     return false;
 }
 
-void PushStackDraft(StackDraft *SD, Draft D){
+void PushStackDraft(StackDraft *SD, Draft D, Word UserName){
 /* I.S. SD tidak penuh, mungkin kosong */
 /* F.S. Draft D dimasukkan ke dalam StackDraft SD dan menjadi TOPSD yang baru */
 
     /* KAMUS LOKAL */
 
     /* ALGORITMA */
+    UNAME(*SD) = UserName;
     ADDR_TOPSD(*SD)++;
-    TOPSD(*SD) = D;  
+    TOPSD(*SD) = D;
 }
 
 void PopStackDraft(StackDraft *SD, Draft *D){
@@ -143,16 +143,39 @@ void deleteDraftUser(ListUserDraft *LUD, Word UserName){
     int len, i, idx;
 
     /* ALGORITMA */
+    // Ambil nilai efektif LUD
     len = NEFFUD(*LUD);
+
+    // Loop untuk menjadi index pengguna draft dengan nama UserName
     for (i = 0; i < len; i++){
-        if (UNAME(LUD_IDX(*LUD, i)).TabWord == UserName.TabWord){
+        if (isWordEqual(UNAME(LUD_IDX(*LUD, i)), UserName)){
             idx = i;
         }
     }
+
+    // Loop untuk menggeser LUD agar rata kiri
     for (i = idx; i < len; i++){
         if (i != len - 1){
             LUD_IDX(*LUD, i) = LUD_IDX(*LUD, i+1);
         }
     }
+
+    // Penyesuaian nilai efektif LUD
     NEFFUD(*LUD)--;
+}
+
+int indexInLUD(ListUserDraft LUD, Word UserName){
+/* Mengirimkan index pengguna dengan nama UserName pada LUD */
+
+    /* KAMUS LOKAL */
+    int i, len;
+
+    /* ALGORITMA */
+    len = NEFFUD(LUD);
+    for (i = 0; i < len; i++){
+        if (isWordEqual(UNAME(LUD_IDX(LUD, i)), UserName)){
+            return i;
+        }
+    }
+    return NilS;
 }

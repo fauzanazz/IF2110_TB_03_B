@@ -4,7 +4,7 @@ ListPengguna databasePengguna;
 Graf GFriend;
 PrioQueueFriendRequest dataFriendRequest;
 ListDin dataKicau;
-ListPenggunaDraf dataDraf;
+ListUserDraft dataDraf;
 ListKicauanUtas dataUtas;
 int ActiveUser = 0;
 boolean isLogin = false;

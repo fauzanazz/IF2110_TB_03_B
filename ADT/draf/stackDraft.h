@@ -2,26 +2,28 @@
 #define STACKD_H
 
 #include "../boolean.h"
-#include "../Mesin-Kata/charmachine.h"
-#include "../Mesin-Kata/wordmachine.h"
+#include "../Mesin-Kata/charmachine.c"
+#include "../Mesin-Kata/wordmachine.c"
+#include <datetime.h>
+#include "../Time/datetime.h"
 
 #define NilS -1
 #define MaxElS 100
 
 typedef struct {
     Word DrafContent;
-    int dateLastEdited;
+    DATETIME dateLastEdited;
 } Draft;
 
 #define DCONTENT(D) (D).DrafContent
 #define DDATE(D) (D).dateLastEdited
 
-typedef int Address;
+typedef int AddressS;
 
 typedef struct {
     Word UserName;
     Draft Buffer[MaxElS];
-    Address DSTop;
+    AddressS DSTop;
 } StackDraft;
 
 #define UNAME(SD) (SD).UserName
@@ -69,7 +71,7 @@ boolean isFullListUserDraft(ListUserDraft LUD);
 boolean isUserDraft(ListUserDraft LUD, Word UserName);
 /* Mengirimkan true jika user dengan nama UserName adalah pengguna draft, false jika tidak */
 
-void PushStackDraft(StackDraft *SD, Draft D);
+void PushStackDraft(StackDraft *SD, Draft D, Word UserName);
 /* I.S. SD tidak penuh, mungkin kosong */
 /* F.S. Draft D dimasukkan ke dalam StackDraft SD dan menjadi TOPSD yang baru */
 
@@ -84,5 +86,8 @@ void insertNewUserDraft(ListUserDraft *LUD, StackDraft SD);
 void deleteDraftUser(ListUserDraft *LUD, Word UserName);
 /* I.S. LUD tidak kosong, mungkin penuh */
 /* F.S. StackDraft pengguna dengan nama UserName dihapus, LUDNeff berkurang 1 */
+
+int indexInLUD(ListUserDraft LUD, Word UserName);
+/* Mengirimkan index pengguna dengan nama UserName pada LUD */
 
 #endif
