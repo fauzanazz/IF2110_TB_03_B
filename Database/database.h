@@ -11,8 +11,11 @@
 #include "../ADT/Mesin-Kata/charmachine-file.h"
 #include "../ADT/Function/string-function.h"
 #include "../ADT/Mesin-Kata/wordmachine.h"
+#include "../ADT/boolean.h"
+#include "../ADT/Mesin-Kata/charmachine.h"
 #include "../ADT/pengguna/pengguna.h"
-#include "../ADT/Utas/utas.h"
+#include "../IO/muat.h"
+#include "../IO/simpan.h"
 #include <stdio.h>
 #include <stdlib.h>
 

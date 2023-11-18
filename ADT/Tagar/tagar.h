@@ -43,6 +43,7 @@ void Enum_Hash(Word hash, int * hashkey);
 
 void insertHash(HashTable * T, Kicau_struct kicauan);
 
-void Cari_Kicauan(HashTable T, Word key);
+//Konflik dengan tagar.c sebelumnya  HashTable T, word tagar
+void Cari_Kicauan(Word Tagar, HashTable *T);
 
 #endif

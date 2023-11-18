@@ -1,13 +1,4 @@
-#include <stdio.h>
-
-#include "ADT/Function/string-function.h"
-#include "ADT/Kicauan/kicauan.h"
-
-#include "ADT/Mesin-Kata/wordmachine.h"
-#include "ADT/Mesin-Kata/charmachine.h"
-#include "ADT/Function/string-function.h"
-
-
+#include "Database/database.h"
 
 int main(){
 
@@ -37,52 +28,71 @@ int main(){
 
     //* Inisialisasi ---------------------------------
 
-    // Load path konfigurasi
-    printf("Silahkan masukkan folder untuk dimuat: ");
-    STARTWORD();
-
-    // Load File
-    FILE *balasan;
-    FILE *draf;
-    FILE *kicauan;
-    FILE *pengguna;
-    FILE *utas;
+    Muat();
+ 
+    printf("File konfigurasi berhasil dimuat! Selamat berkicau!\n");
     
-    //! Belum di implementasikan Concat Char
-    // buka file
-    balasan = fopen(stringConcat(currentWord,"/balasan.config"),"r");
-    draf = fopen(stringConcat(currentWord,"/draf.config"),"r");
-    kicauan = fopen(stringConcat(currentWord,"/kicauan.config"),"r");
-    pengguna = fopen(stringConcat(currentWord,"/pengguna.config"),"r");
-    utas = fopen(stringConcat(currentWord,"/utas.config"),"r");
-    
-
-    // Cek file
-    // if (balasan == NULL|| draf == NULL|| kicauan == NULL|| pengguna == NULL|| utas == NULL) {
-    //     printf("File tidak dapat dibuka.\n");
-    //     return 1;
-    // }
-
-    printf("File konfigurasi berhasil dimuat!\n\n");
-    
-    //* Inisialisasi ---------------------------------
-
-    //* Input -------------------------------------
-
-    //TODO: Implementasikan Mesin kata    
     while (!CheckInput("TUTUP_PROGRAM")){
         printf(">> ");
         STARTWORD();
 
-        if (CheckInput("DAFTAR")){
-
-            //Do smth
+        if (CheckInput("DAFTAR")) {
+            // Do something
         } else if (CheckInput("MASUK")) {
-            //Do smth
+            // Do something
         } else if (CheckInput("KELUAR")) {
-            //Do smth
-
-        } 
+            // Do something
+        } else if (CheckInput("GANTI_PROFIL")) {
+            // Do something
+        } else if (CheckInput("LIHAT_PROFIL")) {
+            // Do something
+        } else if (CheckInput("ATUR_JENIS_AKUN")) {
+            // Do something
+        } else if (CheckInput("UBAH_FOTO_PROFIL")) {
+            // Do something
+        } else if (CheckInput("DAFTAR_TEMAN")) {
+            // Do something
+        } else if (CheckInput("HAPUS_TEMAN")) {
+            // Do something
+        } else if (CheckInput("TAMBAH_TEMAN")) {
+            // Do something
+        } else if (CheckInput("DAFTAR_PERMINTAAN_PERTEMANAN")) {
+            // Do something
+        } else if (CheckInput("SETUJUI_PERTEMANAN")) {
+            // Do something
+        } else if (CheckInput("KICAU")) {
+            // Do something
+        } else if (CheckInput("KICAUAN")) {
+            // Do something
+        } else if (CheckInput("SUKA_KICAUAN")) {
+            // Do something
+        } else if (CheckInput("UBAH_KICAUAN")) {
+            // Do something
+        } else if (CheckInput("BALAS")) {
+            // Do something
+        } else if (CheckInput("BALASAN")) {
+            // Do something
+        } else if (CheckInput("HAPUS_BALASAN")) {
+            // Do something
+        } else if (CheckInput("BUAT_DRAF")) {
+            // Do something
+        } else if (CheckInput("LIHAT_DRAF")) {
+            // Do something
+        } else if (CheckInput("UTAS")) {
+            // Do something
+        } else if (CheckInput("SAMBUNG_UTAS")) {
+            // Do something
+        } else if (CheckInput("HAPUS_UTAS")) {
+            // Do something
+        } else if (CheckInput("CETAK_UTAS")) {
+            // Do something
+        } else if (CheckInput("SIMPAN")) {
+            // Do something
+        } else if (CheckInput("MUAT")) {
+            Muat();
+        } else {
+            printf("\nPerintah tidak dikenali.\n");
+        }
     }
     
     printf("\nAnda telah keluar dari program BurBir.\nSampai jumpa di penjelajahan berikutnya.");
