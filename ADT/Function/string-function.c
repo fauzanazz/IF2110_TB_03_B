@@ -21,7 +21,7 @@ void stringCopy(char *dest, char *src) {
 }
 
 
-char *stringConcat(Word str1, char *str2) {
+char *concatWordCharToString(Word str1, char *str2) {
     char *result;
     int len1 = str1.Length;
     int len2 = 0;
@@ -37,6 +37,32 @@ char *stringConcat(Word str1, char *str2) {
         int i = 0;
         while (i < str1.Length) {
             *pResult++ = str1.TabWord[i++];
+        }
+        while (*str2) {
+            *pResult++ = *str2++;
+        }
+        *pResult = '\0';
+    }
+
+    return result;
+}
+
+char *concatString(char *str1, char *str2) {
+    char *result;
+    int len1 = 0;
+    int len2 = 0;
+
+    char *p;
+    for (p = str1; *p != '\0'; p++, len1++);
+    for (p = str2; *p != '\0'; p++, len2++);
+
+    result = (char *)malloc(len1 + len2 + 1); 
+
+    if (result != NULL) {
+        char *pResult = result;
+
+        while (*str1) {
+            *pResult++ = *str1++;
         }
         while (*str2) {
             *pResult++ = *str2++;

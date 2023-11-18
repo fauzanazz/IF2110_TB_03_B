@@ -1,0 +1,623 @@
+#include "../Database/database.h"
+#include <sys/stat.h>
+
+int idPengguna(char *nama){
+    int i = 0;
+    Word temp = createWordfromString(nama);
+    while (i < databasePengguna.usercount){
+        
+        if (isWordEqual(databasePengguna.user[i].Nama, temp)){
+            return i;
+        }
+        i++;
+    }
+    return -1;
+}
+
+//DONE
+void BacaPengguna(){
+    STARTFILE("IO/Input/Dummy/pengguna.config");
+
+    databasePengguna.usercount = currentCharF - '0';
+
+    ADVFILE();
+    ADVFILE();
+
+    int i = 0;
+    while (i < databasePengguna.usercount){
+        int j = 0;
+
+        //Baca nama
+        while (!EOPF && j < 20){
+            databasePengguna.user[i].Nama.TabWord[j++] = currentCharF;
+            databasePengguna.user[i].Nama.Length++;
+            ADVFILE();
+        }
+
+        //Baca Password
+        j = 0;
+        ADVFILE();
+        while (!EOPF && j < 20){
+            databasePengguna.user[i].Pass.TabWord[j++] = currentCharF;
+            ADVFILE();
+        }
+
+        //Baca Bio
+        j = 0;
+        ADVFILE();
+        while (!EOPF && j < 135){
+            databasePengguna.user[i].Bio.TabWord[j++] = currentCharF;
+            ADVFILE();
+        }
+
+        //Baca NoHP
+        j = 0;
+        ADVFILE();
+        while (!EOPF && j < 12){
+            databasePengguna.user[i].Phone.TabWord[j++] = currentCharF;
+            databasePengguna.user[i].Phone.Length++;
+            ADVFILE();
+        }
+
+        //Baca Weton
+        j = 0;
+        ADVFILE();
+        while (!EOPF && j < 12){
+            databasePengguna.user[i].Weton.TabWord[j++] = currentCharF;
+            databasePengguna.user[i].Weton.Length++;
+            ADVFILE();
+        }
+
+        //Baca Jenis Akun
+        char *temp = "";
+
+        j = 0;
+        ADVFILE();
+        while (!EOPF && j < 12){
+            temp = stringConcatChar(temp, currentCharF);
+            ADVFILE();
+        }
+        
+        if (stringCompare(temp, "Privat")){
+            databasePengguna.user[i].Publik = false;
+        } else {
+            databasePengguna.user[i].Publik = true;
+        }
+
+        //Baca FotoProfil
+        ADVFILE();
+        j = 0;
+        while (j < 5){
+            int k = 0;
+            while (k < 10){
+                IgnoreSpace();
+                databasePengguna.user[i].ProfilePic.pix[j][k] = (int) currentCharF;
+                k++;
+                ADVFILE();
+            }
+
+            ADVFILE();
+            j++;
+        }
+
+        i++;
+    }
+
+    CreateGraf(&GFriend);
+
+    int j;
+    for (i = 0; i < databasePengguna.usercount; i++){
+        for (j = 0; j < databasePengguna.usercount; j++){
+            IgnoreSpace();
+            GFriend.mat[i][j] = currentCharF - '0';
+            ADVFILE();
+        }
+    }
+
+    //Baca Permintaan Pertemanan
+    IgnoreSpace();
+    int k = currentCharF - '0';
+
+    MakeEmpty(&dataFriendRequest, k);
+    ADVFILE();
+    for (i = 0; i < k; i++){
+        friendRequest Temporary;
+        IgnoreSpace();
+        Temporary.id_target = currentCharF - '0';
+        ADVFILE();
+        IgnoreSpace();
+        Temporary.id_user = currentCharF - '0';
+        ADVFILE();
+        IgnoreSpace();
+        Temporary.popularity = currentCharF - '0';
+        ADVFILE();
+
+        Enqueue(&dataFriendRequest, Temporary);
+    }
+
+     CloseFile();
+}
+
+void PrintPengguna(){
+    int i = 0;
+    while (i < databasePengguna.usercount){
+        printf("Nama : ");
+        displayWord(databasePengguna.user[i].Nama);
+        printf("\n");
+        printf("Password : ");
+        displayWord(databasePengguna.user[i].Pass);
+        printf("\n");
+        printf("Bio : ");
+        displayWord(databasePengguna.user[i].Bio);
+        printf("\n");
+        printf("NoHP : ");
+        displayWord(databasePengguna.user[i].Phone);
+        printf("\n");
+        printf("Weton : ");
+        displayWord(databasePengguna.user[i].Weton);
+        printf("\n");
+        printf("Jenis Akun : ");
+        if (databasePengguna.user[i].Publik){
+            printf("Privat\n");
+        } else {
+            printf("Publik\n");
+        }
+        printf("Foto Profil : \n");
+        displayFotoProfil(databasePengguna.user[i].ProfilePic);
+        printf("\n");
+        i++;
+    }
+
+    int j;
+    for (i = 0; i < databasePengguna.usercount; i++){
+        for (j = 0; j < databasePengguna.usercount; j++){
+            printf("%d ", GFriend.mat[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+//DONE
+void BacaKicauan(){
+    STARTFILE("IO/Input/Dummy/kicauan.config");
+
+    int k = currentCharF - '0';
+
+    CreateListDinKicau(&dataKicau, k);
+
+    ADVFILE();
+    while (k > 0)
+    {
+        IgnoreSpace();
+        //ID KICAU
+        Kicau_struct kicauan;
+        kicauan.IdKicau = currentCharF - '0';
+
+        //ISI KICAU
+        ADVFILE();
+        IgnoreSpace();
+
+        Word isi = createWordfromString("");
+
+        int j = 0;
+        while (!EOPF && j < 280)
+        {
+            isi.TabWord[j++] = currentCharF;
+            isi.Length++;
+            ADVFILE();
+        }
+
+        kicauan.IsiKicauan = isi;
+
+        //JUMLAH LIKE
+        ADVFILE();
+        IgnoreSpace();
+        kicauan.JumlahLike = 0;
+        while (!EOPF)
+        {
+            kicauan.JumlahLike *= 10;
+            kicauan.JumlahLike += currentCharF - '0';
+            ADVFILE();
+        }
+
+        //ID PROFILE
+        IgnoreSpace();
+        char *temp = "";
+        while (!EOPF)
+        {
+            temp = stringConcatChar(temp, currentCharF);
+            ADVFILE();
+        }
+
+        //Mencari id Pengguna berdasarkan nama
+        kicauan.IdProfile = idPengguna(temp);
+
+        //TAGAR
+        ADVFILE();
+        j = 0;
+        char *temp2 = "";
+        while (!EOPF && j < 50)
+        {
+            temp2 = stringConcatChar(temp2, currentCharF);
+            ADVFILE();
+        }
+
+        kicauan.Tagar = createWordfromString(temp2);
+        
+
+        //DATE TIME
+        ADVFILE();
+        DATETIME currentTime;
+        int DD = 0;
+        while (currentCharF != '/')
+        {
+            DD *= 10;
+            DD += currentCharF - '0';
+            ADVFILE();
+        }
+
+        ADVFILE();
+        int MM = 0;
+        while (currentCharF != '/')
+        {
+            MM *= 10;
+            MM += currentCharF - '0';
+            ADVFILE();
+        }
+
+        ADVFILE();
+        int YYYY = 0;
+        while (currentCharF != ' ')
+        {
+            YYYY *= 10;
+            YYYY += currentCharF - '0';
+            ADVFILE();
+        }
+
+        ADVFILE();
+        int hh = 0;
+        while (currentCharF != ':')
+        {
+            hh *= 10;
+            hh += currentCharF - '0';
+            ADVFILE();
+        }
+
+        ADVFILE();
+        int mm = 0;
+        while (currentCharF != ':')
+        {
+            mm *= 10;
+            mm += currentCharF - '0';
+            ADVFILE();
+        }
+
+        ADVFILE();
+        int ss = 0;
+        while (!EOPF)
+        {
+            ss *= 10;
+            ss += currentCharF - '0';
+            ADVFILE();
+        }
+
+        CreateDATETIME(&currentTime, DD, MM, YYYY, hh, mm, ss);
+        
+        kicauan.TanggalTerbit = currentTime;
+
+        //Masukkan kicauan ke List Dinamis Data Kicauan
+        insertLastKicau(&dataKicau, kicauan);
+        ADVFILE();
+
+        k--;
+    }
+    
+}
+
+//DONE
+void BacaUtas(){
+    CreateListUtas(&dataUtas, 10);
+
+    STARTFILE("IO/Input/Dummy/utas.config");
+
+    int i = currentCharF - '0';
+
+    ADVFILE();
+    ADVFILE(); 
+
+    while (i > 0){
+
+        // ID KICAUAN
+        ListUtas tempUtas;
+
+        int idKicau = 0;
+
+        while (!EOPF)
+        {
+            idKicau *= 10;
+            idKicau += currentCharF - '0';
+            ADVFILE();
+        }
+        
+        CreateUtas(&tempUtas, idKicau);
+
+        ADVFILE();
+        IgnoreSpace();
+
+        //BANYAK UTAS
+        int j = currentCharF - '0';
+
+        ADVFILE();
+        while (j > 0){
+            IgnoreSpace(); 
+
+            Kicau_struct tempKicauan;
+            Word isi = createWordfromString("");
+
+            //ISI UTAS
+            int k = 0;
+            while (!EOPF){
+                isi.TabWord[k++] = currentCharF;
+                isi.Length++;
+                ADVFILE();
+            }
+            tempKicauan.IsiKicauan = isi;
+
+            IgnoreSpace();
+            char *temp = "";
+            while (!EOPF){
+                temp = stringConcatChar(temp, currentCharF);
+                ADVFILE();
+            }
+
+            //Mencari id Pengguna berdasarkan nama
+            tempKicauan.IdProfile = idPengguna(temp);
+
+            IgnoreSpace();
+
+            //DATE TIME
+            DATETIME currentTime;
+            int DD = 0;
+            while (currentCharF != '/')
+            {
+                DD *= 10;
+                DD += currentCharF - '0';
+                ADVFILE();
+            }
+
+            ADVFILE();
+            int MM = 0;
+            while (currentCharF != '/')
+            {
+                MM *= 10;
+                MM += currentCharF - '0';
+                ADVFILE();
+            }
+
+            ADVFILE();
+            int YYYY = 0;
+            while (currentCharF != ' ')
+            {
+                YYYY *= 10;
+                YYYY += currentCharF - '0';
+                ADVFILE();
+            }
+
+            ADVFILE();
+            int hh = 0;
+            while (currentCharF != ':')
+            {
+                hh *= 10;
+                hh += currentCharF - '0';
+                ADVFILE();
+            }
+
+            ADVFILE();
+            int mm = 0;
+            while (currentCharF != ':')
+            {
+                mm *= 10;
+                mm += currentCharF - '0';
+                ADVFILE();
+            }
+
+            ADVFILE();
+            int ss = 0;
+            while (!EOPF)
+            {
+                ss *= 10;
+                ss += currentCharF - '0';
+                ADVFILE();
+            }
+
+            CreateDATETIME(&currentTime, DD, MM, YYYY, hh, mm, ss);
+
+            tempKicauan.IdKicau = -1;
+            tempKicauan.TanggalTerbit = currentTime;
+            tempKicauan.Tagar = createWordfromString("");
+            tempKicauan.JumlahLike = 0;
+
+            insertLastUtas(&tempUtas, tempKicauan);
+            j--;
+        }
+        
+        insertLastListUtas(&dataUtas, tempUtas);
+
+        ADVFILE();
+        i--;
+    }
+}
+
+void SimpanPengguna(char *folder_path){
+
+    // Create folder if it doesn't exist
+    if (mkdir(folder_path, 0777) != 0) {
+        printf("Folder already exist.");
+    }
+
+    FILE *file = fopen(concatString(folder_path, "/pengguna.config"), "w");
+
+    // Check if the file was opened successfully
+    if (file == NULL) {
+        perror("Error opening file");
+        return;
+    }
+
+    //print banyak user
+    fprintf(file, "%d\n", databasePengguna.usercount);
+
+    int i;
+
+    for (i = 0; i < databasePengguna.usercount; i++){
+        fprintf(file, "%s\n", databasePengguna.user[i].Nama.TabWord);
+        fprintf(file, "%s\n", databasePengguna.user[i].Pass.TabWord);
+        fprintf(file, "%s\n", databasePengguna.user[i].Bio.TabWord);
+        fprintf(file, "%s\n", databasePengguna.user[i].Phone.TabWord);
+        fprintf(file, "%s\n", databasePengguna.user[i].Weton.TabWord);
+
+        if (databasePengguna.user[i].Publik){
+            fprintf(file, "Publik\n");
+        } else {
+            fprintf(file, "Privat\n");
+        }
+
+        int j, k;
+        Foto foto = databasePengguna.user[i].ProfilePic;
+
+        for (j = 0; j < 5; j++){
+            for (k = 0; k < 10; k++){
+                fprintf(file, "%c", (char) foto.pix[j][k]);
+
+                if (k != 10){
+                    fprintf(file, " ");
+                }
+            }
+            fprintf(file, "\n");
+        }
+    }
+
+    //Graf Pertemanan
+    int j, k;
+    for (j = 0; j < databasePengguna.usercount; j++){
+        for (k = 0; k < databasePengguna.usercount; k++){
+            fprintf(file, "%d", GFriend.mat[j][k]);
+
+            if (k != databasePengguna.usercount - 1){
+                fprintf(file, " ");
+            }
+        }
+        fprintf(file, "\n");
+    }
+
+    //Permintaan Pertemanan
+    fprintf(file, "%d\n", dataFriendRequest.MaxElement);
+    for (j = 0; j < dataFriendRequest.MaxElement; j++){
+        fprintf(file, "%d %d %d\n", dataFriendRequest.T[j].id_target, dataFriendRequest.T[j].id_user, dataFriendRequest.T[j].popularity);
+    }
+
+    fclose(file);
+}
+
+void SimpanKicauan(char *folder_path){
+
+    // Create folder if it doesn't exist
+    if (mkdir(folder_path, 0777) != 0) {
+        printf("Folder already exist.");
+    }
+
+    FILE *file = fopen(concatString(folder_path, "/kicauan.config"), "w");
+
+    // Check if the file was opened successfully
+    if (file == NULL) {
+        perror("Error opening file");
+        return;
+    }
+
+    //print banyak kicauan
+    fprintf(file, "%d\n", dataKicau.nEff);
+
+    int i;
+
+    for (i = 0; i < dataKicau.nEff; i++){
+        fprintf(file, "%d\n", dataKicau.buffer[i].IdKicau);
+        fprintf(file, "%s\n", dataKicau.buffer[i].IsiKicauan.TabWord);
+        fprintf(file, "%d\n", dataKicau.buffer[i].JumlahLike);
+        fprintf(file, "%s\n", databasePengguna.user[dataKicau.buffer[i].IdProfile].Nama.TabWord);
+        fprintf(file, "%d\n", dataKicau.buffer[i].IdKicau);
+
+        //DATE TIME
+        DATETIME tempDate = dataKicau.buffer[i].TanggalTerbit;
+        fprintf(file, "%d/", tempDate.DD);
+        fprintf(file, "%d/", tempDate.MM);
+        fprintf(file, "%d ", tempDate.YYYY);
+        fprintf(file, "%d:", tempDate.T.HH);
+        fprintf(file, "%d:", tempDate.T.MM);
+        fprintf(file, "%d\n", tempDate.T.SS);
+    }
+
+    fclose(file);
+}
+
+void SimpanUtas(char *folder_path){
+
+    // Create folder if it doesn't exist
+    if (mkdir(folder_path, 0777) != 0) {
+        printf("Folder already exist.");
+    }
+
+    FILE *file = fopen(concatString(folder_path, "/utas.config"), "w");
+
+    // Check if the file was opened successfully
+    if (file == NULL) {
+        perror("Error opening file");
+        return;
+    }
+
+    //print banyak utas
+    fprintf(file, "%d\n", dataUtas.neff);
+    int i;
+
+    for (i = 0; i < dataUtas.neff; i++){
+        fprintf(file, "%d\n", dataUtas.ListUtas[i].id_kicauan);
+        fprintf(file, "%d\n", dataUtas.ListUtas[i].neff);
+
+        AddressUtas P = dataUtas.ListUtas[i].Utas;
+
+        while (P != NULL){
+            Word temp = createWordfromString("");
+            temp = P->info.IsiKicauan;
+            
+            int j = 0;
+            while (j < temp.Length){
+                fprintf(file, "%c", temp.TabWord[j++]);
+            }
+            
+            fprintf(file, "\n%s\n", databasePengguna.user[P->info.IdProfile].Nama.TabWord);
+
+            DATETIME tempDate = P->info.TanggalTerbit;
+            fprintf(file, "%d/", tempDate.DD);
+            fprintf(file, "%d/", tempDate.MM);
+            fprintf(file, "%d ", tempDate.YYYY);
+            fprintf(file, "%d:", tempDate.T.HH);
+            fprintf(file, "%d:", tempDate.T.MM);
+            fprintf(file, "%d\n", tempDate.T.SS);
+
+            P = NEXTUtas(P);
+        }
+    }
+
+    fclose(file);
+}
+
+int main(){
+    BacaPengguna();
+    BacaKicauan();
+    BacaUtas();
+
+
+    SimpanPengguna("IO/Output/Dummy");
+    SimpanKicauan("IO/Output/Dummy");
+    SimpanUtas("IO/Output/Dummy");
+
+    return 0;
+}

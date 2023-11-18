@@ -16,6 +16,7 @@ typedef struct{ // Linked List
     int neff;
 }  ListUtas;
 
+/*ID UTAS merupakan id ListUtas di Listkicauan utas dimulai dari 0*/
 typedef struct{ // List Dinamis
     ListUtas *ListUtas;
     int neff;
@@ -30,6 +31,7 @@ typedef struct{ // List Dinamis
 #define NEXTUtas(U) (U)->next
 
 void CreateListUtas(ListKicauanUtas *l, int capacity);
+
 void dealocateListUtas(ListKicauanUtas *l);
 /* ********** SELEKTOR (TAMBAHAN) ********** */
 /* *** Banyaknya elemen *** */

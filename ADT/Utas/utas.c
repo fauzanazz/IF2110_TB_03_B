@@ -86,7 +86,7 @@ AddressUtas newUtas(Kicau_struct val){
 
 void CreateUtas(ListUtas *l, int id_kicauan){
     (*l).id_kicauan = id_kicauan;
-    (*l).neff = 1;
+    (*l).neff = 0;
     (*l).Utas= NULL;
 }
 
@@ -109,6 +109,7 @@ void insertLastUtas(ListUtas *l, Kicau_struct val){
     if (new != NULL){
         if (p == NULL){
             (*l).Utas = new;
+            (*l).neff++;
         } else {
             while (NEXTUtas(p) != NULL){
                 p = NEXTUtas(p);
@@ -123,14 +124,19 @@ void insertAtUtas(ListUtas *l, Kicau_struct val, int idx){
     AddressUtas p = (*l).Utas;
     AddressUtas new = newUtas(val);
     if (new != NULL){
-        int i;
-        for (i = 0; i < idx-1; i++){
-            p = NEXTUtas(p);
+        if (idx == 0){
+            NEXTUtas(new) = (*l).Utas;
+            (*l).Utas = new;
+            (*l).neff++;
+        } else {
+            int i;
+            for (i = 0; i < idx-1; i++){
+                p = NEXTUtas(p);
+            }
+            NEXTUtas(new) = NEXTUtas(p);
+            NEXTUtas(p) = new;
+            (*l).neff++;
         }
-
-        NEXTUtas(new) = NEXTUtas(p);
-        NEXTUtas(p) = new;
-        (*l).neff++;
     }
 }
 
@@ -158,21 +164,26 @@ void cetakUtas(int idUtas){
         return;
     }
 
+    int idPemilikUtas = dataKicau.buffer[dataUtas.ListUtas[idUtas].id_kicauan].IdProfile;
+    if (idPemilikUtas != ActiveUser && !ELMTG(GFriend, idPemilikUtas, ActiveUser) && !databasePengguna.user[idPemilikUtas].Publik){
+        printf("Akun author private, silahkan follow terlebih dahulu\n");
+        return;
+    }
+
     ListUtas tempUtas = dataUtas.ListUtas[idUtas];
-    AddressUtas p = tempUtas.Utas;
     Word user =  databasePengguna.user[tempUtas.Utas->info.IdProfile].Nama;
 
     printf("| ID = %d\n", tempUtas.id_kicauan);
     printf("| ");
     displayWord(user);
     printf("| ");
-    TulisDATETIME(p->info.TanggalTerbit);
+    TulisDATETIME(dataKicau.buffer[tempUtas.id_kicauan].TanggalTerbit);
     printf("\n");
     printf("| ");
-    displayWord(p->info.IsiKicauan);
+    displayWord(dataKicau.buffer[tempUtas.id_kicauan].IsiKicauan);
     printf("\n");
-
-    p = NEXTUtas(p);
+    
+    AddressUtas p = tempUtas.Utas;
     int i = 1;
     while (p != NULL){
         printf("    | INDEX = %d\n", i++);
@@ -237,13 +248,13 @@ void BuatUtas(int idKicau){
 
         insertLastUtas(&tempUtas, tempKicauan);
 
-        printf("Apakah Anda ingin melanjutkan utas ini? (YA/TIDAK)");
+        printf("Apakah Anda ingin melanjutkan utas ini? (YA/TIDAK)\n");
 
         STARTWORD();
-        displayWord(currentWord);
 
     } while (CheckInput("YA"));
 
+    printf("%d", tempUtas.neff);
     insertLastListUtas(&dataUtas, tempUtas);
 }
 
@@ -253,7 +264,8 @@ void SambungUtas(int idUtas, int idx){
         return;
     }
 
-    if (idx >= dataUtas.ListUtas[idUtas].neff || idx <= 0){
+    printf("%d", dataUtas.ListUtas[idUtas].neff);
+    if (idx - 1 >= dataUtas.ListUtas[idUtas].neff || idx - 1 < 0){
         printf("Index tidak valid\n");
         return;
     }
@@ -289,7 +301,7 @@ void SambungUtas(int idUtas, int idx){
     tempKicauan.Tagar = dataKicau.buffer[dataUtas.ListUtas[idUtas].id_kicauan].Tagar;
     tempKicauan.JumlahLike = 0;
 
-    insertAtUtas(&dataUtas.ListUtas[idUtas], tempKicauan, idx);
+    insertAtUtas(&dataUtas.ListUtas[idUtas], tempKicauan, idx - 1);
 
 }
 
@@ -304,7 +316,7 @@ void HapusUtas(int idUtas, int idx){
         return;
     }
 
-    if (idx >= dataUtas.ListUtas[idUtas].neff || idx < 0){
+    if (idx >= dataUtas.ListUtas[idUtas].neff || idx <= 0){
         printf("Index tidak valid.\n");
         return;
     }
@@ -314,7 +326,7 @@ void HapusUtas(int idUtas, int idx){
         return;
     }
 
-    deleteAt(&dataUtas.ListUtas[idUtas].Utas, idx);
+    deleteAt(&dataUtas.ListUtas[idUtas].Utas, idx - 1);
     dataUtas.ListUtas[idUtas].neff--;
 
     printf("Kicauan sambungan berhasil dihapus.\n");

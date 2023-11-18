@@ -8,12 +8,13 @@
 #include "../ADT/draf/draf.h"
 #include "../ADT/Kicauan/kicauan.h"
 #include "../ADT/Utas/utas.h"
-#include "../IO/charmachine-file.h"
+#include "../ADT/Mesin-Kata/charmachine-file.h"
 #include "../ADT/Function/string-function.h"
 #include "../ADT/Mesin-Kata/wordmachine.h"
 #include "../ADT/pengguna/pengguna.h"
 #include "../ADT/Utas/utas.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 extern ListPengguna databasePengguna;
 extern Graf GFriend;

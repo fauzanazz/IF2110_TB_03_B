@@ -4,8 +4,6 @@
 
 #include "charmachine-file.h"
 
-#include <stdio.h>
-
 char currentCharF;
 boolean EOPF;
 
