@@ -59,6 +59,8 @@ void CopyWord()
           currentChar adalah karakter sesudah karakter terakhir yang diakuisisi.
           Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
 {
+   currentWord = createWordfromString("");
+   
    int i = 0;
    while (currentChar != MARK && currentChar != BLANK && currentChar != LINEFEED){
       currentWord.TabWord[i] = currentChar;

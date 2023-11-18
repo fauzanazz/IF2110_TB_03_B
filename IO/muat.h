@@ -17,6 +17,6 @@ void MuatKicauan(char* file_path);
 
 void MuatUtas(char* file_path);
 
-void Muat();
+int Muat();
 
 #endif

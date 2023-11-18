@@ -83,12 +83,15 @@ void deleteNode(TreeNode* parent, int target) {
 
 TreeNode* SearchTree(ListTree *lt, int target){
 
-    for(int i = 0; i < NEFFListTree(*lt); i++) {
+    int i;
+    for( i = 0; i < NEFFListTree(*lt); i++) {
         if(INGFO(*ELMTListTree(*lt, i)) == target) {
             return ELMTListTree(*lt,i);
         }
     }
-    printf("Tidak terdapat Tree dengan target tersebut pada list tree\n");      
+    printf("Tidak terdapat Tree dengan target tersebut pada list tree\n");
+
+    return NULL;      
 }
 
 
@@ -116,10 +119,10 @@ void CreateListTree(ListTree *lt, int capacity)
 /* F.S. Terbentuk list dinamis l kosong dengan kapasitas capacity dan diisi tree */
 {
     NEFFListTree(*lt) = 0;
-    ContentListTree(*lt) = (ListTree *)malloc(capacity * sizeof(ListTree));
+    ContentListTree(*lt) = (TreeNode *)malloc(capacity * sizeof(TreeNode));
     CAPACITYLISTTREE(*lt) = capacity;
 }
-void dealocateTrees(ListTree *lt)
+void deallocateTrees(ListTree *lt)
 /* I.S. l terdefinisi; */
 /* F.S. (l) dikembalikan ke system, CAPACITY(l)=0; NEFF(l)=0 */
 {

@@ -15,7 +15,7 @@ int idPengguna(char *nama){
 }
 
 void MuatPengguna(char* file_path){
-    STARTFILE("IO/Input/Dummy/pengguna.config");
+    STARTFILE(concatString(file_path, "/pengguna.config"));
 
     databasePengguna.usercount = currentCharF - '0';
 
@@ -177,7 +177,7 @@ void PrintPengguna(){
 }
 
 void MuatKicauan(char *file_path){
-    STARTFILE("IO/Input/Dummy/kicauan.config");
+    STARTFILE(concatString(file_path, "/kicauan.config"));
 
     int k = currentCharF - '0';
 
@@ -315,7 +315,7 @@ void MuatKicauan(char *file_path){
 void MuatUtas(char *file_path){
     CreateListUtas(&dataUtas, 10);
 
-    STARTFILE("IO/Input/Dummy/utas.config");
+    STARTFILE(concatString(file_path, "/utas.config"));
 
     int i = currentCharF - '0';
 
@@ -445,12 +445,18 @@ void MuatUtas(char *file_path){
     }
 }
 
-void Muat(){
+int Muat(){
     printf("\nMasukkan folder konfigurasi untuk dimuat:\n");
 
     STARTWORD();
 
-    printf("Anda akan melakukan pemuatan dari folder %s\n", currentWord.TabWord);
+    struct stat st;
+    
+    // Use stat to check if the folder exists
+    if (stat(currentWord.TabWord, &st) == 0 && S_ISDIR(st.st_mode)) {
+        return 1;
+    }
 
-    return;
+    printf("Folder tidak ditemukan.\n");
+    return 0;
 }

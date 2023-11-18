@@ -28,10 +28,15 @@ int main(){
     printf("             ~~                       ~~                       \\|___|                   ~~                       \\/____/                  \\|___|    \n");
     printf("\n\n");
 
-    //* Inisialisasi ---------------------------------
+    //* Inisialisasi --------------------------------
 
-    Muat();
- 
+    int muat = 0;
+
+    do {
+        muat = Muat();
+    }
+    while (!muat);
+
     printf("File konfigurasi berhasil dimuat! Selamat berkicau!\n");
 
     while (!CheckInput("TUTUP_PROGRAM")){

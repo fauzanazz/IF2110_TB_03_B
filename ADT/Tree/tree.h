@@ -2,6 +2,7 @@
 #define TREE_H
 
 #include "../boolean.h"
+#include <stdlib.h>
 
 /* Definisi elemen dan koleksi objek */
 typedef struct TreeNode {
@@ -48,7 +49,7 @@ void CreateListTree(ListTree *lt, int capacity);
 /* I.S. l sembarang, capacity > 0 */
 /* F.S. Terbentuk list dinamis l kosong dengan kapasitas capacity dan diisi tree */
 
-void dealocateTrees(ListTree *lt);
+void deallocateTrees(ListTree *lt);
 /* I.S. l terdefinisi; */
 /* F.S. (l) dikembalikan ke system, CAPACITY(l)=0; NEFF(l)=0 */
 
