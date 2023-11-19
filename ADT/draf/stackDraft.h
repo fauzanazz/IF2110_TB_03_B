@@ -4,7 +4,6 @@
 #include "../boolean.h"
 #include "../Mesin-Kata/charmachine.c"
 #include "../Mesin-Kata/wordmachine.c"
-#include <datetime.h>
 #include "../Time/datetime.h"
 
 #define NilS -1

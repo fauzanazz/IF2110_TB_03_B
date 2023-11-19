@@ -1,5 +1,6 @@
 
 #include "simpan.h"
+#include <sys/stat.h>
 
 void SimpanPengguna(char *folder_path){
 
@@ -93,7 +94,14 @@ void SimpanKicauan(char *folder_path){
 
     for (i = 0; i < dataKicau.nEff; i++){
         fprintf(file, "%d\n", dataKicau.buffer[i].IdKicau);
-        fprintf(file, "%s\n", dataKicau.buffer[i].IsiKicauan.TabWord);
+        
+        int j = 0;
+        while (j < dataKicau.buffer[i].IsiKicauan.Length)
+        {
+            fprintf(file, "%c", dataKicau.buffer[i].IsiKicauan.TabWord[j]);
+            j++;
+        }
+        
         fprintf(file, "%d\n", dataKicau.buffer[i].JumlahLike);
         fprintf(file, "%s\n", databasePengguna.user[dataKicau.buffer[i].IdProfile].Nama.TabWord);
         fprintf(file, "%d\n", dataKicau.buffer[i].IdKicau);
@@ -137,7 +145,12 @@ void SimpanUtas(char *folder_path){
         AddressUtas P = dataUtas.ListUtas[i].Utas;
 
         while (P != NULL){
-            fprintf(file, "%s\n", P->info.IsiKicauan.TabWord);
+            int j = 0;
+            while (j < P->info.IsiKicauan.Length)
+            {
+                fprintf(file, "%c", P->info.IsiKicauan.TabWord[j]);
+                j++;
+            }
             fprintf(file, "%s\n", databasePengguna.user[P->info.IdProfile].Nama.TabWord);
 
             DATETIME tempDate = P->info.TanggalTerbit;
@@ -147,8 +160,18 @@ void SimpanUtas(char *folder_path){
             fprintf(file, "%d:", tempDate.T.HH);
             fprintf(file, "%d:", tempDate.T.MM);
             fprintf(file, "%d\n", tempDate.T.SS);
+
+            P = NEXTUtas(P);
         }
     }
 
     fclose(file);
+}
+
+void Simpan(){
+    SimpanPengguna("IO/Output/Dummy");
+    SimpanKicauan("IO/Output/Dummy");
+    SimpanUtas("IO/Output/Dummy");
+
+    return;
 }

@@ -79,10 +79,10 @@ void buatDraft(){
             DDATE(content) = currentDate;
 
             // Pengecekan apakah current user adalah pengguna draft atau bukan
-            if (!isUserDraft(dataDraf, databasePengguna[activeUser].Nama)){ // Jika awalnya bukan pengguna draft
+            if (!isUserDraft(dataDraf, databasePengguna.user[ActiveUser].Nama)){ // Jika awalnya bukan pengguna draft
                 // Buat stack baru untuk user
                 CreateEmptyStackDraft(&stackDraft);
-                UNAME(stackDraft) = databasePengguna[activeUser].Nama;
+                UNAME(stackDraft) = databasePengguna.user[ActiveUser].Nama;
                 ADDR_TOPSD(stackDraft)++;
                 TOPSD(stackDraft) = content;
 
@@ -90,10 +90,10 @@ void buatDraft(){
                 insertNewUserDraft(&dataDraf, stackDraft);
             } else { // Jika memang pengguna draft
                 // Ambil index user pada list pengguna draft
-                idxInLUD = indexInLUD(dataDraf, databasePengguna[activeUser].Nama);
+                idxInLUD = indexInLUD(dataDraf, databasePengguna.user[ActiveUser].Nama);
 
                 // Push draft ke stack pengguna
-                PushStackDraft(&LUD_IDX(dataDraf, idxInLUD), content, databasePengguna[activeUser].Nama);
+                PushStackDraft(&LUD_IDX(dataDraf, idxInLUD), content, databasePengguna.user[ActiveUser].Nama);
             }
 
             if (isWordEqual(input, terbit)){ // Jika ingin diterbitkan
@@ -150,11 +150,11 @@ void lihatDraft(){
     kembali.TabWord[6] = 'I';
     kembali.Length = 7;
 
-    if (!isUserDraft(dataDraf, databasePengguna[activeUser].Nama)){ // Jika bukan pengguna draft, artinya tidak memiliki draft
+    if (!isUserDraft(dataDraf, databasePengguna.user[ActiveUser].Nama)){ // Jika bukan pengguna draft, artinya tidak memiliki draft
         printf("Yah, anda belum memiliki draf apapun! Buat dulu ya :D\n");
     } else { // Jika pengguna draft
         // Ambil index user pada list pengguna draft dan isi top pada stack draft
-        idxInLUD = indexInLUD(dataDraf, databasePengguna[activeUser].Nama);
+        idxInLUD = indexInLUD(dataDraf, databasePengguna.user[ActiveUser].Nama);
         content = TOPSD(LUD_IDX(dataDraf, idxInLUD));
         
         // Tampilkan draft terakhir yang dibuat
@@ -197,7 +197,7 @@ void editDraft(){
     /* KAMUS LOKAL */
     int idxInLUD, draftNewLength;
     Word draftNewContent, input, hapus, simpan, terbit;
-    Draft content, newContent;
+    Draft newContent; //content
     boolean blank, valid;
     time_t currentTime;
     DATETIME currentDate;
@@ -226,8 +226,8 @@ void editDraft(){
     terbit.Length = 6;
 
     // Data index user pada list pengguna draft dan draft pada top stack
-    idxInLUD = indexInLUD(dataDraf, databasePengguna[activeUser].Nama);
-    content = TOPSD(LUD_IDX(dataDraf, idxInLUD));
+    idxInLUD = indexInLUD(dataDraf, databasePengguna.user[ActiveUser].Nama);
+    // content = TOPSD(LUD_IDX(dataDraf, idxInLUD));
 
     // Membuat perubahan pada draft
     printf("Masukkan draf yang baru:\n");
@@ -294,14 +294,14 @@ void hapusDraft(){
 
     /* ALGORITMA */
     // Data index user pada list pengguna draft dan draft pada top stack
-    idxInLUD = indexInLUD(dataDraf, databasePengguna[activeUser].Nama);
+    idxInLUD = indexInLUD(dataDraf, databasePengguna.user[ActiveUser].Nama);
     content = TOPSD(LUD_IDX(dataDraf, idxInLUD));
 
     // Pop stack draft dari Stack Draft
-    PopStackDraft(&TOPSD(LUD_IDX(dataDraf, idxInLUD)), &content);
+    PopStackDraft(&LUD_IDX(dataDraf, idxInLUD), &content);
 
     if (ADDR_TOPSD(LUD_IDX(dataDraf, idxInLUD)) == NilS){ // Jika stack draft menjadi kosong, artinya user tidak lagi menjadi pengguna draft dan dihapus dari list pengguna draft
-        deleteDraftUser(&dataDraf, databasePengguna[activeUser].Nama);
+        deleteDraftUser(&dataDraf, databasePengguna.user[ActiveUser].Nama);
     }
 }
 
@@ -319,7 +319,7 @@ void terbitDraft(){
 
     /* ALGORITMA */
     // Data index user pada list pengguna draft dan draft pada top stack
-    idxInLUD = indexInLUD(dataDraf, databasePengguna[activeUser].Nama);
+    idxInLUD = indexInLUD(dataDraf, databasePengguna.user[ActiveUser].Nama);
     content = TOPSD(LUD_IDX(dataDraf, idxInLUD));
     draftContent = DCONTENT(content);
 
@@ -329,7 +329,7 @@ void terbitDraft(){
 
     // Menerbitkan draf
     draftKicau.IdKicau = getLastIdxKicau(dataKicau) + 1;
-    draftKicau.IdProfile = databasePengguna[activeUser].idProfile;
+    draftKicau.IdProfile = ActiveUser;
     draftKicau.TanggalTerbit = currentDate;
     draftKicau.IsiKicauan = draftContent;
     // draftKicau.Tagar = tagar;

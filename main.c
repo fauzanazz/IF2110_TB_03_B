@@ -37,7 +37,7 @@ int main(){
     }
     while (!muat);
 
-    printf("File konfigurasi berhasil dimuat! Selamat berkicau!\n");
+    printf("Selamat berkicau!\n");
 
     while (!CheckInput("TUTUP_PROGRAM")){
         printf(">> ");
@@ -94,10 +94,10 @@ int main(){
         } else if (CheckInput("CETAK_UTAS")) {
             // Do something
         } else if (CheckInput("SIMPAN")) {
-            // Do something
+            Simpan();
         } else if (CheckInput("MUAT")) {
             Muat();
-        } else {
+        } else if (!CheckInput("TUTUP_PROGRAM")){
             printf("\nPerintah tidak dikenali.\n");
         }
     }

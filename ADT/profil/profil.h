@@ -1,7 +1,7 @@
 #ifndef PROFIL_H
 #define PROFIL_H
 
-#include "../pengguna/pengguna.h"
+#include "../Pengguna/pengguna.h"
 #include "../Mesin-Kata/charmachine.h"
 #include "../Mesin-Kata/wordmachine.h"
 #include "../matrixprofil/matrixprofil.h"

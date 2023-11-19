@@ -1,5 +1,4 @@
 #include "muat.h"
-#include "../ADT/Utas/utas.h"
 
 int idPengguna(char *nama){
     int i = 0;
@@ -445,6 +444,10 @@ void MuatUtas(char *file_path){
     }
 }
 
+// void MuatDraf(){
+//     CreateEmptyListUserDraft(&dataDraf);
+// }
+
 int Muat(){
     printf("\nMasukkan folder konfigurasi untuk dimuat:\n");
 
@@ -453,10 +456,24 @@ int Muat(){
     struct stat st;
     
     // Use stat to check if the folder exists
-    if (stat(currentWord.TabWord, &st) == 0 && S_ISDIR(st.st_mode)) {
-        return 1;
-    }
+    char *inputFolder = concatWordCharToString(currentWord, "");
+    if (stat(inputFolder, &st) == 0 && S_ISDIR(st.st_mode)) {
+        printf("\nAnda akan melakukan pemuatan dari folder %s\n", inputFolder);
 
-    printf("Folder tidak ditemukan.\n");
+        MuatPengguna(inputFolder);
+        MuatKicauan(inputFolder);
+        MuatUtas(inputFolder);
+
+        printf("Mohon tunggu...\n");
+        printf("1..\n");
+        printf("2..\n");
+        printf("3..\n");
+
+        printf("\nFolder konfigurasi berhasil dimuat!\n");
+
+        return 1;
+    } else {
+        printf("Folder tidak ditemukan.\n");
+    }
     return 0;
 }
