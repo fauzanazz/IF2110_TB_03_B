@@ -179,16 +179,18 @@ void Masuk(ListPengguna *lp){
         while (!Valid){
             printf("Masukkan nama:\n");
             START();
-            i=0;
+
+            char *tempInputNama = "";
             while (currentChar != MARK /* && currentChar != LINEFEED */){
                 if(currentChar != LINEFEED){
                     currentWord.TabWord[i]=currentChar;
+                    tempInputNama = stringConcatChar(tempInputNama, currentChar);
                 }
                 ADV();
-                i++;
             }
+            currentWord = createWordfromString(tempInputNama);
+
             ADV();
-            currentWord.Length = i;
             if (i > 20){
                 printf("Nama Terlalu Panjang!\n");
             }

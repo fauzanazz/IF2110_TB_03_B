@@ -133,7 +133,7 @@ void Kicau(ListDin * listKicauan){
         ConvertTimeTtoDATETIME(current_time, &currentTime);
 
         Kicau_struct kicauan;
-        kicauan.IdKicau = getLastIdxKicau(*listKicauan) + 1;
+        kicauan.IdKicau = (*listKicauan).buffer[getLastIdxKicau(*listKicauan)].IdKicau + 1;
         kicauan.IdProfile = idProfile;
         kicauan.TanggalTerbit = currentTime;
         kicauan.IsiKicauan = IsiKicauan;
@@ -183,19 +183,22 @@ void Ubah_Kicau(ListDin * ListKicauan, int idKicauan, int idPengguna){
     if (indexkicau != -1) {
         if (ListKicauan->buffer[indexkicau].IdProfile == idPengguna) {
             printf("Masukkan kicauan: \n");
+
             START();
             int i = 0;
-            boolean blank = false;
-            while (currentChar != MARK) {
-                if (currentChar != BLANK){
-                    blank = true;
-                }
-                if (blank) currentWord.TabWord[i] = currentChar;
+            IgnoreBlanks();
+            while (currentChar != MARK && i < 280) {
+                currentWord.TabWord[i++] = currentChar;
+                currentWord.Length++;
                 ADV();
-                i++;
             }
+
             IsiKicauan = currentWord;
             ListKicauan->buffer[indexkicau].IsiKicauan = IsiKicauan;
+            time(&current_time);
+            ConvertTimeTtoDATETIME(current_time, &currentTime);
+            ListKicauan->buffer[indexkicau].TanggalTerbit = currentTime;
+
             printf("Selamat! kicauan telah diterbitkan!\n");
             printf("Detil kicauan:\n");
             ShowKicau(ListKicauan->buffer[indexkicau]);

@@ -173,14 +173,16 @@ void cetakUtas(int idUtas){
     ListUtas tempUtas = dataUtas.ListUtas[idUtas];
     Word user =  databasePengguna.user[tempUtas.Utas->info.IdProfile].Nama;
 
+    int idxKicauan = cariKicauan(dataKicau, tempUtas.id_kicauan);
+
     printf("| ID = %d\n", tempUtas.id_kicauan);
     printf("| ");
     displayWord(user);
     printf("| ");
-    TulisDATETIME(dataKicau.buffer[tempUtas.id_kicauan].TanggalTerbit);
+    TulisDATETIME(dataKicau.buffer[idxKicauan].TanggalTerbit);
     printf("\n");
     printf("| ");
-    displayWord(dataKicau.buffer[tempUtas.id_kicauan].IsiKicauan);
+    displayWord(dataKicau.buffer[idxKicauan].IsiKicauan);
     printf("\n");
     
     AddressUtas p = tempUtas.Utas;
@@ -201,7 +203,7 @@ void cetakUtas(int idUtas){
 };
 
 void BuatUtas(int idKicau){
-    if (!isIdxValidKicau(dataKicau, idKicau)){
+    if (cariKicauan(dataKicau, idKicau) == -1){
         printf("Tidak ada kicauan dengan id %d\n", idKicau);
         return;
     }
@@ -251,7 +253,6 @@ void BuatUtas(int idKicau){
 
     } while (CheckInput("YA"));
 
-    printf("%d", tempUtas.neff);
     insertLastListUtas(&dataUtas, tempUtas);
 }
 

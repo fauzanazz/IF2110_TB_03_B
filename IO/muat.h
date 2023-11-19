@@ -3,6 +3,7 @@
 
 #include "../Database/database.h"
 #include "../ADT/draf/stackDraft.h"
+#include "../ADT/Mesin-Kata/wordmachine-file.h"
 #include <sys/stat.h>
 #include <sys/types.h>
 
@@ -18,7 +19,7 @@ void MuatKicauan(char* file_path);
 
 void MuatUtas(char* file_path);
 
-void MuatDraf();
+void MuatDraf(char* file_path);
 
 int Muat();
 

@@ -133,3 +133,25 @@ boolean isWordEqual(Word s1, Word s2){
    return true;
 }
 
+int WordToInt(Word w1){
+   int i;
+   int result = 0;
+   for (i = 0; i < w1.Length; i++){
+      result = result * 10 + (w1.TabWord[i] - '0');
+   }
+
+   return result;
+}
+
+boolean CheckInputOption(){
+   return (CheckInput("GANTI_PROFIL") || CheckInput("LIHAT_PROFIL") ||
+            CheckInput("ATUR_JENIS_AKUN") || CheckInput("UBAH_FOTO_PROFIL") ||
+            CheckInput("TAMBAH_TEMAN") || CheckInput("DAFTAR_PERMINTAAN_PERTEMANAN") ||
+            CheckInput("DAFTAR_TEMAN") || CheckInput("HAPUS_TEMAN") ||
+            CheckInput("SETUJUI_PERTEMANAN") || CheckInput("KICAU") ||
+            CheckInput("KICAUAN") || CheckInput("SUKA_KICAUAN") || CheckInput("UBAH_KICAUAN") ||
+            CheckInput("BALAS") || CheckInput("BALASAN") || CheckInput("HAPUS_BALASAN") ||
+            CheckInput("BUAT_DRAF") || CheckInput("LIHAT_DRAF") || CheckInput("UTAS") ||
+            CheckInput("SAMBUNG_UTAS") || CheckInput("HAPUS_UTAS") || CheckInput("CETAK_UTAS"));
+}
+
