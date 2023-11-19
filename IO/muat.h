@@ -2,6 +2,7 @@
 #define _MUAT_H_
 
 #include "../Database/database.h"
+#include "../ADT/draf/stackDraft.h"
 #include <sys/stat.h>
 #include <sys/types.h>
 
@@ -16,6 +17,8 @@ void MuatPengguna(char* file_path);
 void MuatKicauan(char* file_path);
 
 void MuatUtas(char* file_path);
+
+void MuatDraf();
 
 int Muat();
 

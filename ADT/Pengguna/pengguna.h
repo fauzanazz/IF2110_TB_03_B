@@ -32,8 +32,7 @@ extern int currentId;
 
 #define USER(lp ,i) (lp).user[i]
 #define COUNT(lp) (lp).usercount
-
-#define FOTO(user) (user).profilepic
+#define FOTO(user) (user).ProfilePic
 
 void convertLower(Word *word);
 

@@ -1,4 +1,5 @@
 #include "profil.h"
+#include "../../Database/database.h"
 #include <stdio.h>
 
 void gantiProfil(Pengguna *user){
@@ -152,7 +153,7 @@ void gantiProfil(Pengguna *user){
 }
 void lihatProfil(Pengguna user){
     int i;
-    if (user.Publik){
+    if (user.Publik || isWordEqual(databasePengguna.user[ActiveUser].Nama,user.Nama)){
         printf("| Nama: ");
         for (i=0;i<user.Nama.Length;i++){
             printf("%c", user.Nama.TabWord[i]);
@@ -240,6 +241,6 @@ void UBAH_FOTO_PROFIL(Pengguna *user){
     printf("Foto profil Anda saat ini adalah\n");
     displayFotoProfil((*user).ProfilePic);
     printf("Masukkan foto profil yang baru\n");
-    // readFotoProfil(&(*user).ProfilePic);
+    gantiFotoProfil(&(*user).ProfilePic);
     printf("Foto profil anda sudah berhasil diganti!\n");
 }

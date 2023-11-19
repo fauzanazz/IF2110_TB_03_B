@@ -1,6 +1,15 @@
-
 #include "simpan.h"
 #include <sys/stat.h>
+
+void writeWord(Word word, FILE *file){
+    int i = 0;
+    while (i < word.Length)
+    {
+        fprintf(file, "%c", word.TabWord[i]);
+        i++;
+    }
+    fprintf(file, "\n");
+}
 
 void SimpanPengguna(char *folder_path){
 
@@ -23,11 +32,11 @@ void SimpanPengguna(char *folder_path){
     int i;
 
     for (i = 0; i < databasePengguna.usercount; i++){
-        fprintf(file, "%s\n", databasePengguna.user[i].Nama.TabWord);
-        fprintf(file, "%s\n", databasePengguna.user[i].Pass.TabWord);
-        fprintf(file, "%s\n", databasePengguna.user[i].Bio.TabWord);
-        fprintf(file, "%s\n", databasePengguna.user[i].Phone.TabWord);
-        fprintf(file, "%s\n", databasePengguna.user[i].Weton.TabWord);
+        writeWord(databasePengguna.user[i].Nama, file);
+        writeWord(databasePengguna.user[i].Pass, file);
+        writeWord(databasePengguna.user[i].Bio, file);
+        writeWord(databasePengguna.user[i].Phone, file);
+        writeWord(databasePengguna.user[i].Weton, file);
 
         if (databasePengguna.user[i].Publik){
             fprintf(file, "Publik\n");
@@ -95,15 +104,9 @@ void SimpanKicauan(char *folder_path){
     for (i = 0; i < dataKicau.nEff; i++){
         fprintf(file, "%d\n", dataKicau.buffer[i].IdKicau);
         
-        int j = 0;
-        while (j < dataKicau.buffer[i].IsiKicauan.Length)
-        {
-            fprintf(file, "%c", dataKicau.buffer[i].IsiKicauan.TabWord[j]);
-            j++;
-        }
-        
+        writeWord(dataKicau.buffer[i].IsiKicauan, file);
         fprintf(file, "%d\n", dataKicau.buffer[i].JumlahLike);
-        fprintf(file, "%s\n", databasePengguna.user[dataKicau.buffer[i].IdProfile].Nama.TabWord);
+        writeWord(databasePengguna.user[dataKicau.buffer[i].IdProfile].Nama, file);
         fprintf(file, "%d\n", dataKicau.buffer[i].IdKicau);
 
         //DATE TIME
@@ -151,7 +154,8 @@ void SimpanUtas(char *folder_path){
                 fprintf(file, "%c", P->info.IsiKicauan.TabWord[j]);
                 j++;
             }
-            fprintf(file, "%s\n", databasePengguna.user[P->info.IdProfile].Nama.TabWord);
+            fprintf(file, "\n");
+            writeWord(databasePengguna.user[P->info.IdProfile].Nama, file);
 
             DATETIME tempDate = P->info.TanggalTerbit;
             fprintf(file, "%d/", tempDate.DD);

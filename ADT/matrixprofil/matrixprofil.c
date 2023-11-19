@@ -46,7 +46,7 @@ void displayFotoProfil(Foto F){
     }
 }
 
-void readFotoProfil(Foto *F){
+void gantiFotoProfil(Foto *F){
     int i,j,numt;
     char t;
     STARTWORD();

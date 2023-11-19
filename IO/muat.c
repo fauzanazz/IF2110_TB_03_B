@@ -1,4 +1,5 @@
 #include "muat.h"
+#include <sys/stat.h>
 
 int idPengguna(char *nama){
     int i = 0;
@@ -14,6 +15,7 @@ int idPengguna(char *nama){
 }
 
 void MuatPengguna(char* file_path){
+    createListPengguna(&databasePengguna);
     STARTFILE(concatString(file_path, "/pengguna.config"));
 
     databasePengguna.usercount = currentCharF - '0';
@@ -37,6 +39,7 @@ void MuatPengguna(char* file_path){
         ADVFILE();
         while (!EOPF && j < 20){
             databasePengguna.user[i].Pass.TabWord[j++] = currentCharF;
+            databasePengguna.user[i].Pass.Length++;
             ADVFILE();
         }
 
@@ -45,6 +48,7 @@ void MuatPengguna(char* file_path){
         ADVFILE();
         while (!EOPF && j < 135){
             databasePengguna.user[i].Bio.TabWord[j++] = currentCharF;
+            databasePengguna.user[i].Bio.Length++;
             ADVFILE();
         }
 
@@ -444,9 +448,9 @@ void MuatUtas(char *file_path){
     }
 }
 
-// void MuatDraf(){
-//     CreateEmptyListUserDraft(&dataDraf);
-// }
+void MuatDraf(){
+    CreateEmptyListUserDraft(&dataDraf);
+}
 
 int Muat(){
     printf("\nMasukkan folder konfigurasi untuk dimuat:\n");

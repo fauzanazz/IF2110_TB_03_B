@@ -4,7 +4,6 @@
 
 #include "../boolean.h"
 #include "../Mesin-Kata/wordmachine.h"
-#include "../Mesin-Kata/charmachine.h"
 #include "../Time/datetime.h"
 #include "../Function/string-function.h"
 #include <time.h>

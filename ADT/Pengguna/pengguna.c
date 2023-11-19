@@ -1,10 +1,6 @@
 #include "pengguna.h"
-#include "../Mesin-Kata/wordmachine.h"
-#include "../Mesin-Kata/charmachine.h"
+#include "../../Database/database.h"
 #include <stdio.h>
-
-boolean logged;
-int currentId;
 
 void convertLower(Word *word){
     int i;
@@ -100,7 +96,7 @@ void inisialisasiPengguna(Pengguna *user){
 }
 
 void Daftar(ListPengguna *lp){
-    if (!logged){
+    if (!isLogin){
         int i;
         boolean Valid=false;
         int cnt = COUNT(*lp);
@@ -176,7 +172,7 @@ void Daftar(ListPengguna *lp){
 }
 
 void Masuk(ListPengguna *lp){
-    if (!logged){
+    if (!isLogin){
         int i;
         boolean Valid = false;
         int cnt = COUNT(*lp);
@@ -209,27 +205,27 @@ void Masuk(ListPengguna *lp){
                 }
             }
         }
-        currentId=i;
+        ActiveUser=i;
         Valid=false;
 
         while (!Valid){
             printf("Masukkan kata sandi:\n");
             i=0;
-            START();
-            while (currentChar != MARK /* && currentChar != LINEFEED */){
-                if(currentChar != LINEFEED){
-                    currentWord.TabWord[i]=currentChar;
-                }
-                ADV();
-                i++;
-            }
-            ADV();
-            currentWord.Length = i;
+            STARTWORD();
+            // while (currentChar != MARK /* && currentChar != LINEFEED */){
+            //     if(currentChar != LINEFEED){
+            //         currentWord.TabWord[i]=currentChar;
+            //     }
+            //     ADV();
+            //     i++;
+            // }
+            // ADV();
+            i = currentWord.Length;
             if (i > 20){
                 printf("Wah, kata sandi yang Anda masukkan belum tepat. Periksa kembali kata sandi Anda!\n");
             }
             else{
-                if (identik(currentWord,USER(*lp, currentId).Pass)){
+                if (identik(currentWord,USER(*lp, ActiveUser).Pass)){
                     Valid=true;
                 }
                 else{
@@ -238,11 +234,11 @@ void Masuk(ListPengguna *lp){
             }   
         }
         printf("Anda telah berhasil masuk dengan nama pengguna ");
-        for (i=0;i<USER(*lp, currentId).Nama.Length;i++){
-            printf("%c",USER(*lp, currentId).Nama.TabWord[i]);
+        for (i=0;i<USER(*lp, ActiveUser).Nama.Length;i++){
+            printf("%c",USER(*lp, ActiveUser).Nama.TabWord[i]);
         }
         printf(". Mari menjelajahi BurBir bersama Ande-Ande Lumut!\n");
-        logged=true;
+        isLogin=true;
     }
     else{
         printf("Wah Anda sudah masuk. Keluar dulu yuk!\n");
@@ -250,13 +246,14 @@ void Masuk(ListPengguna *lp){
 }
 
 void Keluar(){
-    if (!logged){
+    if (!isLogin){
         printf("Anda belum login!\n");
         printf("Masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
     }
     else{
         printf("Anda telah keluar dari program BurBir.\n");
         printf("Sampai jumpa di penjelajahan berikutnya.\n");
-        logged=false;
+        isLogin=false;
+        ActiveUser = -1;
     }
 }

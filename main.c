@@ -44,54 +44,147 @@ int main(){
         STARTWORD();
 
         if (CheckInput("DAFTAR")) {
-            // Do something
+            Daftar(&databasePengguna);
         } else if (CheckInput("MASUK")) {
-            // Do something
+            Masuk(&databasePengguna);
         } else if (CheckInput("KELUAR")) {
-            // Do something
+            if (!isLogin){
+                printf("\nAnda harus login terlebih dahulu.\n");
+                continue;
+            }
+
+            Keluar();
         } else if (CheckInput("GANTI_PROFIL")) {
-            // Do something
+            if (!isLogin){
+                printf("\nAnda harus login terlebih dahulu.\n");
+                continue;
+            }
+            gantiProfil(&databasePengguna.user[ActiveUser]);
         } else if (CheckInput("LIHAT_PROFIL")) {
-            // Do something
+            if (!isLogin){
+                printf("\nAnda harus login terlebih dahulu.\n");
+                continue;
+            }
+            lihatProfil(databasePengguna.user[ActiveUser]);
         } else if (CheckInput("ATUR_JENIS_AKUN")) {
-            // Do something
+            if (!isLogin){
+                printf("\nAnda harus login terlebih dahulu.\n");
+                continue;
+            }
+            aturJenisAkun(&databasePengguna.user[ActiveUser]);
         } else if (CheckInput("UBAH_FOTO_PROFIL")) {
-            // Do something
+            if (!isLogin){
+                printf("\nAnda harus login terlebih dahulu.\n");
+                continue;
+            }
+            UBAH_FOTO_PROFIL(&databasePengguna.user[ActiveUser]);
         } else if (CheckInput("DAFTAR_TEMAN")) {
+            if (!isLogin){
+                printf("\nAnda harus login terlebih dahulu.\n");
+                continue;
+            }
             // Do something
         } else if (CheckInput("HAPUS_TEMAN")) {
+            if (!isLogin){
+                printf("\nAnda harus login terlebih dahulu.\n");
+                continue;
+            }
             // Do something
         } else if (CheckInput("TAMBAH_TEMAN")) {
+            if (!isLogin){
+                printf("\nAnda harus login terlebih dahulu.\n");
+                continue;
+            }
             // Do something
         } else if (CheckInput("DAFTAR_PERMINTAAN_PERTEMANAN")) {
+            if (!isLogin){
+                printf("\nAnda harus login terlebih dahulu.\n");
+                continue;
+            }
             // Do something
         } else if (CheckInput("SETUJUI_PERTEMANAN")) {
+            if (!isLogin){
+                printf("\nAnda harus login terlebih dahulu.\n");
+                continue;
+            }
             // Do something
         } else if (CheckInput("KICAU")) {
+            if (!isLogin){
+                printf("\nAnda harus login terlebih dahulu.\n");
+                continue;
+            }
             // Do something
         } else if (CheckInput("KICAUAN")) {
+            if (!isLogin){
+                printf("\nAnda harus login terlebih dahulu.\n");
+                continue;
+            }
             // Do something
         } else if (CheckInput("SUKA_KICAUAN")) {
+            if (!isLogin){
+                printf("\nAnda harus login terlebih dahulu.\n");
+                continue;
+            }
             // Do something
         } else if (CheckInput("UBAH_KICAUAN")) {
+            if (!isLogin){
+                printf("\nAnda harus login terlebih dahulu.\n");
+                continue;
+            }
             // Do something
         } else if (CheckInput("BALAS")) {
+            if (!isLogin){
+                printf("\nAnda harus login terlebih dahulu.\n");
+                continue;
+            }
             // Do something
         } else if (CheckInput("BALASAN")) {
+            if (!isLogin){
+                printf("\nAnda harus login terlebih dahulu.\n");
+                continue;
+            }
             // Do something
         } else if (CheckInput("HAPUS_BALASAN")) {
+            if (!isLogin){
+                printf("\nAnda harus login terlebih dahulu.\n");
+                continue;
+            }
             // Do something
         } else if (CheckInput("BUAT_DRAF")) {
+            if (!isLogin){
+                printf("\nAnda harus login terlebih dahulu.\n");
+                continue;
+            }
             // Do something
         } else if (CheckInput("LIHAT_DRAF")) {
+            if (!isLogin){
+                printf("\nAnda harus login terlebih dahulu.\n");
+                continue;
+            }
             // Do something
         } else if (CheckInput("UTAS")) {
+            if (!isLogin){
+                printf("\nAnda harus login terlebih dahulu.\n");
+                continue;
+            }
             // Do something
         } else if (CheckInput("SAMBUNG_UTAS")) {
+            if (!isLogin){
+                printf("\nAnda harus login terlebih dahulu.\n");
+                continue;
+            }
             // Do something
         } else if (CheckInput("HAPUS_UTAS")) {
+            if (!isLogin){
+                printf("\nAnda harus login terlebih dahulu.\n");
+                continue;
+            }
             // Do something
         } else if (CheckInput("CETAK_UTAS")) {
+            if (!isLogin){
+                printf("\nAnda harus login terlebih dahulu.\n");
+                continue;
+            }
             // Do something
         } else if (CheckInput("SIMPAN")) {
             Simpan();

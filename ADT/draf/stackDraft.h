@@ -2,8 +2,7 @@
 #define STACKD_H
 
 #include "../boolean.h"
-#include "../Mesin-Kata/charmachine.c"
-#include "../Mesin-Kata/wordmachine.c"
+#include "../Mesin-Kata/wordmachine.h"
 #include "../Time/datetime.h"
 
 #define NilS -1
