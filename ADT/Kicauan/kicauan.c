@@ -1,7 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "../boolean.h"
 #include "kicauan.h"
+#include "../../Database/database.h"
 
 void CreateListDinKicau(ListDin *l, int capacity){
     BUFFER(*l) = (Kicau_struct *) malloc (capacity * sizeof(Kicau_struct));
@@ -98,31 +96,37 @@ void Kicau(ListDin * listKicauan){
 
     printf("Masukkan kicauan: \n");
     START();
-    int i = 0;
-    boolean blank = false;
-    while (currentChar != MARK) {
-        if (currentChar != BLANK){
-            blank = true;
+    IgnoreBlanks();
+    ignoreNewLine();
+    int i=0;
+    while (currentChar != MARK){
+        if(currentChar != LINEFEED) {
+            currentWord.TabWord[i]=currentChar;
         }
-        if (blank) currentWord.TabWord[i] = currentChar;
+        ADV();
+        i++;
     }
+    currentWord.Length = i;
     IsiKicauan = currentWord;
-
-    printf("Masukkan tagar: ");
-    START();
-    blank = false;
-    while (currentChar != MARK) {
-        if (currentChar != BLANK){
-            blank = true;
-        }
-
-        if (blank) currentWord.TabWord[i] = currentChar;
-    }
-    tagar = currentWord;
     
-    currentWord = IsiKicauan;
+
+    printf("Masukkan tagar: \n");
+    START();
+    IgnoreBlanks();
+    ignoreNewLine();
+    i = 0;
+    while (currentChar != MARK){
+        if(currentChar != LINEFEED) {
+            currentWord.TabWord[i]=currentChar;
+        }
+        ADV();
+        i++;
+    }
+    currentWord.Length = i;
+    tagar = currentWord;
+
     // Cek apakah kicauan kosong
-    if (!CheckInput("")) {
+    if (IsiKicauan.Length > 0) {
 
         // Ambil waktu local
         time(&current_time);
@@ -138,6 +142,7 @@ void Kicau(ListDin * listKicauan){
 
 
         // Tampilkan kicauan
+        printf("\n\n");
         printf("Selamat! kicauan telah diterbitkan!\n");
         printf("Detil kicauan:\n");
         ShowKicau(kicauan);
@@ -185,8 +190,9 @@ void Ubah_Kicau(ListDin * ListKicauan, int idKicauan, int idPengguna){
                 if (currentChar != BLANK){
                     blank = true;
                 }
-
                 if (blank) currentWord.TabWord[i] = currentChar;
+                ADV();
+                i++;
             }
             IsiKicauan = currentWord;
             ListKicauan->buffer[indexkicau].IsiKicauan = IsiKicauan;
@@ -203,7 +209,8 @@ void Ubah_Kicau(ListDin * ListKicauan, int idKicauan, int idPengguna){
 
 void ShowKicau(Kicau_struct kicauan){
     printf("| ID = %d\n", kicauan.IdKicau);
-    printf("| %d\n",kicauan.IdProfile);
+    printf("| ");
+    displayWord(databasePengguna.user[kicauan.IdProfile].Nama);
     printf("| %d-%02d-%02d %02d:%02d:%02d\n", kicauan.TanggalTerbit.YYYY, kicauan.TanggalTerbit.MM, kicauan.TanggalTerbit.DD, kicauan.TanggalTerbit.T.HH, kicauan.TanggalTerbit.T.MM, kicauan.TanggalTerbit.T.SS);
     printf("| ");
     displayWord(kicauan.IsiKicauan);
@@ -222,6 +229,11 @@ int cariKicauan(ListDin ListKicauan, int idKicauan){
     }
     if (founded) return i - 1;
     else return -1;
+}
+void ignoreNewLine(){
+    while (currentChar == LINEFEED) {
+        ADV();
+    }
 }
 
 

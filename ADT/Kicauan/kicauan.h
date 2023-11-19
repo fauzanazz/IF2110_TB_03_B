@@ -2,6 +2,8 @@
 #ifndef KICAUAN_H
 #define KICAUAN_H
 
+#include <stdio.h>
+#include <stdlib.h>
 #include "../boolean.h"
 #include "../Mesin-Kata/wordmachine.h"
 #include "../Time/datetime.h"
@@ -126,6 +128,7 @@ void insertLastKicau(ListDin *l, Kicau_struct val);
 /* Proses: Menambahkan val sebagai elemen terakhir list */
 /* I.S. List l boleh kosong, tetapi tidak penuh */
 /* F.S. val adalah elemen terakhir l yang baru */
+
 /* ********** MENGHAPUS ELEMEN ********** */
 void deleteLastKicau(ListDin *l, Kicau_struct *val);
 /* Proses : Menghapus elemen terakhir list */
@@ -173,5 +176,7 @@ void ShowKicau(Kicau_struct kicauan);
 int cariKicauan(ListDin ListKicauan, int idKicauan);
 /* I.S. : list kicauan terdefinisi
    F.S. : mengembalikan index kicauan yang sesuai dengan idKicauan */
+
+void ignoreNewLine();
 
 #endif
