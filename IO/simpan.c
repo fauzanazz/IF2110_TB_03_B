@@ -1,8 +1,6 @@
 #include "simpan.h"
 #include <sys/stat.h>
 
-
-
 void writeWord(Word word, FILE *file, char End){
     int i = 0;
     while (i < word.Length)
@@ -12,7 +10,6 @@ void writeWord(Word word, FILE *file, char End){
     }
     fprintf(file, "%c", End);
 }
-
 
 void SimpanPengguna(char *folder_path){
 
@@ -102,16 +99,16 @@ void SimpanKicauan(char *folder_path){
         writeWord(dataKicau.buffer[i].IsiKicauan, file, '\n');
         fprintf(file, "%d\n", dataKicau.buffer[i].JumlahLike);
         writeWord(databasePengguna.user[dataKicau.buffer[i].IdProfile].Nama, file, '\n');
-        fprintf(file, "%d\n", dataKicau.buffer[i].IdKicau);
+        writeWord(dataKicau.buffer[i].Tagar, file, '\n');
 
         //DATE TIME
         DATETIME tempDate = dataKicau.buffer[i].TanggalTerbit;
-        fprintf(file, "%d/", tempDate.DD);
-        fprintf(file, "%d/", tempDate.MM);
+        fprintf(file, "%02d/", tempDate.DD);
+        fprintf(file, "%02d/", tempDate.MM);
         fprintf(file, "%d ", tempDate.YYYY);
-        fprintf(file, "%d:", tempDate.T.HH);
-        fprintf(file, "%d:", tempDate.T.MM);
-        fprintf(file, "%d\n", tempDate.T.SS);
+        fprintf(file, "%02d:", tempDate.T.HH);
+        fprintf(file, "%02d:", tempDate.T.MM);
+        fprintf(file, "%02d\n", tempDate.T.SS);
     }
 
     fclose(file);
@@ -148,12 +145,12 @@ void SimpanUtas(char *folder_path){
             writeWord(databasePengguna.user[P->info.IdProfile].Nama, file, '\n');
 
             DATETIME tempDate = P->info.TanggalTerbit;
-            fprintf(file, "%d/", tempDate.DD);
-            fprintf(file, "%d/", tempDate.MM);
+            fprintf(file, "%02d/", tempDate.DD);
+            fprintf(file, "%02d/", tempDate.MM);
             fprintf(file, "%d ", tempDate.YYYY);
-            fprintf(file, "%d:", tempDate.T.HH);
-            fprintf(file, "%d:", tempDate.T.MM);
-            fprintf(file, "%d\n", tempDate.T.SS);
+            fprintf(file, "%02d:", tempDate.T.HH);
+            fprintf(file, "%02d:", tempDate.T.MM);
+            fprintf(file, "%02d\n", tempDate.T.SS);
 
             P = NEXTUtas(P);
         }
@@ -188,19 +185,20 @@ void SimpanDraf(char *folder_path){
             writeWord(tempDraf.DrafContent, file, '\n');
 
             DATETIME tempDate = tempDraf.dateLastEdited;
-            fprintf(file, "%d/", tempDate.DD);
-            fprintf(file, "%d/", tempDate.MM);
+            fprintf(file, "%02d/", tempDate.DD);
+            fprintf(file, "%02d/", tempDate.MM);
             fprintf(file, "%d ", tempDate.YYYY);
-            fprintf(file, "%d:", tempDate.T.HH);
-            fprintf(file, "%d:", tempDate.T.MM);
-            fprintf(file, "%d\n", tempDate.T.SS);
+            fprintf(file, "%02d:", tempDate.T.HH);
+            fprintf(file, "%02d:", tempDate.T.MM);
+            fprintf(file, "%02d\n", tempDate.T.SS);
         }
     }
 
     fclose(file);
 }
+
 void Simpan(){
-    printf("\nMasukkan folder konfigurasi untuk dimuat:\n");
+    printf("\nMasukkan folder tempat penyimpanan konfigurasi:\n");
 
     STARTWORD();
 
@@ -224,7 +222,7 @@ void Simpan(){
     printf("2..\n");
     printf("3..\n");
 
-    printf("\nKonfigurasi berhasil disimpan!\n");
+    printf("\nKonfigurasi berhasil disimpan! di IO/Output/%s\n", folder_path);
     
     return;
 }

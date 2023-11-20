@@ -157,6 +157,20 @@ void deleteAt(AddressUtas *l, int idx){
 
 }
 
+boolean findUtasWithIdKicau(ListKicauanUtas l, int idKicau, int *idx){
+    int i = 0;
+    while (i < NEFFUtas(l) && ELMTUtas(l, i).id_kicauan != idKicau){
+        i++;
+    }
+
+    if (i == NEFFUtas(l)){
+        return false;
+    } else {
+        *idx = i;
+        return true;
+    }
+}
+
 //TODO Handle Akun Private
 void cetakUtas(int idUtas){
     if (!isIdxUtasEff(dataUtas, idUtas)){
@@ -214,7 +228,13 @@ void BuatUtas(int idKicau){
         return;
     }
 
-    printf("Utas berhasil dibuat!\n");
+    int idxUtas;
+    if (findUtasWithIdKicau(dataUtas, idKicau, &idxUtas)){
+        printf("Utas sudah dibuat dengan id %d\n", idxUtas);
+        return;
+    }
+
+    printf("Utas berhasil dibuat dengan id %d!\n", dataUtas.neff);
 
     ListUtas tempUtas;
     CreateUtas(&tempUtas, idKicau);
@@ -233,6 +253,7 @@ void BuatUtas(int idKicau){
             isi.Length++;
             ADV();
         }
+
         time_t current_time;
         DATETIME current_time2;
         time(&current_time);
@@ -262,8 +283,7 @@ void SambungUtas(int idUtas, int idx){
         return;
     }
 
-    printf("%d", dataUtas.ListUtas[idUtas].neff);
-    if (idx - 1 >= dataUtas.ListUtas[idUtas].neff || idx - 1 < 0){
+    if (idx - 1 > dataUtas.ListUtas[idUtas].neff || idx < 0){
         printf("Index tidak valid\n");
         return;
     }
@@ -298,6 +318,10 @@ void SambungUtas(int idUtas, int idx){
     tempKicauan.IsiKicauan = isi;
     tempKicauan.Tagar = createWordfromString("");
     tempKicauan.JumlahLike = 0;
+
+    if (idx == 0){
+        idx = 1;
+    }
 
     insertAtUtas(&dataUtas.ListUtas[idUtas], tempKicauan, idx - 1);
 

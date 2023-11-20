@@ -159,7 +159,7 @@ void lihatDraft(){
         
         // Tampilkan draft terakhir yang dibuat
         printf("Ini draf terakhir Anda:\n");
-        printf("| %d/02%d/02%d %02d:%02d:%02d", DDATE(content).YYYY, DDATE(content).MM, DDATE(content).DD, DDATE(content).T.HH,DDATE(content).T.MM, DDATE(content).T.SS);
+        printf("| %02d/%02d/%d %02d:%02d:%02d\n", DDATE(content).DD, DDATE(content).MM, DDATE(content).YYYY, DDATE(content).T.HH,DDATE(content).T.MM, DDATE(content).T.SS);
         printf("| ");
         displayWord(DCONTENT(content));
 
@@ -328,7 +328,7 @@ void terbitDraft(){
     ConvertTimeTtoDATETIME(currentTime, &currentDate);
 
     // Menerbitkan draf
-    draftKicau.IdKicau = getLastIdxKicau(dataKicau) + 1;
+    draftKicau.IdKicau = (dataKicau).buffer[getLastIdxKicau(dataKicau)].IdKicau + 1;
     draftKicau.IdProfile = ActiveUser;
     draftKicau.TanggalTerbit = currentDate;
     draftKicau.IsiKicauan = draftContent;
