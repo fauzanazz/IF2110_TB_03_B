@@ -1,23 +1,23 @@
 #ifndef _TEMAN_H
 #define _TEMAN_H
 
-#include "../ListVertex/listvertex.h"
+#include "../Mesin-Kata/wordmachine.h"
 
-void daftarTeman(Graf GFriend, ListVertex LVertex, int UID);
+void daftarTeman(int UID);
 /* I.S. UID adalah User ID yang valid */
 /* F.S. Menampilkan daftar teman pengguna dengan User ID UID */
 
-void hapusTeman(Graf *GFriend, ListVertex LVertex,  int UIDSelf, int UIDFriend);
+void hapusTeman(int UIDSelf, int UIDFriend);
 /* I.S. Pengguna dengan User ID UIDSelf berteman dengan pengguna dengan User ID UIDFriend */
 /* F.S. Pengguna dengan User ID UIDSelf tidak lagi berteman dengan pengguna dengan User ID UIDFriend, hubungan pada adjacency matrix GFriend berubah (1 -> 0) */
 
-int hitungTeman(Graf GFriend, int UID);
+int hitungTeman(int UID);
 /* Mengembalikan banyak teman pengguna dengan User ID UID */
 
-int idxToUID(ListVertex LVertex, int idx);
-/* Mengembalikan UID user yang di-assign dengan index idx pada adjacency matrix graf GFriend */
+boolean isUserValid(Word UserName);
+/* Mengembalikan true jika UserName adalah nama pengguna yang valid */
 
-int uidtoIdx(ListVertex LVertex, int UID);
-/* Mengembalikan index user dengan User ID UID yang di-assign pada adjacency matrix graf GFriend */
+int uidUsername(Word UserName);
+/* Mengembalikan UID pengguna dengan nama UserName */
 
 #endif

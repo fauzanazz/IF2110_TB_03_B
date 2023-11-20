@@ -3,21 +3,17 @@
 
 int main(){
     Graf G;
-    vertex V1, V2, V3;
-    CreateVertex(&V1, 12731);
-    CreateVertex(&V2, 1283718);
-    CreateVertex(&V3, 129173);
     CreateGraf(&G);
     displayGraf(G);printf("\n");
-    addVertex(&G, &V1);
+    addVertex(&G, 0);
     displayGraf(G);printf("\n");
-    addVertex(&G, &V2);
+    addVertex(&G, 1);
     displayGraf(G);printf("\n");
-    addVertex(&G, &V3);
+    addVertex(&G, 2);
     displayGraf(G);printf("\n");
-    addEdge(&G, V1, V3);
+    addEdge(&G, 0, 2);
     displayGraf(G);printf("\n");
-    removeEdge(&G, V1, V3);
+    removeEdge(&G, 0, 2);
     displayGraf(G);printf("\n");
 
     printf("Ukuran: %zu bits\n", sizeof(Graf) * 8);
