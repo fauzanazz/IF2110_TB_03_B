@@ -20,7 +20,7 @@ typedef struct node {
 #define INFO(p) (p)->info
 #define NEXT(p) (p)->next
 
-Address newNode(ElType val);
+Address newNodeLiList(ElType val);
 
 /* Definisi LinkedList : */
 /* LinkedList kosong : FIRST(l) = NULL */

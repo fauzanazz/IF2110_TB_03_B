@@ -2,7 +2,7 @@
 #include <stdio.h> 
 #include <stdlib.h>
 
-Address newNode(ElType val){
+Address newNodeLiList(ElType val){
     Address p;
     p = (Address) malloc (sizeof(Node));
     if (p != NULL){
@@ -31,7 +31,7 @@ int LengthLinkedList(LinkedList l){
 }
 
 void insertFirst(LinkedList *l, ElType val){
-    Address new = newNode(val);
+    Address new = newNodeLiList(val);
     if (new != NULL){
         NEXT(new) = *l;
         *l = new;
@@ -39,7 +39,7 @@ void insertFirst(LinkedList *l, ElType val){
 }
 void insertLast(LinkedList *l, ElType val){
     Address p = *l;
-    Address new = newNode(val);
+    Address new = newNodeLiList(val);
     if (new != NULL){
         if (p == NULL){
             *l = new;
