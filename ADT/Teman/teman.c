@@ -21,7 +21,7 @@ void daftarTeman(int UID){
         for (i = 0; i < NEFF(GFriend); i++){
         /* loop untuk menampilkan semua teman */
             if ((ELMTG(GFriend, UID, i) == 1) && (UID != i)){
-                printf("| ");displayWord(databasePengguna.user[i].Nama);printf("\n");
+                printf("| ");displayWord(databasePengguna.user[i].Nama);
             }
         }
     }
@@ -75,14 +75,14 @@ void hapusTeman(int UIDSelf){
             printf("Penghapusan teman dibatalkan.\n");
         } else if (isWordEqual(confirm, yes)) { // jika YA
             removeEdge(&GFriend, uidUser, uidFriend);
-            displayWord(databasePengguna.user[uidFriend].Nama);printf(" berhasil dihapus dari daftar teman Anda.\n");
+            printf("%s", WordToString(username));printf(" berhasil dihapus dari daftar teman Anda.\n");
         } else {
             printf("Input tidak valid.\n");
         }
     } else if ((isUserValid(username)) && (!isConnected(GFriend, uidUser, uidFriend))){ // Jika username ada pada daftar pengguna tetapi bukan teman current user
-        displayWord(username);printf(" bukan teman Anda.\n");
+        printf("%s", WordToString(username));printf(" bukan teman Anda.\n");
     } else { // Jika tidak ada pengguna dengan nama yang dimasukkan
-        printf("Tidak ada pengguna dengan nama ");displayWord(username);printf("!\n");
+        printf("Tidak ada pengguna dengan nama ");printf("%s", WordToString(username));printf("!\n");
     }
 }
 
