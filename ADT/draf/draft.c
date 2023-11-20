@@ -17,26 +17,9 @@ void buatDraft(){
 
     /* ALGORITMA */
     // Siapkan Word hapus, simpan, terbit
-    hapus.TabWord[0] = 'H';
-    hapus.TabWord[1] = 'A';
-    hapus.TabWord[2] = 'P';
-    hapus.TabWord[3] = 'U';
-    hapus.TabWord[4] = 'S';
-    hapus.Length = 5;
-    simpan.TabWord[0] = 'S';
-    simpan.TabWord[1] = 'I';
-    simpan.TabWord[2] = 'M';
-    simpan.TabWord[3] = 'P';
-    simpan.TabWord[4] = 'A';
-    simpan.TabWord[5] = 'N';
-    simpan.Length = 6;
-    terbit.TabWord[0] = 'T';
-    terbit.TabWord[1] = 'E';
-    terbit.TabWord[2] = 'R';
-    terbit.TabWord[3] = 'B';
-    terbit.TabWord[4] = 'I';
-    terbit.TabWord[5] = 'T';
-    terbit.Length = 6;
+    hapus = createWordfromString("HAPUS");
+    simpan = createWordfromString("SIMPAN");
+    terbit = createWordfromString("TERBIT");
 
     printf("Masukkan draf:\n");
     CreateEmptyDraft(&content);
@@ -59,6 +42,11 @@ void buatDraft(){
         draftLength = 280;
     }
     draftContent.Length = draftLength;
+
+    if (draftLength == 0){
+        printf("Draft tidak boleh kosong!\n");
+        return;
+    }
     DCONTENT(content) = draftContent;
 
     // Konfirmasi apa yang ingin dilakukan dengan draf
@@ -123,32 +111,10 @@ void lihatDraft(){
 
     /* ALGORITMA */
     // Siapkan Word hapus, ubah, terbit, kembali
-    hapus.TabWord[0] = 'H';
-    hapus.TabWord[1] = 'A';
-    hapus.TabWord[2] = 'P';
-    hapus.TabWord[3] = 'U';
-    hapus.TabWord[4] = 'S';
-    hapus.Length = 5;
-    ubah.TabWord[0] = 'U';
-    ubah.TabWord[1] = 'B';
-    ubah.TabWord[2] = 'A';
-    ubah.TabWord[3] = 'H';
-    ubah.Length = 4;
-    terbit.TabWord[0] = 'T';
-    terbit.TabWord[1] = 'E';
-    terbit.TabWord[2] = 'R';
-    terbit.TabWord[3] = 'B';
-    terbit.TabWord[4] = 'I';
-    terbit.TabWord[5] = 'T';
-    terbit.Length = 6;
-    kembali.TabWord[0] = 'K';
-    kembali.TabWord[1] = 'E';
-    kembali.TabWord[2] = 'M';
-    kembali.TabWord[3] = 'B';
-    kembali.TabWord[4] = 'A';
-    kembali.TabWord[5] = 'L';
-    kembali.TabWord[6] = 'I';
-    kembali.Length = 7;
+    hapus = createWordfromString("HAPUS");
+    ubah = createWordfromString("UBAH");
+    terbit = createWordfromString("TERBIT");
+    kembali = createWordfromString("KEMBALI");
 
     if (!isUserDraft(dataDraf, databasePengguna.user[ActiveUser].Nama)){ // Jika bukan pengguna draft, artinya tidak memiliki draft
         printf("Yah, anda belum memiliki draf apapun! Buat dulu ya :D\n");
@@ -159,7 +125,7 @@ void lihatDraft(){
         
         // Tampilkan draft terakhir yang dibuat
         printf("Ini draf terakhir Anda:\n");
-        printf("| %d/02%d/02%d %02d:%02d:%02d", DDATE(content).YYYY, DDATE(content).MM, DDATE(content).DD, DDATE(content).T.HH,DDATE(content).T.MM, DDATE(content).T.SS);
+        printf("| %02d/%02d/%d %02d:%02d:%02d\n", DDATE(content).DD, DDATE(content).MM, DDATE(content).YYYY, DDATE(content).T.HH,DDATE(content).T.MM, DDATE(content).T.SS);
         printf("| ");
         displayWord(DCONTENT(content));
 
@@ -303,6 +269,8 @@ void hapusDraft(){
     if (ADDR_TOPSD(LUD_IDX(dataDraf, idxInLUD)) == NilS){ // Jika stack draft menjadi kosong, artinya user tidak lagi menjadi pengguna draft dan dihapus dari list pengguna draft
         deleteDraftUser(&dataDraf, databasePengguna.user[ActiveUser].Nama);
     }
+
+    printf("Draf telah berhasil dihapus!\n");
 }
 
 void terbitDraft(){
@@ -328,7 +296,7 @@ void terbitDraft(){
     ConvertTimeTtoDATETIME(currentTime, &currentDate);
 
     // Menerbitkan draf
-    draftKicau.IdKicau = getLastIdxKicau(dataKicau) + 1;
+    draftKicau.IdKicau = (dataKicau).buffer[getLastIdxKicau(dataKicau)].IdKicau + 1;
     draftKicau.IdProfile = ActiveUser;
     draftKicau.TanggalTerbit = currentDate;
     draftKicau.IsiKicauan = draftContent;

@@ -3,17 +3,6 @@
 #include "graf.h"
 
 /* *** Konstruktor *** */
-void CreateVertex(vertex *V, int uid){
-/* I.S. uid */
-/* F.S. Terbentuk vertex V yang berisi UserID uid dan idxAdjMtx -1 */
-
-    /* KAMUS LOKAL */
-
-    /* ALGORITMA */
-    USERID(*V) = uid;
-    IDX(*V) = -1;
-}
-
 void CreateGraf(Graf *G){
 /* I.S. sembarang; */
 /* F.S. Membuat sebuah graf G yang kosong berkapasitas MaxEl */
@@ -44,16 +33,15 @@ boolean IsGrafFull(Graf G){
 }
 
 /* ************ Fungsi Primitif Graf ************ */
-void addVertex(Graf *G, vertex *V){
+void addVertex(Graf *G, int UID){
 /* I.S. Graf G terdefinisi, mungkin kosong */
-/* F.S. Menambahkan sebuah vertex V pada graf G */
+/* F.S. Menambahkan sebuah vertex yang mewakili pengguna dengan user id UID pada graf G */
 
     /* KAMUS LOKAL */
     int i, idx;
 
     /* ALGORITMA */
     idx = NEFF(*G);
-    IDX(*V) = idx;
     for (i = 0; i < idx + 1; i++){
         if (i != idx){
             ELMTG(*G, i, idx) = 0;
@@ -65,44 +53,35 @@ void addVertex(Graf *G, vertex *V){
     NEFF(*G) = NEFF(*G) + 1;
 }
 
-void addEdge(Graf *G, vertex V1, vertex V2){
-/* I.S. Graf G terdefinisi, V1 dan V2 adalah vertex yang valid pada Graf */
-/* F.S. Menghubungkan V1 dan V2 dengan penambahan edge, elemen adjacency matrix berubah (0 -> 1) */
+void addEdge(Graf *G, int UID1, int UID2){
+/* I.S. Graf G terdefinisi, UID1 dan UID2 adalah user id yang valid */
+/* F.S. Menghubungkan UID1 dan UID2 dengan penambahan edge, elemen adjacency matrix berubah (0 -> 1) */
 
     /* KAMUS LOKAL */
 
     /* ALGORITMA */
-    ELMTG(*G, IDX(V1), IDX(V2)) = 1;
-    ELMTG(*G, IDX(V2), IDX(V1)) = 1;
+    ELMTG(*G, UID1, UID2) = 1;
+    ELMTG(*G, UID2, UID1) = 1;
 }
 
-void removeEdge(Graf *G, vertex V1, vertex V2){
-/* I.S. Graf G terdefinisi dan vertex V1 dan V2 berhubungan (memiliki edge) */
-/* F.S. Edge vertex V1 dan V2 dihapus, elemen adjacency matrix berubah (1 -> 0) */
+void removeEdge(Graf *G, int UID1, int UID2){
+/* I.S. Graf G terdefinisi serta UID1 dan UID2 berhubungan (memiliki edge) */
+/* F.S. Edge vertex yang mewakili UID1 dan UID2 dihapus, elemen adjacency matrix berubah (1 -> 0) */
 
     /* KAMUS LOKAL */
 
     /* ALGORITMA */
-    ELMTG(*G, IDX(V1), IDX(V2)) = 0;
-    ELMTG(*G, IDX(V2), IDX(V1)) = 0;
+    ELMTG(*G, UID1, UID2) = 0;
+    ELMTG(*G, UID2, UID1) = 0;
 }
 
-boolean isVertexInGraf(Graf G, vertex V){
-/* Mengembalikan true jika vertex V berada di Graf G, false jika tidak */
+boolean isConnected(Graf G, int UID1, int UID2){
+/* Mengembalikan true jika vertex yang mewakili UID1 dan UID2 memiliki edge */
 
     /* KAMUS LOKAL */
 
     /* ALGORITMA */
-    return (IDX(V) < NEFF(G));
-}
-
-boolean isConnected(Graf G, vertex V1, vertex V2){
-/* Mengembalikan true jika  V1 dan V2 memiliki edge */
-
-    /* KAMUS LOKAL */
-
-    /* ALGORITMA */
-    return (ELMTG(G, IDX(V1), IDX(V2)) == 1);
+    return (ELMTG(G, UID1, UID2) == 1);
 }
 
 void displayGraf(Graf G){

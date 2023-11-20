@@ -1,46 +1,26 @@
-/* File: wordmachine.h */
-/* Definisi Word Machine: Model Akuisisi Versi I */
-
-#ifndef __MESINKATA_H__
-#define __MESINKATA_H__
+#ifndef _MESIN_KATA_FILE_H
+#define _MESIN_KATA_FILE_H
 
 #include "../boolean.h"
-#include "charmachine.h"
+#include "../Mesin-Kata/wordmachine.h"
 
-#define NMax 280
-#define BLANK ' '
-#define LINEFEED '\n'
+extern boolean EndWordF;
+extern Word currentWordF;
 
-
-typedef struct
-{
-   char TabWord[NMax]; /* container penyimpan kata, indeks yang dipakai [0..NMax-1] */
-   int Length;
-} Word;
-
-/* State Mesin Word */
-extern boolean EndWord;
-extern Word currentWord;
-
-void IgnoreBlanks();
-/* Mengabaikan satu atau beberapa BLANK
-   I.S. : currentChar sembarang
-   F.S. : currentChar ≠ BLANK atau currentChar = MARK */
-
-void STARTWORD();
+void STARTWORDFILE();
 /* I.S. : currentChar sembarang
    F.S. : EndWord = true, dan currentChar = MARK;
           atau EndWord = false, currentWord adalah kata yang sudah diakuisisi,
           currentChar karakter pertama sesudah karakter terakhir kata */
 
-void ADVWORD();
+void ADVWORDFILE();
 /* I.S. : currentChar adalah karakter pertama kata yang akan diakuisisi
    F.S. : currentWord adalah kata terakhir yang sudah diakuisisi,
           currentChar adalah karakter pertama dari kata berikutnya, mungkin MARK
           Jika currentChar = MARK, EndWord = true.
    Proses : Akuisisi kata menggunakan procedure SalinWord */
 
-void CopyWord();
+void CopyWordFILE();
 /* Mengakuisisi kata, menyimpan dalam currentWord
    I.S. : currentChar adalah karakter pertama dari kata
    F.S. : currentWord berisi kata yang sudah diakuisisi;
@@ -48,16 +28,5 @@ void CopyWord();
           currentChar adalah karakter sesudah karakter terakhir yang diakuisisi.
           Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
 
-boolean CheckInput(char *s);
-
-void displayWord(Word s);
-
-Word createWordfromString(char *s);
-
-boolean isWordEqual(Word s1, Word s2);
-
-int WordToInt(Word w1);
-
-boolean CheckInputOption();
 
 #endif

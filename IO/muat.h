@@ -3,6 +3,7 @@
 
 #include "../Database/database.h"
 #include "../ADT/draf/stackDraft.h"
+#include "../ADT/Mesin-Kata/wordmachine-file.h"
 #include <sys/stat.h>
 #include <sys/types.h>
 
@@ -12,13 +13,15 @@
  * @param file_path The path to the file containing user data.
  */
 
+int idPengguna(char *nama);
+
 void MuatPengguna(char* file_path);
 
 void MuatKicauan(char* file_path);
 
 void MuatUtas(char* file_path);
 
-void MuatDraf();
+void MuatDraf(char* file_path);
 
 int Muat();
 

@@ -89,7 +89,6 @@ Word IsiKicauan;
 Word tagar;
 time_t current_time;
 int disukai;
-int idProfile;
 
 
 void Kicau(ListDin * listKicauan){
@@ -99,17 +98,23 @@ void Kicau(ListDin * listKicauan){
     IgnoreBlanks();
     ignoreNewLine();
     int i=0;
-    while (currentChar != MARK){
-        if(currentChar != LINEFEED) {
+    while (currentChar != MARK ){
+        if(currentChar != LINEFEED && i < 280) {
             currentWord.TabWord[i]=currentChar;
         }
         ADV();
         i++;
     }
-    currentWord.Length = i;
+    
+    currentWord.Length = (i > 280) ? 280 : i;
+
+    if (i == 0){
+        printf("Kicauan tidak boleh kosong!\n");
+        return;
+    }
+
     IsiKicauan = currentWord;
     
-
     printf("Masukkan tagar: \n");
     START();
     IgnoreBlanks();
@@ -133,8 +138,8 @@ void Kicau(ListDin * listKicauan){
         ConvertTimeTtoDATETIME(current_time, &currentTime);
 
         Kicau_struct kicauan;
-        kicauan.IdKicau = getLastIdxKicau(*listKicauan) + 1;
-        kicauan.IdProfile = idProfile;
+        kicauan.IdKicau = (*listKicauan).buffer[getLastIdxKicau(*listKicauan)].IdKicau + 1;
+        kicauan.IdProfile = ActiveUser;
         kicauan.TanggalTerbit = currentTime;
         kicauan.IsiKicauan = IsiKicauan;
         kicauan.Tagar = tagar;
@@ -157,7 +162,7 @@ void Kicau(ListDin * listKicauan){
 void Kicauan(ListDin listKicau){
     for(int i = 0; i < listKicau.nEff; i++){
         // Ubah ke global variable
-        if (listKicau.buffer[i].IdProfile == idProfile) {
+        if (listKicau.buffer[i].IdProfile == ActiveUser || isConnected(GFriend, ActiveUser, listKicau.buffer[i].IdProfile)) {
             ShowKicau(listKicau.buffer[i]);
             printf("\n");
         }
@@ -183,19 +188,22 @@ void Ubah_Kicau(ListDin * ListKicauan, int idKicauan, int idPengguna){
     if (indexkicau != -1) {
         if (ListKicauan->buffer[indexkicau].IdProfile == idPengguna) {
             printf("Masukkan kicauan: \n");
+
             START();
             int i = 0;
-            boolean blank = false;
-            while (currentChar != MARK) {
-                if (currentChar != BLANK){
-                    blank = true;
-                }
-                if (blank) currentWord.TabWord[i] = currentChar;
+            IgnoreBlanks();
+            while (currentChar != MARK && i < 280) {
+                currentWord.TabWord[i++] = currentChar;
+                currentWord.Length++;
                 ADV();
-                i++;
             }
+
             IsiKicauan = currentWord;
             ListKicauan->buffer[indexkicau].IsiKicauan = IsiKicauan;
+            time(&current_time);
+            ConvertTimeTtoDATETIME(current_time, &currentTime);
+            ListKicauan->buffer[indexkicau].TanggalTerbit = currentTime;
+
             printf("Selamat! kicauan telah diterbitkan!\n");
             printf("Detil kicauan:\n");
             ShowKicau(ListKicauan->buffer[indexkicau]);

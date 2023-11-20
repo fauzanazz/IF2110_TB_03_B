@@ -136,3 +136,22 @@ char *concatWordToString(Word w1, Word w2){
 
     return result;
 }
+
+char *WordToString(Word w){
+    char *result;
+    int len1 = w.Length;
+
+    result = (char *)malloc(len1 + 1); 
+
+    if (result != NULL) {
+        char *pResult = result;
+
+        int i = 0;
+        while (i < w.Length) {
+            *pResult++ = w.TabWord[i++];
+        }
+        *pResult = '\0';
+    }
+
+    return result;
+}

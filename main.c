@@ -39,96 +39,116 @@ int main(){
 
     printf("Selamat berkicau!\n");
 
-    while (!CheckInput("TUTUP_PROGRAM")){
+    while (!CheckInput("TUTUP_PROGRAM")) {
         printf(">> ");
         STARTWORD();
-        
+
+        if (!isLogin && CheckInputOption()) {
+            printf("Anda harus login terlebih dahulu.\n");
+            continue;
+        }
+
         if (CheckInput("DAFTAR")) {
             Daftar(&databasePengguna);
         } else if (CheckInput("MASUK")) {
-            for (size_t i = 0; i < databasePengguna.usercount; i++){
-                displayWord(databasePengguna.user[i].Nama);
-            }
             Masuk(&databasePengguna);
         } else if (CheckInput("SIMPAN")) {
             Simpan();
         } else if (CheckInput("MUAT")) {
             Muat();
-        } else if (isLogin){
-            printf("Anda belum login, silahkan login terlebih dahulu!\n");
-            continue;
         } else if (CheckInput("KELUAR")) {
             Keluar();
         } else if (CheckInput("GANTI_PROFIL")) {
             gantiProfil(&databasePengguna.user[ActiveUser]);
         } else if (CheckInput("LIHAT_PROFIL")) {
+            IgnoreBlanks();
+
+            char* temp = "";
+
+            while (!EOP)
+            {
+               temp = stringConcatChar(temp, currentChar);
+               ADV();
+            }
             
-            lihatProfil(databasePengguna.user[ActiveUser]);
+            int idUser = idPengguna(temp);
+
+            lihatProfil(databasePengguna.user[idUser]);
         } else if (CheckInput("ATUR_JENIS_AKUN")) {
-            
             aturJenisAkun(&databasePengguna.user[ActiveUser]);
         } else if (CheckInput("UBAH_FOTO_PROFIL")) {
-            
             UBAH_FOTO_PROFIL(&databasePengguna.user[ActiveUser]);
         } else if (CheckInput("DAFTAR_TEMAN")) {
-            
-            // Do something
+            daftarTeman(ActiveUser);
+
         } else if (CheckInput("HAPUS_TEMAN")) {
-            
-            // Do something
+            hapusTeman(ActiveUser);
+
         } else if (CheckInput("TAMBAH_TEMAN")) {
-            
-            // Do something
+            TambahTeman(&dataFriendRequest);
+
         } else if (CheckInput("DAFTAR_PERMINTAAN_PERTEMANAN")) {
-            
-            // Do something
+            DaftarPermintaanPertemanan(dataFriendRequest);
+
         } else if (CheckInput("SETUJUI_PERTEMANAN")) {
-            
-            // Do something
+            SetujuiPertemanan(&dataFriendRequest);
+
         } else if (CheckInput("KICAU")) {
             Kicau(&dataKicau);
-            // Do something
+
         } else if (CheckInput("KICAUAN")) {
-            
-            // Do something
+            Kicauan(dataKicau);
+
         } else if (CheckInput("SUKA_KICAUAN")) {
-            
-            // Do something
+            ADVWORD();
+            int IdKicau = WordToInt(currentWord);
+            Suka_Kicau(&dataKicau, IdKicau);
+
         } else if (CheckInput("UBAH_KICAUAN")) {
-            
-            // Do something
+            ADVWORD();
+            int IdKicau = WordToInt(currentWord);
+            Ubah_Kicau(&dataKicau, IdKicau, ActiveUser);
+
         } else if (CheckInput("BALAS")) {
-            
-            // Do something
+
         } else if (CheckInput("BALASAN")) {
-            
-            // Do something
+
         } else if (CheckInput("HAPUS_BALASAN")) {
-            
-            // Do something
+
         } else if (CheckInput("BUAT_DRAF")) {
-            
-            // Do something
+            buatDraft();
+
         } else if (CheckInput("LIHAT_DRAF")) {
-            
-            // Do something
+            lihatDraft();
+
         } else if (CheckInput("UTAS")) {
-            
-            // Do something
+            ADVWORD();
+            int IdKicau = WordToInt(currentWord);
+            BuatUtas(IdKicau);
         } else if (CheckInput("SAMBUNG_UTAS")) {
-            
-            // Do something
+            ADVWORD();
+            int IdUtas = WordToInt(currentWord);
+            ADVWORD();
+            int index = WordToInt(currentWord);
+            SambungUtas(IdUtas, index);
+
         } else if (CheckInput("HAPUS_UTAS")) {
-            
-            // Do something
+            ADVWORD();
+            int IdUtas = WordToInt(currentWord);
+            ADVWORD();
+            int index = WordToInt(currentWord);
+            HapusUtas(IdUtas, index);
+
         } else if (CheckInput("CETAK_UTAS")) {
-            
-            // Do something
+            ADVWORD();
+            int IdUtas = WordToInt(currentWord);
+            cetakUtas(IdUtas);
+
         } else {
             printf("\nPerintah tidak dikenali.\n");
         }
-    }
-    
+    }   
+
     printf("\nAnda telah keluar dari program BurBir.\nSampai jumpa di penjelajahan berikutnya.");
     return 0;
 }

@@ -91,7 +91,6 @@ void gantiProfil(Pengguna *user){
             Temp.TabWord[j]=currentWord.TabWord[j];
         }
         convertLower(&Temp);
-        displayWord(Temp);
 
         if (currentWord.Length==0){
             Valid=true;
@@ -153,7 +152,9 @@ void gantiProfil(Pengguna *user){
 }
 void lihatProfil(Pengguna user){
     int i;
-    if (user.Publik || isWordEqual(databasePengguna.user[ActiveUser].Nama,user.Nama)){
+
+    char *tempUser = WordToString(user.Nama);
+    if (user.Publik || isWordEqual(databasePengguna.user[ActiveUser].Nama,user.Nama) || isConnected(GFriend,ActiveUser,idPengguna(tempUser))){
         printf("| Nama: ");
         for (i=0;i<user.Nama.Length;i++){
             printf("%c", user.Nama.TabWord[i]);

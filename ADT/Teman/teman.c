@@ -1,94 +1,85 @@
 #include <stdio.h>
 #include "teman.h"
-#include "../Mesin-Kata/wordmachine.h"
+#include "../../Database/database.h"
 
-void daftarTeman(Graf GFriend, ListVertex LVertex, int UID){
+void daftarTeman(int UID){
 /* I.S. UID adalah User ID yang valid */
 /* F.S. Menampilkan daftar teman pengguna dengan User ID UID */
 
     /* KAMUS LOKAL */
-    int i, idxUID, cntFriend;
+    int i, cntFriend;
 
     /* ALGORITMA */
-    idxUID = uidtoIdx(LVertex, UID);
-    cntFriend = hitungTeman(GFriend, idxUID);
+    cntFriend = hitungTeman(UID);
 
+    char *userName = WordToString(databasePengguna.user[UID].Nama);
     if (cntFriend == 0){ // jika belum punya teman
-        printf("User belum mempunyai teman\n");
+        printf("%s belum mempunyai teman\n", userName);
     } else { // jika punya teman
-        printf("User memiliki %d teman\n", cntFriend);
-        printf("Daftar teman User\n");
+        printf("%s memiliki %d teman\n", userName,cntFriend);
+        printf("Daftar teman %s\n", userName);
         
         for (i = 0; i < NEFF(GFriend); i++){
-        /* loop untuk ngeprint semua teman, tapi masih UID, gatau databasenya gmn jadi belum nama usernya */
-            if ((ELMTG(GFriend, idxUID, i) == 1) && (idxUID != i)){
-                printf("| %d\n", idxToUID(LVertex, i));
+        /* loop untuk menampilkan semua teman */
+            if ((ELMTG(GFriend, UID, i) == 1) && (UID != i)){
+                printf("| ");displayWord(databasePengguna.user[i].Nama);
             }
         }
     }
 
 }
 
-void hapusTeman(Graf *GFriend, ListVertex LVertex, int UIDSelf, int UIDFriend){
+void hapusTeman(int UIDSelf){
 /* I.S. Pengguna dengan User ID UIDSelf berteman dengan pengguna dengan User ID UIDFriend */
 /* F.S. Pengguna dengan User ID UIDSelf tidak lagi berteman dengan pengguna dengan User ID UIDFriend, hubungan pada adjacency matrix GFriend berubah (1 -> 0) */
 
     /* KAMUS LOKAL */
-    vertex VSelf, VFriend;
     Word username, confirm, yes, no;
-    boolean valid;
-    int i;
+    int uidUser, uidFriend;
 
     /* ALGORITMA */
     /* Siapkan token yes dan no */
-    yes.TabWord[0] = 'Y';
-    yes.TabWord[1] = 'A';
-    yes.Length = 2;
-    no.TabWord[0] = 'T';
-    no.TabWord[1] = 'I';
-    no.TabWord[2] = 'D';
-    no.TabWord[3] = 'A';
-    no.TabWord[4] = 'K';
-    no.Length = 5;
+    yes = createWordfromString("YA");
+    no = createWordfromString("TIDAK");
 
     /* Input nama user yang ingin dihapus */
     printf("Masukkan nama pengguna:\n");
     START();
-    i = 0;
-    while (currentChar != MARK){
-        username.TabWord[i] = currentChar;
-        i++;
+
+    IgnoreBlanks();
+    char *temp = "";
+    while (!EOP){
+        temp = stringConcatChar(temp, currentChar);
         ADV();
     }
-    username.Length = i;
 
-    if (true){ // Jika username ada pada daftar pengguna dan merupakan teman current user (butuh database)
+    username = createWordfromString(temp);
+
+    // Mencari UID pengguna saat ini dan teman yang dimaksud
+    uidUser = uidUsername(databasePengguna.user[ActiveUser].Nama);
+    uidFriend = uidUsername(username);
+
+    if ((isUserValid(username)) && (isConnected(GFriend, uidUser, uidFriend))){ // Jika username ada pada daftar pengguna dan merupakan teman current user
         /* Konfirmasi */
-        printf("Apakah anda yakin ingin menghapus [User Friend] dari daftar teman anda? (YA/TIDAK)");
+        printf("Apakah anda yakin ingin menghapus %s", WordToString(username));printf(" dari daftar teman anda? (YA/TIDAK)\n");
         STARTWORD();
         confirm = currentWord;
-        if (confirm.TabWord == no.TabWord){ // jika TIDAK
+        if (isWordEqual(confirm, no)){ // jika TIDAK
             printf("Penghapusan teman dibatalkan.\n");
-        } else if (confirm.TabWord == yes.TabWord) { // jika YA
-            VSelf = vertexWithIDX(LVertex, uidtoIdx(LVertex, UIDSelf));
-            VFriend = vertexWithIDX(LVertex, uidtoIdx(LVertex, UIDFriend));
-            if (isConnected(*GFriend, VSelf, VFriend)){ // jika berteman
-                removeEdge(&(*GFriend), VSelf, VFriend);
-                printf("[User Ex-Friend] berhasil dihapus dari daftar teman Anda.\n");
-            } else { // jika tidak berteman
-                printf("[User Random] bukan teman Anda.\n");
-            }
+        } else if (isWordEqual(confirm, yes)) { // jika YA
+            removeEdge(&GFriend, uidUser, uidFriend);
+            printf("%s", WordToString(username));printf(" berhasil dihapus dari daftar teman Anda.\n");
         } else {
             printf("Input tidak valid.\n");
         }
-    } else if (true){ // Jika username ada pada daftar pengguna tetapi bukan teman current user
-        printf("[user] bukan teman Anda.");
-    } else { // Input tidak valid
-        printf("Input tidak valid.\n");
+    } else if ((isUserValid(username)) && (!isConnected(GFriend, uidUser, uidFriend))){ // Jika username ada pada daftar pengguna tetapi bukan teman current user
+        printf("%s", WordToString(username));printf(" bukan teman Anda.\n");
+    } else { // Jika tidak ada pengguna dengan nama yang dimasukkan
+        printf("Tidak ada pengguna dengan nama ");printf("%s", WordToString(username));printf("!\n");
     }
 }
 
-int hitungTeman(Graf GFriend, int idx){
+int hitungTeman(int idx){
 /* Mengembalikan banyak teman pengguna dengan User ID UID yang di-assign dengan index idx pada adjacency matrix Graf GFriend */
 
     /* KAMUS LOKAL */
@@ -104,44 +95,49 @@ int hitungTeman(Graf GFriend, int idx){
     return count;
 }
 
-int idxToUID(ListVertex LVertex, int idx){
-/* Mengembalikan UID user yang di-assign dengan index idx pada adjacency matrix graf GFriend */
+boolean isUserValid(Word UserName){
+/* Mengembalikan true jika UserName adalah nama pengguna yang valid */
 
     /* KAMUS LOKAL */
-    int i, length, id;
+    int i, cntUser;
+    boolean valid;
 
     /* ALGORITMA */
-    id = IDX_UNDEF;
-    if (isLVEmpty(LVertex)){
-        return id;
-    } else {
-        length = NEFFLV(LVertex);
-        for (i = 0; i < length; i++){
-            if (IDXGLV(LVertex, i) == idx){
-                id = UIDLV(LVertex, i);
-            }
+    // cntUser sebagai variabel untuk menyimpan banyak pengguna
+    cntUser = NEFF(GFriend);
+
+    // Loop semua pengguna di database pengguna untuk mengecek apakah UserName valid
+    valid = false;
+    for (i = 0; i < cntUser; i++){
+        if (isWordEqual(databasePengguna.user[i].Nama, UserName)){
+            valid = true;
         }
-        return id;
     }
+
+    return valid;
 }
 
-int uidtoIdx(ListVertex LVertex, int UID){
-/* Mengembalikan index user dengan User ID UID yang di-assign pada adjacency matrix graf GFriend */
+int uidUsername(Word UserName){
+/* Mengembalikan UID pengguna dengan nama UserName */
 
     /* KAMUS LOKAL */
-    int i, length, idx;
+    int i, cntUser, uid;
 
     /* ALGORITMA */
-    idx = IDX_UNDEF;
-    if (isLVEmpty(LVertex)){
-        return idx;
-    } else {
-        length = NEFFLV(LVertex);
-        for (i = 0; i < length; i++){
-            if (UIDLV(LVertex, i) == UID){
-                idx = IDXGLV(LVertex, i);
+    // Inisialisasi variabel uid;
+    uid = -1;
+
+    // cntUser sebagai variabel untuk menyimpan banyak pengguna
+    cntUser = NEFF(GFriend);
+
+    if (isUserValid(UserName)){ // Pengecekan apakah UserName merupakan nama pengguna yang valid atau tidak
+        // Loop untuk mencari UID pengguna dengan nama UserName
+        for (i = 0; i < cntUser; i++){
+            if (isWordEqual(databasePengguna.user[i].Nama, UserName)){
+                uid = i;
             }
         }
-        return idx;
     }
+
+    return uid;
 }

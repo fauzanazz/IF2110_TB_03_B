@@ -1,4 +1,5 @@
 #include "muat.h"
+#include "../ADT/draf/stackDraft.h"
 #include <sys/stat.h>
 
 int idPengguna(char *nama){
@@ -18,9 +19,9 @@ void MuatPengguna(char* file_path){
     createListPengguna(&databasePengguna);
     STARTFILE(concatString(file_path, "/pengguna.config"));
 
-    databasePengguna.usercount = currentCharF - '0';
+    STARTWORDFILE();
+    databasePengguna.usercount = WordToInt(currentWordF);
 
-    ADVFILE();
     ADVFILE();
 
     int i = 0;
@@ -116,28 +117,33 @@ void MuatPengguna(char* file_path){
         }
     }
 
+    GFriend.NEff = databasePengguna.usercount;
+
     //Baca Permintaan Pertemanan
-    IgnoreSpace();
-    int k = currentCharF - '0';
+    ADVWORDFILE();
+    int k = WordToInt(currentWordF);
 
     MakeEmpty(&dataFriendRequest, k);
-    ADVFILE();
     for (i = 0; i < k; i++){
         friendRequest Temporary;
-        IgnoreSpace();
-        Temporary.id_target = currentCharF - '0';
-        ADVFILE();
-        IgnoreSpace();
-        Temporary.id_user = currentCharF - '0';
-        ADVFILE();
-        IgnoreSpace();
-        Temporary.popularity = currentCharF - '0';
-        ADVFILE();
+        ADVWORDFILE();
+        Temporary.id_user = WordToInt(currentWordF);
+        ADVWORDFILE();
+        Temporary.id_target = WordToInt(currentWordF);
+
+        int temp = 0;
+        while (!EOPF)
+        {
+            temp *= 10;
+            temp += currentCharF - '0';
+            ADVFILE();
+        }
+        Temporary.popularity = temp;
 
         Enqueue(&dataFriendRequest, Temporary);
     }
 
-     CloseFile();
+    CloseFile();
 }
 
 void PrintPengguna(){
@@ -182,7 +188,8 @@ void PrintPengguna(){
 void MuatKicauan(char *file_path){
     STARTFILE(concatString(file_path, "/kicauan.config"));
 
-    int k = currentCharF - '0';
+    STARTWORDFILE();
+    int k = WordToInt(currentWordF);
 
     CreateListDinKicau(&dataKicau, k);
 
@@ -192,10 +199,10 @@ void MuatKicauan(char *file_path){
         IgnoreSpace();
         //ID KICAU
         Kicau_struct kicauan;
-        kicauan.IdKicau = currentCharF - '0';
+        ADVWORDFILE();
+        kicauan.IdKicau = WordToInt(currentWordF);
 
         //ISI KICAU
-        ADVFILE();
         IgnoreSpace();
 
         Word isi = createWordfromString("");
@@ -448,8 +455,145 @@ void MuatUtas(char *file_path){
     }
 }
 
-void MuatDraf(){
+void MuatDraf(char *file_path){
     CreateEmptyListUserDraft(&dataDraf);
+    STARTFILE(concatString(file_path, "/draf.config"));
+
+    STARTWORDFILE();
+
+    //Banyak Pengguna Draft
+    int i = WordToInt(currentWordF);
+
+    while (i > 0){
+        ADVFILE();
+        //Mengambil 1 line yang berisi username dan banyak draft
+        char *temp = "";
+
+        while (!EOPF){
+            temp = stringConcatChar(temp, currentCharF);
+            ADVFILE();
+        }
+
+        //Ambil banyak draft dari belakang
+        int j = stringLength(temp) - 1;
+        int banyakDraf = 0;
+        int multiplier = 1;
+        while (temp[j] != ' ')
+        {
+            banyakDraf += (temp[j] - '0') * multiplier;
+            j--;
+        }
+
+        int k = 0;
+        char *userName = "";
+        while ( k < j)
+        {
+            userName = stringConcatChar(userName, temp[k]);
+            k++;
+        }
+
+        StackDraft EmptyStack;
+        CreateEmptyStackDraft(&EmptyStack);
+
+        while (banyakDraf > 0)
+        {
+            ADVFILE();
+            Draft temp;
+            CreateEmptyDraft(&temp);
+
+            Word isi = createWordfromString("");
+
+            //Isi
+            int l = 0;
+            while (!EOPF && l < 280)
+            {
+                isi.TabWord[l++] = currentCharF;
+                isi.Length++;
+                ADVFILE();
+            }
+
+            temp.DrafContent = isi;
+
+
+            //DATE TIME
+            ADVFILE();
+            DATETIME currentTime;
+            int DD = 0;
+            while (currentCharF != '/')
+            {
+                DD *= 10;
+                DD += currentCharF - '0';
+                ADVFILE();
+            }
+
+            ADVFILE();
+            int MM = 0;
+            while (currentCharF != '/')
+            {
+                MM *= 10;
+                MM += currentCharF - '0';
+                ADVFILE();
+            }
+
+            ADVFILE();
+            int YYYY = 0;
+            while (currentCharF != ' ')
+            {
+                YYYY *= 10;
+                YYYY += currentCharF - '0';
+                ADVFILE();
+            }
+
+            ADVFILE();
+            int hh = 0;
+            while (currentCharF != ':')
+            {
+                hh *= 10;
+                hh += currentCharF - '0';
+                ADVFILE();
+            }
+
+            ADVFILE();
+            int mm = 0;
+            while (currentCharF != ':')
+            {
+                mm *= 10;
+                mm += currentCharF - '0';
+                ADVFILE();
+            }
+
+            ADVFILE();
+            int ss = 0;
+            while (!EOPF)
+            {
+                ss *= 10;
+                ss += currentCharF - '0';
+                ADVFILE();
+            }
+
+            CreateDATETIME(&currentTime, DD, MM, YYYY, hh, mm, ss);
+
+            temp.dateLastEdited = currentTime;
+
+            PushStackDraft(&EmptyStack, temp, createWordfromString(userName));
+
+            banyakDraf--;
+        }
+
+        StackDraft ReverseDraft;
+        Draft tempReverse;
+        CreateEmptyDraft(&tempReverse);
+        CreateEmptyStackDraft(&ReverseDraft);
+
+        while (!isEmptyStackDraft(EmptyStack))
+        {
+            PopStackDraft(&EmptyStack, &tempReverse);
+            PushStackDraft(&ReverseDraft, tempReverse, EmptyStack.UserName);   
+        }
+
+        insertNewUserDraft(&dataDraf, ReverseDraft);
+        i--;
+    }    
 }
 
 int Muat(){
@@ -467,6 +611,7 @@ int Muat(){
         MuatPengguna(inputFolder);
         MuatKicauan(inputFolder);
         MuatUtas(inputFolder);
+        MuatDraf(inputFolder);
 
         printf("Mohon tunggu...\n");
         printf("1..\n");

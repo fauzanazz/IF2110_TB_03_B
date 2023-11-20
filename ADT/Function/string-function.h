@@ -10,5 +10,6 @@ char *concatString(char *str1, char *str2);
 char *stringConcatChar(char *str, char x);
 void printString(char *str);
 boolean stringCompare(char *str1, char *str2);
+char *WordToString(Word w);
 
 #endif 

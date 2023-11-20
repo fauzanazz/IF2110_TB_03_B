@@ -15,6 +15,8 @@ void SimpanKicauan(char* file_path);
 
 void SimpanUtas(char* file_path);
 
+void SimpanDraf(char* folder_path);
+
 void Simpan();
 
 #endif
