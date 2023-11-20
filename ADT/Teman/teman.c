@@ -38,15 +38,8 @@ void hapusTeman(int UIDSelf){
 
     /* ALGORITMA */
     /* Siapkan token yes dan no */
-    yes.TabWord[0] = 'Y';
-    yes.TabWord[1] = 'A';
-    yes.Length = 2;
-    no.TabWord[0] = 'T';
-    no.TabWord[1] = 'I';
-    no.TabWord[2] = 'D';
-    no.TabWord[3] = 'A';
-    no.TabWord[4] = 'K';
-    no.Length = 5;
+    yes = createWordfromString("YA");
+    no = createWordfromString("TIDAK");
 
     /* Input nama user yang ingin dihapus */
     printf("Masukkan nama pengguna:\n");
