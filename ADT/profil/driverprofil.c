@@ -1,8 +1,8 @@
 #include "profil.h"
 #include "profil.c"
 #include <stdio.h>
-#include "../pengguna/pengguna.h"
-#include "../pengguna/pengguna.c"
+#include "../Pengguna/pengguna.h"
+#include "../Pengguna/pengguna.c"
 #include "../Pcolor/pcolor.h"
 #include "../Pcolor/pcolor.c"
 #include "../matrixprofil/matrixprofil.h"
