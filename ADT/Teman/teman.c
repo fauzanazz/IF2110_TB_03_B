@@ -12,11 +12,12 @@ void daftarTeman(int UID){
     /* ALGORITMA */
     cntFriend = hitungTeman(UID);
 
+    char *userName = WordToString(databasePengguna.user[UID].Nama);
     if (cntFriend == 0){ // jika belum punya teman
-        printf("User belum mempunyai teman\n");
+        printf("%s belum mempunyai teman\n", userName);
     } else { // jika punya teman
-        printf("User memiliki %d teman\n", cntFriend);
-        printf("Daftar teman User\n");
+        printf("%s memiliki %d teman\n", userName,cntFriend);
+        printf("Daftar teman %s\n", userName);
         
         for (i = 0; i < NEFF(GFriend); i++){
         /* loop untuk menampilkan semua teman */
@@ -52,7 +53,6 @@ void hapusTeman(int UIDSelf){
         ADV();
     }
 
-    printf("%s \n", temp);
     username = createWordfromString(temp);
 
     // Mencari UID pengguna saat ini dan teman yang dimaksud

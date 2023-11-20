@@ -68,11 +68,18 @@ void SimpanPengguna(char *folder_path){
     }
 
     //Permintaan Pertemanan
-    fprintf(file, "%d\n", dataFriendRequest.MaxElement);
-    for (j = 0; j < dataFriendRequest.MaxElement; j++){
-        fprintf(file, "%d %d %d\n", dataFriendRequest.T[j].id_target, dataFriendRequest.T[j].id_user, dataFriendRequest.T[j].popularity);
-    }
+    int banyak = NBElmt(dataFriendRequest);
+    fprintf(file, "%d\n", banyak);
 
+    PrioQueueFriendRequest temp = dataFriendRequest;
+    friendRequest tempFriendRequest;
+
+    while (!IsEmpty(temp))
+    {
+        Dequeue(&temp, &tempFriendRequest);   
+        fprintf(file, "%d %d %d\n", tempFriendRequest.id_user, tempFriendRequest.id_target, tempFriendRequest.popularity);
+    }
+    
     fclose(file);
 }
 
@@ -176,10 +183,21 @@ void SimpanDraf(char *folder_path){
         writeWord(tempDataDraf.UserName, file, ' ');
         fprintf(file, "%d\n", tempDataDraf.DSTop + 1);
 
-        int j = 0;
-        while (j <= tempDataDraf.DSTop)
+        StackDraft ReverseDraft;
+        Draft tempReverse;
+        CreateEmptyDraft(&tempReverse);
+        CreateEmptyStackDraft(&ReverseDraft);
+
+        while (!isEmptyStackDraft(tempDataDraf))
         {
-            Draft tempDraf = tempDataDraf.Buffer[j++];
+            PopStackDraft(&tempDataDraf, &tempReverse);
+            PushStackDraft(&ReverseDraft, tempReverse, tempDataDraf.UserName);   
+        }
+
+        int j = 0;
+        while (j <= ReverseDraft.DSTop)
+        {
+            Draft tempDraf = ReverseDraft.Buffer[j++];
             writeWord(tempDraf.DrafContent, file, '\n');
 
             DATETIME tempDate = tempDraf.dateLastEdited;
@@ -201,8 +219,6 @@ void Simpan(){
     STARTWORD();
 
     char *folder_path = concatString("IO/Output/", WordToString(currentWord));
-
-    printf("%s\n", folder_path);
 
     if (mkdir(folder_path, 0777) != 0) {
         printf("\nFolder sudah tersedia.\n");

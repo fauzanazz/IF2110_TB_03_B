@@ -46,9 +46,6 @@ void DeAlokasi(PrioQueueFriendRequest *Q) {
 }
 
 void Enqueue(PrioQueueFriendRequest *Q, friendRequest X) {
-    // error karena gakepake di makefile
-    // boolean found;
-    // int idx;
     int i, j;
     friendRequest temp;
 
@@ -57,17 +54,17 @@ void Enqueue(PrioQueueFriendRequest *Q, friendRequest X) {
         Tail(*Q) = 0;
         InfoTail(*Q) = X;
     } else {
-        Tail(*Q) = Tail(*Q) == MaxElement(*Q) - 1 ? 0 : Tail(*Q) + 1;
+        Tail(*Q) = (Tail(*Q) + 1) % MaxElement(*Q);
         InfoTail(*Q) = X;
         i = Tail(*Q);
         j = i == 0 ? MaxElement(*Q) - 1 : i - 1;
-        
-        while (i != Head(*Q) && Popularity(Elmt(*Q, i)) < (Popularity(Elmt(*Q, j)))) {
+
+        while (i != Head(*Q) && Popularity(Elmt(*Q, i)) > Popularity(Elmt(*Q, j))) {
             temp = Elmt(*Q, i);
             Elmt(*Q, i) = Elmt(*Q, j);
             Elmt(*Q, j) = temp;
             i = j;
-            j = i == 0 ? MaxElement(*Q) - 1 : i - 1;
+            j = (i == 0) ? MaxElement(*Q) - 1 : i - 1;
         }
     }
 }
@@ -89,19 +86,34 @@ void TambahTeman(PrioQueueFriendRequest *Q){
     // char input; gakepake -maulvi
 
     // Sambungkan dengan database
-    int id_pengguna = 0;
-    int id_target = 2;
+    int id_pengguna = ActiveUser;
     int popularity = 0;
+    int id_target = -1;
 
     // Inisialiasi penyimpanan queue
     PrioQueueFriendRequest Qtemp;
     Qtemp = *Q;
     friendRequest temp;
-
-
+    char *tempUser = "";
     //* Algoritma
-    printf("Masukkan nama pengguna:\n");
-    // Mesin kata
+    do {
+        printf("Masukkan nama pengguna:\n");
+
+        START();
+        IgnoreBlanks();
+        while (!EOP)
+        {
+            tempUser = stringConcatChar(tempUser, currentChar);
+            ADV();
+        }
+
+        id_target = idPengguna(tempUser);
+
+        if (id_target == -1) {
+            printf("Pengguna tidak ditemukan. Silakan coba lagi.\n");
+        }
+
+    } while (id_target == -1);
     
     // Cek Pengguna dengan id ke berapa dalam database
 
@@ -110,7 +122,7 @@ void TambahTeman(PrioQueueFriendRequest *Q){
     // Jika sudah ada, maka tidak perlu dimasukkan
     if (CekQueuePermintaanPertemanan(Qtemp, id_pengguna, id_target)) {
         //! Belum di implementasikan karena belum ada database
-        printf("Anda sudah mengirimkan permintaan pertemanan kepada ... . Silakan tunggu hingga permintaan Anda disetujui.\n");
+        printf("Anda sudah mengirimkan permintaan pertemanan kepada %s. Silakan tunggu hingga permintaan Anda disetujui.\n", tempUser);
     } else {
         // Buat infotypenya
         User(temp) = id_pengguna;
@@ -183,7 +195,8 @@ void DaftarPermintaanPertemanan(PrioQueueFriendRequest Q){
     while (!IsEmpty(Qtemp))
     {
         Dequeue(&Qtemp, &temp);
-        if (User(temp) == id_pengguna)
+
+        if (Target(temp) == id_pengguna)
         {
             Enqueue(&Quser, temp);
         }
@@ -200,46 +213,67 @@ void SetujuiPertemanan(PrioQueueFriendRequest *Q) {
     // int count = 0;
 
     // Sambungkan dengan database
-    int id_pengguna = 0;
+    int id_pengguna = ActiveUser;
     // int id_target = 2; gakepake
 
     // Inisialiasi penyimpanan queue
     PrioQueueFriendRequest Qtemp;
     PrioQueueFriendRequest Quser;
     MakeEmpty(&Quser, MaxElement(*Q));
-    Qtemp = *Q;
+    MakeEmpty(&Qtemp, MaxElement(*Q));
     friendRequest temp;
 
     //* Algoritma
     // Buat queue berisi friend request milik user
-    while (!IsEmpty(Qtemp))
+    while (Target(temp) != id_pengguna && !IsEmpty(*Q))
     {
-        Dequeue(&Qtemp, &temp);
-        if (User(temp) == id_pengguna)
+        Dequeue(Q, &temp);
+        if (Target(temp) == id_pengguna)
         {
             Enqueue(&Quser, temp);
+        } else {
+            Enqueue(&Qtemp, temp);
         }
     }
     // Ambil dari data base data peminta
     if (!IsEmpty(Quser)){
-        Enqueue(&Quser, temp);
-        printf("Permintaan pertemanan teratas dari ...\n");
+        Dequeue(&Quser, &temp);
+        char *Namapeminta = WordToString(databasePengguna.user[User(temp)].Nama);
+        int popularity = Popularity(temp);
+
+        printf("Permintaan pertemanan teratas dari %s.\n", Namapeminta);
         //! Sambungkan dengan database
-        // char Namapeminta = ....
+        
         // char Jumlah teman = ....
-        // printf("| %s\n", #Nama peminta);
-        // printf("| Jumlah teman: %d\n", #Jumlah teman);
+        printf("| %s\n", Namapeminta);
+        printf("| Jumlah teman: %d\n", popularity);
         printf("Apakah Anda ingin menyetujui permintaan pertemanan ini?\n");
         
         //! Mesin kata
+        STARTWORD();
+        while (!CheckInput("TIDAK") && !CheckInput("YA")){
+            ADVWORD();
+        }     
         
-        if (true) {
-            printf("Permintaan pertemanan dari Bob telah disetujui. Selamat! Anda telah berteman dengan Bob.");
+
+        if (CheckInput("YA")) {
+            printf("Permintaan pertemanan dari %s telah disetujui. Selamat! Anda telah berteman dengan %s.", Namapeminta, Namapeminta);
+
+            addEdge(&GFriend, id_pengguna, User(temp));
+        } else {
+            printf("Permintaan pertemanan dari %s telah ditolak.", Namapeminta);
         }
 
     } else {
         printf("Tidak ada yang mau berteman anda HAHAHAHA");
     }
+
+    while (!IsEmpty(Qtemp))
+    {
+        Dequeue(&Qtemp, &temp);
+        Enqueue(Q, temp);
+    }
+    
     printf("\n");
 }
 
@@ -265,18 +299,19 @@ void PrintPrioQueueFriendRequest(PrioQueueFriendRequest Q) {
     friendRequest val;
     PrioQueueFriendRequest temp;
     temp = Q;
+
     if (!IsEmpty(Q)) {
         printf("Terdapat %d permintaan pertemanan untuk Anda.\n", MaxElement(Q));
         while (!IsEmpty(temp)) {
             Dequeue(&temp, &val);
             //! Sambungkan dengan database
-            // char Namapeminta = ....
-            // char Jumlah teman = ....
-            // printf("| %s\n", #Nama peminta);
-            // printf("| Jumlah teman: %d\n", #Jumlah teman);
+            char *Namapeminta = WordToString(databasePengguna.user[User(val)].Nama);
+            int JumlahTeman = Popularity(val);
+
+            printf("| %s\n", Namapeminta);
+            printf("| Jumlah teman: %d\n\n", JumlahTeman);
         }
     } else {
         printf("Tidak ada permintaan pertemanan untuk Anda.\n");
     }
-    printf("\n");
 }

@@ -42,6 +42,11 @@ void buatDraft(){
         draftLength = 280;
     }
     draftContent.Length = draftLength;
+
+    if (draftLength == 0){
+        printf("Draft tidak boleh kosong!\n");
+        return;
+    }
     DCONTENT(content) = draftContent;
 
     // Konfirmasi apa yang ingin dilakukan dengan draf
@@ -264,6 +269,8 @@ void hapusDraft(){
     if (ADDR_TOPSD(LUD_IDX(dataDraf, idxInLUD)) == NilS){ // Jika stack draft menjadi kosong, artinya user tidak lagi menjadi pengguna draft dan dihapus dari list pengguna draft
         deleteDraftUser(&dataDraf, databasePengguna.user[ActiveUser].Nama);
     }
+
+    printf("Draf telah berhasil dihapus!\n");
 }
 
 void terbitDraft(){

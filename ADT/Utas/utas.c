@@ -178,8 +178,10 @@ void cetakUtas(int idUtas){
         return;
     }
 
-    int idPemilikUtas = dataKicau.buffer[dataUtas.ListUtas[idUtas].id_kicauan].IdProfile;
-    if (idPemilikUtas != ActiveUser && !ELMTG(GFriend, idPemilikUtas, ActiveUser) && !databasePengguna.user[idPemilikUtas].Publik){
+    int idxKicau = cariKicauan(dataKicau, dataUtas.ListUtas[idUtas].id_kicauan);
+
+    int idPemilikUtas = dataKicau.buffer[idxKicau].IdProfile;
+    if (idPemilikUtas != ActiveUser && !isConnected(GFriend,ActiveUser, idPemilikUtas) && !databasePengguna.user[idPemilikUtas].Publik){
         printf("Akun author private, silahkan follow terlebih dahulu\n");
         return;
     }
@@ -283,15 +285,17 @@ void SambungUtas(int idUtas, int idx){
         return;
     }
 
+    if (dataUtas.ListUtas[idUtas].Utas->info.IdProfile != ActiveUser){
+        printf("Utas ini bukan milik Anda\n");
+        return;
+    }
+
     if (idx - 1 > dataUtas.ListUtas[idUtas].neff || idx < 0){
         printf("Index tidak valid\n");
         return;
     }
 
-    if (dataUtas.ListUtas[idUtas].Utas->info.IdProfile != ActiveUser){
-        printf("Utas ini bukan milik Anda\n");
-        return;
-    }
+
 
     printf("Masukkan kicauan: \n");
     Word isi = createWordfromString("");
@@ -334,17 +338,17 @@ void HapusUtas(int idUtas, int idx){
     }
 
     if (idx == 0){
-        printf("Tidak dapat menghapus utas utama.\n");
-        return;
-    }
-
-    if (idx >= dataUtas.ListUtas[idUtas].neff || idx <= 0){
-        printf("Index tidak valid.\n");
+        printf("Tidak dapat menghapus kicauan utama.\n");
         return;
     }
 
     if (dataUtas.ListUtas[idUtas].Utas->info.IdProfile != ActiveUser){
         printf("Anda tidak bisa menghapus kicauan dalam utas ini.\n");
+        return;
+    }
+
+    if (idx > dataUtas.ListUtas[idUtas].neff || idx < 0){
+        printf("Index tidak valid.\n");
         return;
     }
 

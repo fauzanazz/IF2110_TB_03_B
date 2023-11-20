@@ -1,4 +1,5 @@
 #include "muat.h"
+#include "../ADT/draf/stackDraft.h"
 #include <sys/stat.h>
 
 int idPengguna(char *nama){
@@ -126,9 +127,9 @@ void MuatPengguna(char* file_path){
     for (i = 0; i < k; i++){
         friendRequest Temporary;
         ADVWORDFILE();
-        Temporary.id_target = WordToInt(currentWordF);
-        ADVWORDFILE();
         Temporary.id_user = WordToInt(currentWordF);
+        ADVWORDFILE();
+        Temporary.id_target = WordToInt(currentWordF);
 
         int temp = 0;
         while (!EOPF)
@@ -142,7 +143,7 @@ void MuatPengguna(char* file_path){
         Enqueue(&dataFriendRequest, Temporary);
     }
 
-     CloseFile();
+    CloseFile();
 }
 
 void PrintPengguna(){
@@ -579,7 +580,18 @@ void MuatDraf(char *file_path){
             banyakDraf--;
         }
 
-        insertNewUserDraft(&dataDraf, EmptyStack);
+        StackDraft ReverseDraft;
+        Draft tempReverse;
+        CreateEmptyDraft(&tempReverse);
+        CreateEmptyStackDraft(&ReverseDraft);
+
+        while (!isEmptyStackDraft(EmptyStack))
+        {
+            PopStackDraft(&EmptyStack, &tempReverse);
+            PushStackDraft(&ReverseDraft, tempReverse, EmptyStack.UserName);   
+        }
+
+        insertNewUserDraft(&dataDraf, ReverseDraft);
         i--;
     }    
 }
