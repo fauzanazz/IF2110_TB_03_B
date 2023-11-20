@@ -91,7 +91,6 @@ void gantiProfil(Pengguna *user){
             Temp.TabWord[j]=currentWord.TabWord[j];
         }
         convertLower(&Temp);
-        displayWord(Temp);
 
         if (currentWord.Length==0){
             Valid=true;

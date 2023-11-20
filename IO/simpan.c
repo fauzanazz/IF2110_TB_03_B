@@ -167,14 +167,12 @@ void SimpanDraf(char *folder_path){
         perror("Error opening file");
         return;
     }
-    printf("%d\n", dataDraf.LUDNeff);
 
     fprintf(file, "%d\n", dataDraf.LUDNeff);
 
     int i;
     for(i = 0; i < dataDraf.LUDNeff; i++){
         StackDraft tempDataDraf = dataDraf.BufferUserDraft[i];
-        displayWord(tempDataDraf.UserName); 
         writeWord(tempDataDraf.UserName, file, ' ');
         fprintf(file, "%d\n", tempDataDraf.DSTop + 1);
 
@@ -222,7 +220,7 @@ void Simpan(){
     printf("2..\n");
     printf("3..\n");
 
-    printf("\nKonfigurasi berhasil disimpan! di IO/Output/%s\n", folder_path);
+    printf("\nKonfigurasi berhasil disimpan! %s\n", folder_path);
     
     return;
 }

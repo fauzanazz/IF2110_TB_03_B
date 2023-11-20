@@ -7,7 +7,7 @@ void daftarTeman(int UID);
 /* I.S. UID adalah User ID yang valid */
 /* F.S. Menampilkan daftar teman pengguna dengan User ID UID */
 
-void hapusTeman(int UIDSelf, int UIDFriend);
+void hapusTeman(int UIDSelf);
 /* I.S. Pengguna dengan User ID UIDSelf berteman dengan pengguna dengan User ID UIDFriend */
 /* F.S. Pengguna dengan User ID UIDSelf tidak lagi berteman dengan pengguna dengan User ID UIDFriend, hubungan pada adjacency matrix GFriend berubah (1 -> 0) */
 

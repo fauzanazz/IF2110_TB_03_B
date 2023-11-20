@@ -116,6 +116,8 @@ void MuatPengguna(char* file_path){
         }
     }
 
+    GFriend.NEff = databasePengguna.usercount;
+
     //Baca Permintaan Pertemanan
     ADVWORDFILE();
     int k = WordToInt(currentWordF);
@@ -185,7 +187,8 @@ void PrintPengguna(){
 void MuatKicauan(char *file_path){
     STARTFILE(concatString(file_path, "/kicauan.config"));
 
-    int k = currentCharF - '0';
+    STARTWORDFILE();
+    int k = WordToInt(currentWordF);
 
     CreateListDinKicau(&dataKicau, k);
 
@@ -195,10 +198,10 @@ void MuatKicauan(char *file_path){
         IgnoreSpace();
         //ID KICAU
         Kicau_struct kicauan;
-        kicauan.IdKicau = currentCharF - '0';
+        ADVWORDFILE();
+        kicauan.IdKicau = WordToInt(currentWordF);
 
         //ISI KICAU
-        ADVFILE();
         IgnoreSpace();
 
         Word isi = createWordfromString("");

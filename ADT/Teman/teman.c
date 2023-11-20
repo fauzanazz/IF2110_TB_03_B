@@ -21,20 +21,20 @@ void daftarTeman(int UID){
         for (i = 0; i < NEFF(GFriend); i++){
         /* loop untuk menampilkan semua teman */
             if ((ELMTG(GFriend, UID, i) == 1) && (UID != i)){
-                printf("| ");displayWord(databasePengguna[i].Nama);printf("\n");
+                printf("| ");displayWord(databasePengguna.user[i].Nama);printf("\n");
             }
         }
     }
 
 }
 
-void hapusTeman(int UIDSelf, int UIDFriend){
+void hapusTeman(int UIDSelf){
 /* I.S. Pengguna dengan User ID UIDSelf berteman dengan pengguna dengan User ID UIDFriend */
 /* F.S. Pengguna dengan User ID UIDSelf tidak lagi berteman dengan pengguna dengan User ID UIDFriend, hubungan pada adjacency matrix GFriend berubah (1 -> 0) */
 
     /* KAMUS LOKAL */
     Word username, confirm, yes, no;
-    int i, uidUser, uidFriend;
+    int uidUser, uidFriend;
 
     /* ALGORITMA */
     /* Siapkan token yes dan no */
@@ -51,28 +51,31 @@ void hapusTeman(int UIDSelf, int UIDFriend){
     /* Input nama user yang ingin dihapus */
     printf("Masukkan nama pengguna:\n");
     START();
-    i = 0;
-    while (currentChar != MARK){
-        username.TabWord[i] = currentChar;
-        i++;
+
+    IgnoreBlanks();
+    char *temp = "";
+    while (!EOP){
+        temp = stringConcatChar(temp, currentChar);
         ADV();
     }
-    username.Length = i;
+
+    printf("%s \n", temp);
+    username = createWordfromString(temp);
 
     // Mencari UID pengguna saat ini dan teman yang dimaksud
-    uidUser = uidUsername(databasePengguna[activeUser].Nama);
+    uidUser = uidUsername(databasePengguna.user[ActiveUser].Nama);
     uidFriend = uidUsername(username);
 
     if ((isUserValid(username)) && (isConnected(GFriend, uidUser, uidFriend))){ // Jika username ada pada daftar pengguna dan merupakan teman current user
         /* Konfirmasi */
-        printf("Apakah anda yakin ingin menghapus ");displayWord(databasePengguna[uidFriend].Nama);printf(" dari daftar teman anda? (YA/TIDAK)\n");
+        printf("Apakah anda yakin ingin menghapus %s", WordToString(username));printf(" dari daftar teman anda? (YA/TIDAK)\n");
         STARTWORD();
         confirm = currentWord;
         if (isWordEqual(confirm, no)){ // jika TIDAK
             printf("Penghapusan teman dibatalkan.\n");
         } else if (isWordEqual(confirm, yes)) { // jika YA
             removeEdge(&GFriend, uidUser, uidFriend);
-            displayWord(databasePengguna[uidFriend].Nama);printf(" berhasil dihapus dari daftar teman Anda.\n");
+            displayWord(databasePengguna.user[uidFriend].Nama);printf(" berhasil dihapus dari daftar teman Anda.\n");
         } else {
             printf("Input tidak valid.\n");
         }
@@ -113,7 +116,7 @@ boolean isUserValid(Word UserName){
     // Loop semua pengguna di database pengguna untuk mengecek apakah UserName valid
     valid = false;
     for (i = 0; i < cntUser; i++){
-        if (isWordEqual(databasePengguna[i].Nama, UserName)){
+        if (isWordEqual(databasePengguna.user[i].Nama, UserName)){
             valid = true;
         }
     }
@@ -137,7 +140,7 @@ int uidUsername(Word UserName){
     if (isUserValid(UserName)){ // Pengecekan apakah UserName merupakan nama pengguna yang valid atau tidak
         // Loop untuk mencari UID pengguna dengan nama UserName
         for (i = 0; i < cntUser; i++){
-            if (isWordEqual(databasePengguna[i].Nama, UserName)){
+            if (isWordEqual(databasePengguna.user[i].Nama, UserName)){
                 uid = i;
             }
         }

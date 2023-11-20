@@ -13,6 +13,8 @@
  * @param file_path The path to the file containing user data.
  */
 
+int idPengguna(char *nama);
+
 void MuatPengguna(char* file_path);
 
 void MuatKicauan(char* file_path);
