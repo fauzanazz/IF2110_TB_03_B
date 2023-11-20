@@ -12,6 +12,7 @@
 #include "../ADT/boolean.h"
 #include "../ADT/Mesin-Kata/charmachine.h"
 #include "../ADT/draf/draft.h"
+#include "../ADT/Balasan/balasan.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -21,6 +22,7 @@ extern PrioQueueFriendRequest dataFriendRequest;
 extern ListDin dataKicau;
 extern ListUserDraft dataDraf;
 extern ListKicauanUtas dataUtas;
+extern BalasanList listBalasan;
 extern int ActiveUser;
 extern boolean isLogin;
 

@@ -596,6 +596,136 @@ void MuatDraf(char *file_path){
     }    
 }
 
+void MuatBalasan(char* file_path){
+    CreateListBalasan(&listBalasan);
+    STARTFILE(concatString(file_path, "/balasan.config"));
+
+    STARTWORDFILE();
+
+    int loopKicau = WordToInt(currentWordF);
+    for (int i = 0; i < loopKicau; i++ ){
+
+        ADVFILE();
+        int id_kicauan = WordToInt(currentWordF);
+
+        Tree temptree;
+        createEmptyTree(&temptree, id_kicauan);
+        insertLastBalasan(&listBalasan, temptree);
+
+        ADVFILE();
+        int loopBalasan = WordToInt(currentWordF);
+        for (int j = 0; j < loopBalasan; j++){
+
+            BalasanStruct tempBalasan;
+
+            // Parent Root
+            ADVFILE();
+            int idTarget_ = WordToInt(currentWordF);
+
+            // ID Balasan
+            ADVFILE();
+            int id_balasan = WordToInt(currentWordF);
+            tempBalasan.ID_balasan = id_balasan;
+
+            ADVFILE();
+            Word isi = createWordfromString("");
+            int j = 0;
+            while (!EOPF && j < 280)
+            {
+                isi.TabWord[j++] = currentCharF;
+                isi.Length++;
+                ADVFILE();
+            }
+
+            tempBalasan.TextBalasan = isi;
+
+            // ID Author
+            ADVFILE();
+            IgnoreSpace();
+            char *tempChar = "";
+            while (!EOPF)
+            {
+                tempChar = stringConcatChar(tempChar, currentCharF);
+                ADVFILE();
+            }
+
+            //Mencari id Pengguna berdasarkan nama
+            tempBalasan.ID_Author = idPengguna(tempChar);
+
+
+
+            ADVFILE();
+            DATETIME currentTime;
+            int DD = 0;
+            while (currentCharF != '/')
+            {
+                DD *= 10;
+                DD += currentCharF - '0';
+                ADVFILE();
+            }
+
+            ADVFILE();
+            int MM = 0;
+            while (currentCharF != '/')
+            {
+                MM *= 10;
+                MM += currentCharF - '0';
+                ADVFILE();
+            }
+
+            ADVFILE();
+            int YYYY = 0;
+            while (currentCharF != ' ')
+            {
+                YYYY *= 10;
+                YYYY += currentCharF - '0';
+                ADVFILE();
+            }
+
+            ADVFILE();
+            int hh = 0;
+            while (currentCharF != ':')
+            {
+                hh *= 10;
+                hh += currentCharF - '0';
+                ADVFILE();
+            }
+
+            ADVFILE();
+            int mm = 0;
+            while (currentCharF != ':')
+            {
+                mm *= 10;
+                mm += currentCharF - '0';
+                ADVFILE();
+            }
+
+            ADVFILE();
+            int ss = 0;
+            while (!EOPF)
+            {
+                ss *= 10;
+                ss += currentCharF - '0';
+                ADVFILE();
+            }
+
+            CreateDATETIME(&currentTime, DD, MM, YYYY, hh, mm, ss);
+
+            tempBalasan.DT = currentTime;
+
+            if (idTarget_ == -1){
+                addChild(listBalasan.T[i].root, newNodeBalasan(tempBalasan));
+            } else {
+                Node* temp = findNode(listBalasan.T[i].root, idTarget_);
+                if (temp == NULL){
+                    printf("Tidak ditemukan node dengan ID = %d\n", idTarget_);
+                }
+                addChild(temp, newNodeBalasan(tempBalasan));
+            }
+        }
+    }
+}
+
 int Muat(){
     printf("\nMasukkan folder konfigurasi untuk dimuat:\n");
 
@@ -612,6 +742,7 @@ int Muat(){
         MuatKicauan(inputFolder);
         MuatUtas(inputFolder);
         MuatDraf(inputFolder);
+        MuatBalasan(inputFolder);
 
         printf("Mohon tunggu...\n");
         printf("1..\n");

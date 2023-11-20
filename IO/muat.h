@@ -23,6 +23,8 @@ void MuatUtas(char* file_path);
 
 void MuatDraf(char* file_path);
 
+void MuatBalasan(char* file_path);
+
 int Muat();
 
 #endif
