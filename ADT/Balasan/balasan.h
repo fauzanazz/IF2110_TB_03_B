@@ -30,13 +30,6 @@ typedef struct Node {
     struct Node** child;
 } Node;
 
-Node* newNode(BalasanStruct key) {
-    Node* temp = (Node*)malloc(sizeof(Node));
-    temp->key = key;
-    temp->childCount = 0;
-    temp->child = NULL;
-    return temp;
-}
 
 typedef struct {
     int ID_Kicau;
@@ -54,5 +47,25 @@ typedef struct Queue {
     Node** items;
     int front, rear, capacity;
 } Queue;
+
+void CreateListBalasan(BalasanList *listBalasan);
+void dealocateListBalasan(BalasanList *l);
+void insertLastBalasan(BalasanList *l, Tree val);
+void deleteLastBalasan(BalasanList *l);
+void expandListBalasan(BalasanList *l, int num);
+void shrinkListBalasan(BalasanList *l, int num);
+void compressListBalasan(BalasanList *l);
+void createEmptyTree(Tree *T, int ID_Kicau);
+void displayBalasan(BalasanStruct key);
+void addChild(Node* parent, Node* child);
+void printIndent(int depth);
+Node* newNodeBalasan(BalasanStruct key);
+void printBalasan(Node* root, int depth);
+void ReadBalasan(BalasanStruct *newBalasan);
+Node* findNode(Node* root, int ID_balasan);
+int FindKicauan(int ID_kicau);
+void deleteNode(Node* node);
+void Balasan(int idKicau);
+void HapusBalasan(int ID_kicauan, int ID_balasan);
 
 #endif

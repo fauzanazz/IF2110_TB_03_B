@@ -5,10 +5,48 @@
     List dinamis Berisi kicauan dengan balasan
     Berisi Root dari node balasan
     Node Balasan berisi ID balasan, ID Author, Tanggal, dan Text Balasan
+
 */
 
-// * Sambungkan dengan database
-BalasanList listBalasan;
+void CreateListBalasan(BalasanList *listBalasan){
+    listBalasan->T = (Tree*) malloc(listBalasan->Capacity * sizeof(Tree));
+    listBalasan->Neff = 0;
+    listBalasan->Capacity = 50;
+    listBalasan->LastID = 0;
+}
+
+void dealocateListBalasan(BalasanList *l){
+    free(l->T);
+    l->Capacity = 0;
+    l->Neff = 0;
+}
+
+void insertLastBalasan(BalasanList *l, Tree val){
+    l->Neff++;
+    l->T[l->Neff] = val;
+}
+
+void deleteLastBalasan(BalasanList *l){
+    l->Neff--;
+}
+
+void expandListBalasan(BalasanList *l, int num){
+    l->Capacity += num;
+}
+
+void shrinkListBalasan(BalasanList *l, int num){
+    l->Capacity -= num;
+}
+
+void compressListBalasan(BalasanList *l){
+    l->Capacity = l->Neff;
+}
+
+void createEmptyTree(Tree *T, int ID_Kicau){
+    T->ID_Kicau = ID_Kicau;
+    T->root = NULL;
+}
+
 
 void displayBalasan(BalasanStruct key) {
     printf("| ID = %d\n", key.ID_balasan);
@@ -31,6 +69,14 @@ void printIndent(int depth){
     for (size_t i = 0; i < depth; i++){
         printf("    ");
     }
+}
+
+Node* newNodeBalasan(BalasanStruct key) {
+    Node* temp = (Node*)malloc(sizeof(Node));
+    temp->key = key;
+    temp->childCount = 0;
+    temp->child = NULL;
+    return temp;
 }
 
 void printBalasan(Node* root, int depth) {
@@ -96,6 +142,7 @@ Node* findNode(Node* root, int ID_balasan) {
     return NULL;
 }
 
+
 int FindKicauan(int ID_kicau){
     for (int i = 0; i < listBalasan.Neff; i++){
         if (listBalasan.T[i].ID_Kicau == ID_kicau){
@@ -126,10 +173,10 @@ void Balas(int ID_kicau, int IDBalasan){
         return;
     }
 
-    // if (isConnected(GFriend , , databaseKicauan.Kicauan[idxKicauan].ID_Author)){
-    //     printf("Wah, akun tersebut merupakan akun privat dan anda belum berteman akun tersebu!\n");
-    //     return;
-    // }
+    if (isConnected(GFriend , ActiveUser , dataKicau.buffer[cariKicauan(dataKicau, ID_kicau)].IdProfile )){
+        printf("Wah, akun tersebut merupakan akun privat dan anda belum berteman akun tersebu!\n");
+        return;
+    }
 
     if (IDBalasan != -1){
         Node* idxBalasan = findNode(listBalasan.T[idxKicauan].root, IDBalasan);
@@ -139,21 +186,22 @@ void Balas(int ID_kicau, int IDBalasan){
         } else {
             BalasanStruct newBalasan;
             ReadBalasan(&newBalasan);
-            addChild(idxBalasan, newNode(newBalasan));
+            addChild(idxBalasan, newNodeBalasan(newBalasan));
             printf("Balasan berhasil ditambahkan!\n");
             displayBalasan(newBalasan);
         }
     } else {
         BalasanStruct newBalasan;
         ReadBalasan(&newBalasan);
-        addChild(listBalasan.T[idxKicauan].root, newNode(newBalasan));
+        addChild(listBalasan.T[idxKicauan].root, newNodeBalasan(newBalasan));
         printf("Balasan berhasil ditambahkan!\n");
         displayBalasan(newBalasan);
     }
 }
 
+
 void Balasan(int idKicau){
-    int idxKicauan = cariKicauan(idKicau);
+    int idxKicauan = cariKicauan(dataKicau, idKicau);
     if (idxKicauan == IDX_UNDEF){
         printf("Wah, tidak terdapat kicauan yang ingin Anda balas!\n");
         return;
@@ -165,10 +213,10 @@ void Balasan(int idKicau){
         return;
     }
 
-    // if (isConnected(GFriend , , databaseKicauan.Kicauan[idxKicauan].ID_Author)){
-    //     printf("Wah, akun tersebut merupakan akun privat dan anda belum berteman akun tersebu!\n");
-    //     return;
-    // }
+    if (isConnected(GFriend , ActiveUser , dataKicau.buffer[cariKicauan(dataKicau, idKicau)].IdProfile )){
+        printf("Wah, akun tersebut merupakan akun privat dan anda belum berteman akun tersebu!\n");
+        return;
+    }
 
     printBalasan(listBalasan.T[Idxkicauan].root, 0);
 }
@@ -180,10 +228,10 @@ void HapusBalasan(int ID_kicauan, int ID_balasan){
         return;
     }
 
-    // if (isConnected(GFriend , , databaseKicauan.Kicauan[idxKicauan].ID_Author)){
-    //     printf("Wah, akun tersebut merupakan akun privat dan anda belum berteman akun tersebu!\n");
-    //     return;
-    // }
+    if (isConnected(GFriend , ActiveUser , dataKicau.buffer[cariKicauan(dataKicau, ID_kicauan)].IdProfile )){
+        printf("Wah, akun tersebut merupakan akun privat dan anda belum berteman akun tersebu!\n");
+        return;
+    }
 
     if (ID_balasan != -1){
         Node* idxBalasan = findNode(listBalasan.T[idxKicauan].root, ID_balasan);
