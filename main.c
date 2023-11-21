@@ -37,7 +37,7 @@ int main(){
     }
     while (!muat);
 
-    printf("Selamat berkicau!\n");
+    printf("Selamat berkicau!\n\n");
 
     while (!CheckInput("TUTUP_PROGRAM")) {
         printf(">> ");
@@ -120,7 +120,7 @@ int main(){
         } else if (CheckInput("BALASAN")) {
             ADVWORD();
             int IdKicau = WordToInt(currentWord);
-            
+
             Balasan(IdKicau);
         } else if (CheckInput("HAPUS_BALASAN")) {
             ADVWORD();

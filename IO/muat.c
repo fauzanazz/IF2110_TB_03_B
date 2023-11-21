@@ -470,6 +470,7 @@ void MuatDraf(char *file_path){
         while (temp[j] != ' ')
         {
             banyakDraf += (temp[j] - '0') * multiplier;
+            multiplier *= 10;
             j--;
         }
 
@@ -594,12 +595,10 @@ void MuatBalasan(char* file_path){
     STARTWORDFILE();
 
     int loopKicau = WordToInt(currentWordF);
-    printf("loopKicau = %d\n", loopKicau);
     for (int i = 0; i < loopKicau; i++ ){
 
         ADVWORDFILE();
         int id_kicauan = WordToInt(currentWordF);
-        printf("id_kicauan = %d\n", id_kicauan);
 
         Tree temptree;
         createEmptyTree(&temptree, id_kicauan);
@@ -614,7 +613,6 @@ void MuatBalasan(char* file_path){
         CreateDATETIME(&dummy, 0, 0, 0, 0, 0, 0);
         tempRootBalasan.DT = dummy;
 
-        printf("listBalasan.T[i].root = %p\n", listBalasan.T[i].root);
         listBalasan.T[i].root = newNodeBalasan(tempRootBalasan);
 
     
@@ -736,7 +734,6 @@ void MuatBalasan(char* file_path){
                 }
                 addChild(temp, newNodeBalasan(tempBalasan));
             }
-            printBalasan(listBalasan.T[i].root, 0);
         }
     }
 

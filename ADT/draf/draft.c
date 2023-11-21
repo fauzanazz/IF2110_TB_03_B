@@ -244,7 +244,7 @@ void editDraft(){
             }
             valid = true;
         } else { //  Input tidak valid
-            printf("Input tidak valid, silakan masukkan ulang!\n");
+            printf("\nInput tidak valid, silakan masukkan ulang!\n");
         }
     }
 
@@ -270,7 +270,7 @@ void hapusDraft(){
         deleteDraftUser(&dataDraf, databasePengguna.user[ActiveUser].Nama);
     }
 
-    printf("Draf telah berhasil dihapus!\n");
+    printf("\nDraf telah berhasil dihapus!\n");
 }
 
 void terbitDraft(){

@@ -174,7 +174,7 @@ boolean findUtasWithIdKicau(ListKicauanUtas l, int idKicau, int *idx){
 //TODO Handle Akun Private
 void cetakUtas(int idUtas){
     if (!isIdxUtasEff(dataUtas, idUtas)){
-        printf("Utas tidak ditemukan\n");
+        printf("\nUtas dengan Id %d tidak ditemukan\n", idUtas);
         return;
     }
 
@@ -182,7 +182,7 @@ void cetakUtas(int idUtas){
 
     int idPemilikUtas = dataKicau.buffer[idxKicau].IdProfile;
     if (idPemilikUtas != ActiveUser && !isConnected(GFriend,ActiveUser, idPemilikUtas) && !databasePengguna.user[idPemilikUtas].Publik){
-        printf("Akun author private, silahkan follow terlebih dahulu\n");
+         printf("\nAkun author private, silahkan follow terlebih dahulu untuk bisa melihat utas.\n");
         return;
     }
 
@@ -212,7 +212,7 @@ void cetakUtas(int idUtas){
         printf("\n");
         printf("    | ");
         displayWord(p->info.IsiKicauan);
-        printf("\n");
+        printf("\n\n");
          
         p = NEXTUtas(p);
     }
@@ -220,29 +220,29 @@ void cetakUtas(int idUtas){
 
 void BuatUtas(int idKicau){
     if (cariKicauan(dataKicau, idKicau) == -1){
-        printf("Tidak ada kicauan dengan id %d\n", idKicau);
+        printf("\nTidak ada kicauan dengan Id %d, silahkan masukkan Id yang lain.\n", idKicau);
         return;
     }
 
     int idxIdKicau = cariKicauan(dataKicau, idKicau);
     if (dataKicau.buffer[idxIdKicau].IdProfile != ActiveUser){
-        printf("Utas ini bukan milik Anda\n");
+        printf("\nKicauan ini bukan milik Anda, utas tidak bisa dibuat.\n");
         return;
     }
 
     int idxUtas;
     if (findUtasWithIdKicau(dataUtas, idKicau, &idxUtas)){
-        printf("Utas sudah dibuat dengan id %d\n", idxUtas);
+        printf("\nUtas sudah dibuat dengan Id!%d\n", idxUtas);
         return;
     }
 
-    printf("Utas berhasil dibuat dengan id %d!\n", dataUtas.neff);
+    printf("\nUtas berhasil dibuat dengan Id %d!\n", dataUtas.neff);
 
     ListUtas tempUtas;
     CreateUtas(&tempUtas, idKicau);
 
     do {
-        printf("Masukkan kicauan:\n");
+        printf("\nMasukkan kicauan:\n");
 
         Kicau_struct tempKicauan;
         Word isi = createWordfromString("");
@@ -269,9 +269,16 @@ void BuatUtas(int idKicau){
 
         insertLastUtas(&tempUtas, tempKicauan);
 
-        printf("Apakah Anda ingin melanjutkan utas ini? (YA/TIDAK)\n");
+        printf("\nApakah Anda ingin melanjutkan utas ini? (YA/TIDAK)\n");
 
         STARTWORD();
+
+        while (! (CheckInput("TIDAK") || CheckInput("YA")) )
+        {
+            printf("\nInput tidak valid.\n");
+            printf("\nApakah Anda ingin melanjutkan utas ini? (YA/TIDAK)\n");
+            STARTWORD();
+        }
 
     } while (CheckInput("YA"));
 
@@ -280,23 +287,23 @@ void BuatUtas(int idKicau){
 
 void SambungUtas(int idUtas, int idx){
     if (!isIdxUtasEff(dataUtas, idUtas)){
-        printf("Utas tidak ditemukan\n");
+        printf("\nUtas dengan Id %d tidak ditemukan.\n", idUtas);
         return;
     }
 
     if (dataUtas.ListUtas[idUtas].Utas->info.IdProfile != ActiveUser){
-        printf("Utas ini bukan milik Anda\n");
+        printf("\nUtas ini bukan milik Anda, sambung utas tidak bisa dilakukan\n");
         return;
     }
 
     if (idx - 1 > dataUtas.ListUtas[idUtas].neff || idx < 0){
-        printf("Index tidak valid\n");
+        printf("\nIndex tidak valid\n");
         return;
     }
 
 
 
-    printf("Masukkan kicauan: \n");
+    printf("\nMasukkan kicauan: \n");
     Word isi = createWordfromString("");
 
     START();
@@ -331,27 +338,27 @@ void SambungUtas(int idUtas, int idx){
 
 void HapusUtas(int idUtas, int idx){
     if (!isIdxUtasEff(dataUtas, idUtas)){
-        printf("Utas tidak ditemukan.\n");
+        printf("\nUtas dengan Id %d tidak ditemukan.\n", idUtas);
         return;
     }
 
     if (idx == 0){
-        printf("Tidak dapat menghapus kicauan utama.\n");
+        printf("\nTidak dapat menghapus kicauan utama.\n");
         return;
     }
 
     if (dataUtas.ListUtas[idUtas].Utas->info.IdProfile != ActiveUser){
-        printf("Anda tidak bisa menghapus kicauan dalam utas ini.\n");
+        printf("\nAnda tidak bisa menghapus kicauan dalam utas ini karena Anda bukan pemilik utas.\n");
         return;
     }
 
     if (idx > dataUtas.ListUtas[idUtas].neff || idx < 0){
-        printf("Index tidak valid.\n");
+        printf("\nIndex tidak valid.\n");
         return;
     }
 
     deleteAt(&dataUtas.ListUtas[idUtas].Utas, idx - 1);
     dataUtas.ListUtas[idUtas].neff--;
 
-    printf("Kicauan sambungan berhasil dihapus.\n");
+    printf("\nKicauan sambungan berhasil dihapus.\n");
 }

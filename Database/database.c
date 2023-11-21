@@ -7,5 +7,5 @@ ListDin dataKicau;
 ListUserDraft dataDraf;
 ListKicauanUtas dataUtas;
 BalasanList listBalasan;
-int ActiveUser = 1;
-boolean isLogin = true;
+int ActiveUser = -1;
+boolean isLogin = false;

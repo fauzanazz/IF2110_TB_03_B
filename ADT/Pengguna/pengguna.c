@@ -243,7 +243,7 @@ void Masuk(ListPengguna *lp){
         isLogin=true;
     }
     else{
-        printf("Wah Anda sudah masuk. Keluar dulu yuk!\n");
+        printf("\nWah Anda sudah masuk. Keluar dulu yuk!\n");
     }
 }
 

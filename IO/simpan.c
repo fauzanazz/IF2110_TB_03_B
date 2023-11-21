@@ -235,7 +235,7 @@ void Simpan(){
     printf("2..\n");
     printf("3..\n");
 
-    printf("\nKonfigurasi berhasil disimpan! %s\n", folder_path);
+    printf("\nKonfigurasi berhasil disimpan di %s!\n", folder_path);
     
     return;
 }
