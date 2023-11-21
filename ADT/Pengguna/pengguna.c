@@ -173,7 +173,7 @@ void Daftar(ListPengguna *lp){
 
 void Masuk(ListPengguna *lp){
     if (!isLogin){
-        int i;
+        int i = 0;
         boolean Valid = false;
         int cnt = COUNT(*lp);
         while (!Valid){
@@ -183,10 +183,10 @@ void Masuk(ListPengguna *lp){
             char *tempInputNama = "";
             while (currentChar != MARK /* && currentChar != LINEFEED */){
                 if(currentChar != LINEFEED){
-                    currentWord.TabWord[i]=currentChar;
                     tempInputNama = stringConcatChar(tempInputNama, currentChar);
                 }
                 ADV();
+                i++;
             }
             currentWord = createWordfromString(tempInputNama);
 
