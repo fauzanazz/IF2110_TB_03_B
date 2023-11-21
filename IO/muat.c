@@ -614,6 +614,18 @@ void MuatBalasan(char* file_path){
         createEmptyTree(&temptree, id_kicauan);
         insertLastBalasan(&listBalasan, temptree);
 
+        BalasanStruct tempRootBalasan;
+        tempRootBalasan.ID_balasan = -1;
+        tempRootBalasan.ID_Author = -1;
+        tempRootBalasan.TextBalasan = createWordfromString("");
+        
+        DATETIME dummy;
+        CreateDATETIME(&dummy, 0, 0, 0, 0, 0, 0);
+        tempRootBalasan.DT = dummy;
+
+        printf("listBalasan.T[i].root = %p\n", listBalasan.T[i].root);
+        listBalasan.T[i].root = newNodeBalasan(tempRootBalasan);
+
     
 
         ADVWORDFILE();
@@ -625,10 +637,14 @@ void MuatBalasan(char* file_path){
             // Parent Root
             ADVWORDFILE();
             int idTarget_ = WordToInt(currentWordF);
-            printf("idTarget_ = %d\n", idTarget_);
 
             // ID Balasan
             ADVWORDFILE();
+            if (i == 0 && j == 0){
+                listBalasan.LastID = WordToInt(currentWordF);
+            } else if (listBalasan.LastID < WordToInt(currentWordF)){
+                listBalasan.LastID = WordToInt(currentWordF);
+            }
             int id_balasan = WordToInt(currentWordF);
             tempBalasan.ID_balasan = id_balasan;
 
@@ -729,7 +745,6 @@ void MuatBalasan(char* file_path){
                 }
                 addChild(temp, newNodeBalasan(tempBalasan));
             }
-
             printBalasan(listBalasan.T[i].root, 0);
         }
     }

@@ -52,7 +52,6 @@ void displayBalasan(BalasanStruct key) {
     printf("| ID = %d\n", key.ID_balasan);
     printf("| ");
     displayWord(databasePengguna.user[key.ID_Author].Nama);
-    printf("| ");
     printf("| %d-%02d-%02d %02d:%02d:%02d\n", key.DT.YYYY, key.DT.MM, key.DT.DD, key.DT.T.HH, key.DT.T.MM, key.DT.T.SS);
     printf("| ");
     displayWord(key.TextBalasan);
@@ -83,19 +82,20 @@ void printBalasan(Node* root, int depth) {
     if (root == NULL) {
         return;
     }
-
-    printIndent(depth);
-    printf("| ID = %d\n", root->key.ID_balasan);
-    printIndent(depth);
-    printf("| ");
-    displayWord(databasePengguna.user[root->key.ID_Author].Nama);
-    printIndent(depth);
-    printf("| ");
-    printf("| %d-%02d-%02d %02d:%02d:%02d\n", root->key.DT.YYYY, root->key.DT.MM, root->key.DT.DD, root->key.DT.T.HH, root->key.DT.T.MM, root->key.DT.T.SS);
-    printIndent(depth);
-    printf("| ");
-    displayWord(root->key.TextBalasan);
-    printf("\n");
+    if (depth > 0) {
+        printIndent(depth-1);
+        printf("| ID = %d\n", root->key.ID_balasan);
+        printIndent(depth-1);
+        printf("| ");
+        displayWord(databasePengguna.user[root->key.ID_Author].Nama);
+        printIndent(depth-1);
+        printf("| ");
+        printf("| %d-%02d-%02d %02d:%02d:%02d\n", root->key.DT.YYYY, root->key.DT.MM, root->key.DT.DD, root->key.DT.T.HH, root->key.DT.T.MM, root->key.DT.T.SS);
+        printIndent(depth-1);
+        printf("| ");
+        displayWord(root->key.TextBalasan);
+        printf("\n");
+    }
 
     // Recursive case: traverse and print children
     for (int i = 0; i < root->childCount; i++) {
@@ -124,6 +124,7 @@ void ReadBalasan(BalasanStruct *newBalasan){
         ConvertTimeTtoDATETIME(current_time, &newBalasan->DT);
 
         newBalasan->ID_balasan = listBalasan.LastID + 1;
+        listBalasan.LastID++;
         newBalasan->ID_Author = ActiveUser;
         newBalasan->TextBalasan = currentWord;
 }
@@ -167,19 +168,39 @@ void deleteNode(Node* node) {
 }
 
 void Balas(int ID_kicau, int IDBalasan){
-    int idxKicauan = FindKicauan(ID_kicau);
+    int idxKicauan = cariKicauan(dataKicau, ID_kicau);
+
     if (idxKicauan == IDX_UNDEF){
         printf("Wah, tidak terdapat kicauan yang ingin Anda balas!\n");
         return;
     }
 
-    if (isConnected(GFriend , ActiveUser , dataKicau.buffer[cariKicauan(dataKicau, ID_kicau)].IdProfile )){
-        printf("Wah, akun tersebut merupakan akun privat dan anda belum berteman akun tersebu!\n");
+    if (!isConnected(GFriend , ActiveUser , dataKicau.buffer[cariKicauan(dataKicau, ID_kicau)].IdProfile)){
+        printf("Wah, akun tersebut merupakan akun privat dan anda belum berteman akun tersebut!\n");
         return;
+    }
+    
+
+    int idxKicauanDalamList = FindKicauan(ID_kicau);
+    if (idxKicauanDalamList == IDX_UNDEF){
+
+        Tree newTree;
+        createEmptyTree(&newTree, ID_kicau);
+        insertLastBalasan(&listBalasan, newTree);
+        idxKicauanDalamList = listBalasan.Neff - 1;
+        BalasanStruct tempRootBalasan;
+        tempRootBalasan.ID_balasan = -1;
+        tempRootBalasan.ID_Author = -1;
+        tempRootBalasan.TextBalasan = createWordfromString("");
+        DATETIME dummy;
+        CreateDATETIME(&dummy, 0, 0, 0, 0, 0, 0);
+        tempRootBalasan.DT = dummy;
+        listBalasan.T[idxKicauanDalamList].root = newNodeBalasan(tempRootBalasan);
+
     }
 
     if (IDBalasan != -1){
-        Node* idxBalasan = findNode(listBalasan.T[idxKicauan].root, IDBalasan);
+        Node* idxBalasan = findNode(listBalasan.T[idxKicauanDalamList].root, IDBalasan);
         if (idxBalasan == NULL){
             printf("Wah, tidak terdapat balasan yang ingin Anda balas!\n");
             return;
@@ -193,7 +214,7 @@ void Balas(int ID_kicau, int IDBalasan){
     } else {
         BalasanStruct newBalasan;
         ReadBalasan(&newBalasan);
-        addChild(listBalasan.T[idxKicauan].root, newNodeBalasan(newBalasan));
+        addChild(listBalasan.T[idxKicauanDalamList].root, newNodeBalasan(newBalasan));
         printf("Balasan berhasil ditambahkan!\n");
         displayBalasan(newBalasan);
     }
@@ -214,8 +235,8 @@ void Balasan(int idKicau){
         return;
     }
 
-    if (isConnected(GFriend , ActiveUser , dataKicau.buffer[cariKicauan(dataKicau, idKicau)].IdProfile )){
-        printf("Wah, akun tersebut merupakan akun privat dan anda belum berteman akun tersebu!\n");
+    if (!isConnected(GFriend , ActiveUser , dataKicau.buffer[cariKicauan(dataKicau, idKicau)].IdProfile)){
+        printf("Wah, akun tersebut merupakan akun privat dan anda belum berteman akun tersebut!\n");
         return;
     }
 
@@ -229,7 +250,7 @@ void HapusBalasan(int ID_kicauan, int ID_balasan){
         return;
     }
 
-    if (isConnected(GFriend , ActiveUser , dataKicau.buffer[cariKicauan(dataKicau, ID_kicauan)].IdProfile )){
+    if (!isConnected(GFriend , ActiveUser , dataKicau.buffer[cariKicauan(dataKicau, ID_kicauan)].IdProfile )){
         printf("Wah, akun tersebut merupakan akun privat dan anda belum berteman akun tersebu!\n");
         return;
     }

@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "graf.c"
+#include "graf.h"
 
 int main(){
     Graf G;
