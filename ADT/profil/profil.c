@@ -227,7 +227,7 @@ void aturJenisAkun(Pengguna *user){
                 printf("Akun anda sudah diubah menjadi akun Publik.\n");
                 Valid=true;
             }
-            else if (currentWord.TabWord[0]=='t' && currentWord.TabWord[1]=='i' && currentWord.TabWord[2]=='d' && currentWord.TabWord[3]=='a' && currentWord.TabWord[4]=='k' && currentWord.Length==2){
+            else if (currentWord.TabWord[0]=='t' && currentWord.TabWord[1]=='i' && currentWord.TabWord[2]=='d' && currentWord.TabWord[3]=='a' && currentWord.TabWord[4]=='k' && currentWord.Length==5){
                 printf("Akun anda tetap menjadi akun Privat.\n");
                 Valid=true;
             }
