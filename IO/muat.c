@@ -319,7 +319,8 @@ void MuatKicauan(char *file_path){
 
         k--;
     }
-    
+
+    CloseFile();
 }
 
 void MuatUtas(char *file_path){
@@ -453,6 +454,8 @@ void MuatUtas(char *file_path){
         ADVFILE();
         i--;
     }
+
+    CloseFile();
 }
 
 void MuatDraf(char *file_path){
@@ -594,6 +597,8 @@ void MuatDraf(char *file_path){
         insertNewUserDraft(&dataDraf, ReverseDraft);
         i--;
     }    
+
+    CloseFile();
 }
 
 void MuatBalasan(char* file_path){
@@ -618,7 +623,7 @@ void MuatBalasan(char* file_path){
         tempRootBalasan.ID_balasan = -1;
         tempRootBalasan.ID_Author = -1;
         tempRootBalasan.TextBalasan = createWordfromString("");
-        
+
         DATETIME dummy;
         CreateDATETIME(&dummy, 0, 0, 0, 0, 0, 0);
         tempRootBalasan.DT = dummy;
@@ -748,6 +753,8 @@ void MuatBalasan(char* file_path){
             printBalasan(listBalasan.T[i].root, 0);
         }
     }
+
+    CloseFile();
 }
 
 int Muat(){

@@ -51,7 +51,7 @@ void CopyWordFILE()
    currentWordF = createWordfromString("");
    
    int i = 0;
-   while (currentCharF != MARKF && currentCharF != BLANK){
+   while (currentCharF != MARKF && currentCharF != BLANK && currentCharF != '\r'){
       currentWordF.TabWord[i] = currentCharF;
       ADVFILE();
       i++;

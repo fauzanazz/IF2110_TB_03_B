@@ -23,7 +23,13 @@ void STARTFILE(char *filename)
 
 void ADVFILE(){
        retvalF = fscanf(pitaF, "%c", &currentCharF);
-       EOPF = (currentCharF == MARKF);
+
+       while (currentCharF == '\r')
+       {
+              retvalF = fscanf(pitaF, "%c", &currentCharF);
+       }
+       
+       EOPF = (currentCharF == MARKF) || feof(pitaF) || currentCharF == '\r';
 }
 
 void ReadLine(){
@@ -38,6 +44,8 @@ void IgnoreSpace(){
        while (currentCharF == SPACE || currentCharF == '\n')
        {
               ADVFILE();
+
+              if (feof(pitaF)) break;
        }
        
 }
