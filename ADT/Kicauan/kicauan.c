@@ -114,6 +114,21 @@ void Kicau(ListDin * listKicauan){
     }
 
     IsiKicauan = currentWord;
+    
+    printf("Masukkan tagar: \n");
+    START();
+    IgnoreBlanks();
+    ignoreNewLine();
+    i = 0;
+    while (currentChar != MARK){
+        if(currentChar != LINEFEED) {
+            currentWord.TabWord[i]=currentChar;
+        }
+        ADV();
+        i++;
+    }
+    currentWord.Length = i;
+    tagar = currentWord;
 
     // Cek apakah kicauan kosong
     if (IsiKicauan.Length > 0) {
@@ -127,6 +142,7 @@ void Kicau(ListDin * listKicauan){
         kicauan.IdProfile = ActiveUser;
         kicauan.TanggalTerbit = currentTime;
         kicauan.IsiKicauan = IsiKicauan;
+        kicauan.Tagar = tagar;
         kicauan.JumlahLike = disukai;
 
 
