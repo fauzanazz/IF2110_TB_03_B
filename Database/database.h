@@ -12,6 +12,8 @@
 #include "../ADT/boolean.h"
 #include "../ADT/Mesin-Kata/charmachine.h"
 #include "../ADT/draf/draft.h"
+#include "../ADT/Teman/teman.h"
+#include "../IO/muat.h"
 #include "../ADT/Balasan/balasan.h"
 #include <stdio.h>
 #include <stdlib.h>
