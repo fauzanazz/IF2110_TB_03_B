@@ -240,19 +240,6 @@ void MuatKicauan(char *file_path){
         //Mencari id Pengguna berdasarkan nama
         kicauan.IdProfile = idPengguna(temp);
 
-        //TAGAR
-        ADVFILE();
-        j = 0;
-        char *temp2 = "";
-        while (!EOPF && j < 50)
-        {
-            temp2 = stringConcatChar(temp2, currentCharF);
-            ADVFILE();
-        }
-
-        kicauan.Tagar = createWordfromString(temp2);
-        
-
         //DATE TIME
         ADVFILE();
         DATETIME currentTime;
@@ -442,7 +429,6 @@ void MuatUtas(char *file_path){
 
             tempKicauan.IdKicau = -1;
             tempKicauan.TanggalTerbit = currentTime;
-            tempKicauan.Tagar = createWordfromString("");
             tempKicauan.JumlahLike = 0;
 
             insertLastUtas(&tempUtas, tempKicauan);

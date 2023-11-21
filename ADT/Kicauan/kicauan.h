@@ -23,7 +23,6 @@ typedef struct {
    int IdProfile;
    DATETIME TanggalTerbit;
    Word IsiKicauan;
-   Word Tagar;
    int JumlahLike;
 } Kicau_struct ;
 

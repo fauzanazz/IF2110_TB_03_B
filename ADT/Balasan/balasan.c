@@ -89,7 +89,6 @@ void printBalasan(Node* root, int depth) {
         printf("| ");
         displayWord(databasePengguna.user[root->key.ID_Author].Nama);
         printIndent(depth-1);
-        printf("| ");
         printf("| %d-%02d-%02d %02d:%02d:%02d\n", root->key.DT.YYYY, root->key.DT.MM, root->key.DT.DD, root->key.DT.T.HH, root->key.DT.T.MM, root->key.DT.T.SS);
         printIndent(depth-1);
         printf("| ");
@@ -129,20 +128,25 @@ void ReadBalasan(BalasanStruct *newBalasan){
         newBalasan->TextBalasan = currentWord;
 }
 
-Node* findNode(Node* root, int ID_balasan) {
-    if (root == NULL || root->key.ID_balasan == ID_balasan) {
-        return root;
+Node** findNode(Node*** node, int ID_balasan) {
+    if (*node == NULL) {
+        return NULL;
     }
 
-    for (int i = 0; i < root->childCount; i++) {
-        Node* result = findNode(root->child[i], ID_balasan);
+    if ((*node)->ID == ID_balasan) {
+        return node;
+    }
+
+    Node** result = NULL;
+    for (int i = 0; i < (*node)->childCount; i++) {
+        result = findNode(&(*node)->child[i], ID_balasan);
         if (result != NULL) {
-            return result;
+            break;
         }
     }
-    return NULL;
-}
 
+    return result;
+}
 
 int FindKicauan(int ID_kicau){
     for (int i = 0; i < listBalasan.Neff; i++){
@@ -153,18 +157,23 @@ int FindKicauan(int ID_kicau){
     return IDX_UNDEF;
 }
 
-void deleteNode(Node* node) {
-    if (node == NULL) {
+void deleteNode(Node** node) {
+    if (*node == NULL) {
         return;
     }
 
-    for (int i = 0; i < node->childCount; i++) {
-        deleteNode(node->child[i]);
+    // Delete all children
+    for (int i = 0; i < (*node)->childCount; i++) {
+        deleteNode(&(*node)->child[i]);
     }
 
-    free(node->child);
+    // Free the memory for the children array
+    free((*node)->child);
+    (*node)->child = NULL;
 
-    free(node);
+    // Free the memory for the node itself
+    free(*node);
+    *node = NULL;
 }
 
 void Balas(int ID_kicau, int IDBalasan){
@@ -250,20 +259,16 @@ void HapusBalasan(int ID_kicauan, int ID_balasan){
         return;
     }
 
-    if (!isConnected(GFriend , ActiveUser , dataKicau.buffer[cariKicauan(dataKicau, ID_kicauan)].IdProfile )){
-        printf("Wah, akun tersebut merupakan akun privat dan anda belum berteman akun tersebu!\n");
+    if (ActiveUser != dataKicau.buffer[cariKicauan(dataKicau, ID_kicauan)].IdProfile){
+        printf("Wah, kicauan tersebut bukan milikmu.\n");
         return;
     }
 
-    if (ID_balasan != -1){
-        Node* idxBalasan = findNode(listBalasan.T[idxKicauan].root, ID_balasan);
-        if (idxBalasan == NULL){
-            printf("Wah, tidak terdapat balasan yang ingin Anda balas!\n");
-            return;
-        } else {
-            deleteNode(idxBalasan);
-        }
+    Node** idxBalasan = findNode(&listBalasan.T[idxKicauan].root, ID_balasan);
+    if (idxBalasan == NULL){
+        printf("Wah, tidak terdapat balasan yang ingin Anda balas!\n");
+        return;
     } else {
-        deleteNode(listBalasan.T[idxKicauan].root);
+        deleteNode(idxBalasan);
     }
 }
