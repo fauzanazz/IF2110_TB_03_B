@@ -136,11 +136,21 @@ boolean isWordEqual(Word s1, Word s2){
 int WordToInt(Word w1){
    int i;
    int result = 0;
-   for (i = 0; i < w1.Length; i++){
+   int multiplier = 1;
+
+   // Check for a minus sign at the beginning of the word
+   if (w1.TabWord[0] == '-') {
+      multiplier = -1;
+      i = 1; // Start from the second character
+   } else {
+      i = 0; // Start from the first character
+   }
+
+   for (; i < w1.Length; i++){
       result = result * 10 + (w1.TabWord[i] - '0');
    }
 
-   return result;
+   return result * multiplier;
 }
 
 boolean CheckInputOption(){

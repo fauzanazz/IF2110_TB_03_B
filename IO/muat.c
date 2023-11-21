@@ -603,31 +603,35 @@ void MuatBalasan(char* file_path){
     STARTWORDFILE();
 
     int loopKicau = WordToInt(currentWordF);
+    printf("loopKicau = %d\n", loopKicau);
     for (int i = 0; i < loopKicau; i++ ){
 
-        ADVFILE();
+        ADVWORDFILE();
         int id_kicauan = WordToInt(currentWordF);
+        printf("id_kicauan = %d\n", id_kicauan);
 
         Tree temptree;
         createEmptyTree(&temptree, id_kicauan);
         insertLastBalasan(&listBalasan, temptree);
 
-        ADVFILE();
+    
+
+        ADVWORDFILE();
         int loopBalasan = WordToInt(currentWordF);
         for (int j = 0; j < loopBalasan; j++){
 
             BalasanStruct tempBalasan;
 
             // Parent Root
-            ADVFILE();
+            ADVWORDFILE();
             int idTarget_ = WordToInt(currentWordF);
+            printf("idTarget_ = %d\n", idTarget_);
 
             // ID Balasan
-            ADVFILE();
+            ADVWORDFILE();
             int id_balasan = WordToInt(currentWordF);
             tempBalasan.ID_balasan = id_balasan;
 
-            ADVFILE();
             Word isi = createWordfromString("");
             int j = 0;
             while (!EOPF && j < 280)
@@ -651,8 +655,6 @@ void MuatBalasan(char* file_path){
 
             //Mencari id Pengguna berdasarkan nama
             tempBalasan.ID_Author = idPengguna(tempChar);
-
-
 
             ADVFILE();
             DATETIME currentTime;
@@ -714,7 +716,12 @@ void MuatBalasan(char* file_path){
             tempBalasan.DT = currentTime;
 
             if (idTarget_ == -1){
-                addChild(listBalasan.T[i].root, newNodeBalasan(tempBalasan));
+                if (listBalasan.T[i].root == NULL){
+                    listBalasan.T[i].root = newNodeBalasan(tempBalasan);
+                } else {
+                    addChild(listBalasan.T[i].root, newNodeBalasan(tempBalasan));
+                }
+
             } else {
                 Node* temp = findNode(listBalasan.T[i].root, idTarget_);
                 if (temp == NULL){
@@ -722,6 +729,8 @@ void MuatBalasan(char* file_path){
                 }
                 addChild(temp, newNodeBalasan(tempBalasan));
             }
+
+            printBalasan(listBalasan.T[i].root, 0);
         }
     }
 }

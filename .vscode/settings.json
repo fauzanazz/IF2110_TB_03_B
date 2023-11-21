@@ -4,7 +4,8 @@
         "listdin.h": "c",
         "stdio.h": "c",
         "charmachine.h": "c",
-        "time.h": "c"
+        "time.h": "c",
+        "database.h": "c"
     },
     "C_Cpp.default.compilerPath": "C:\\msys64\\mingw64\\bin\\gcc.exe"
 }

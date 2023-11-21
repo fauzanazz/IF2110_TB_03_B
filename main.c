@@ -110,11 +110,25 @@ int main(){
             Ubah_Kicau(&dataKicau, IdKicau, ActiveUser);
 
         } else if (CheckInput("BALAS")) {
+            ADVWORD();
+            int IdKicau = WordToInt(currentWord);
+            ADVWORD();
+            int IdBalasan = WordToInt(currentWord);
+
+            Balas(IdKicau, IdBalasan);
 
         } else if (CheckInput("BALASAN")) {
-
+            ADVWORD();
+            int IdKicau = WordToInt(currentWord);
+            
+            Balasan(IdKicau);
         } else if (CheckInput("HAPUS_BALASAN")) {
+            ADVWORD();
+            int IdKicau = WordToInt(currentWord);
+            ADVWORD();
+            int IdBalasan = WordToInt(currentWord);
 
+            HapusBalasan(IdKicau, IdBalasan);
         } else if (CheckInput("BUAT_DRAF")) {
             buatDraft();
 

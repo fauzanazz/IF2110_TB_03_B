@@ -22,8 +22,8 @@ void dealocateListBalasan(BalasanList *l){
 }
 
 void insertLastBalasan(BalasanList *l, Tree val){
-    l->Neff++;
     l->T[l->Neff] = val;
+    l->Neff++;
 }
 
 void deleteLastBalasan(BalasanList *l){
@@ -202,6 +202,7 @@ void Balas(int ID_kicau, int IDBalasan){
 
 void Balasan(int idKicau){
     int idxKicauan = cariKicauan(dataKicau, idKicau);
+
     if (idxKicauan == IDX_UNDEF){
         printf("Wah, tidak terdapat kicauan yang ingin Anda balas!\n");
         return;

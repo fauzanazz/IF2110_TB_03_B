@@ -65,6 +65,7 @@ void ReadBalasan(BalasanStruct *newBalasan);
 Node* findNode(Node* root, int ID_balasan);
 int FindKicauan(int ID_kicau);
 void deleteNode(Node* node);
+void Balas(int ID_kicau, int IDBalasan);
 void Balasan(int idKicau);
 void HapusBalasan(int ID_kicauan, int ID_balasan);
 

@@ -105,7 +105,7 @@ OBJ_MUAT = $(SRC_MUAT:.c=.o)
 SRC_SIMPAN = IO/simpan.c
 OBJ_SIMPAN = $(SRC_SIMPAN:.c=.o)
 
-SRC_MAIN = main.c
+SRC_MAIN = ADT/Teman/driverteman.c
 OBJ_MAIN = $(SRC_MAIN:.c=.o)
 
 .PHONY: all clean test
