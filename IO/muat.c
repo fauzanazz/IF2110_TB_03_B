@@ -56,7 +56,7 @@ void MuatPengguna(char* file_path){
         //Baca NoHP
         j = 0;
         ADVFILE();
-        while (!EOPF && j < 12){
+        while (!EOPF && j < 15){
             databasePengguna.user[i].Phone.TabWord[j++] = currentCharF;
             databasePengguna.user[i].Phone.Length++;
             ADVFILE();
