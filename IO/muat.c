@@ -240,19 +240,6 @@ void MuatKicauan(char *file_path){
         //Mencari id Pengguna berdasarkan nama
         kicauan.IdProfile = idPengguna(temp);
 
-        //TAGAR
-        ADVFILE();
-        j = 0;
-        char *temp2 = "";
-        while (!EOPF && j < 50)
-        {
-            temp2 = stringConcatChar(temp2, currentCharF);
-            ADVFILE();
-        }
-
-        kicauan.Tagar = createWordfromString(temp2);
-        
-
         //DATE TIME
         ADVFILE();
         DATETIME currentTime;
