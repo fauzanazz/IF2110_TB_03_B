@@ -1,6 +1,45 @@
 #include "simpan.h"
 #include <sys/stat.h>
 
+int totalChild(Node* root) {
+    if (root == NULL) {
+        return 0;
+    }
+
+    int total = 0;
+
+    for (int i = 0; i < root->childCount; i++) {
+        total += totalChild(root->child[i]);
+    }
+
+    return total + 1;
+}
+
+void writeBalasan(Node* root, int idx,  FILE *file) {
+    if (root == NULL) {
+        return;
+    }
+
+    if (idx != -2) {
+
+        if (idx > -1){
+            fprintf(file, "%d ", idx + 1);
+        } else {
+            fprintf(file, "%d ", idx);
+        }
+        
+        fprintf(file, "%d\n", root->key.ID_balasan);
+        fprintf(file, "%s\n", WordToString(root->key.TextBalasan));
+        fprintf(file, "%s\n", WordToString(databasePengguna.user[root->key.ID_Author].Nama));
+        fprintf(file, "%02d/%02d/%d %02d:%02d:%02d\n", root->key.DT.DD, root->key.DT.MM, root->key.DT.YYYY, root->key.DT.T.HH, root->key.DT.T.MM, root->key.DT.T.SS);
+    }
+
+    // Recursive case: traverse and print children
+    for (int i = 0; i < root->childCount; i++) {
+        writeBalasan(root->child[i], idx + 1, file);
+    }
+}
+
 void writeWord(Word word, FILE *file, char End){
     int i = 0;
     while (i < word.Length)
@@ -213,6 +252,33 @@ void SimpanDraf(char *folder_path){
     fclose(file);
 }
 
+void SimpanBalasan(char *folder_path){
+    FILE *file = fopen(concatString(folder_path, "/balasan.config"), "w");
+
+    // Check if the file was opened successfully
+    if (file == NULL) {
+        perror("Error opening file");
+        return;
+    }
+
+    int banyakKicauDenganBalasan = listBalasan.Neff;
+    fprintf(file, "%d\n", banyakKicauDenganBalasan);
+
+    int i;
+
+    for ( i = 0; i < banyakKicauDenganBalasan; i++){
+        fprintf(file, "%d\n", listBalasan.T[i].ID_Kicau);
+
+        int banyakBalasan;
+        banyakBalasan = totalChild(listBalasan.T[i].root)-1;
+
+        fprintf(file, "%d\n", banyakBalasan);
+        writeBalasan(listBalasan.T[i].root, -2, file);
+    }
+
+    fclose(file);
+}
+
 void Simpan(){
     printf("\nMasukkan folder tempat penyimpanan konfigurasi:\n");
 
@@ -230,6 +296,7 @@ void Simpan(){
     SimpanKicauan(folder_path);
     SimpanUtas(folder_path);
     SimpanDraf(folder_path);
+    SimpanBalasan(folder_path);
 
     printf("Mohon tunggu...\n");
     printf("1..\n");
