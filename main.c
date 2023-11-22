@@ -2,6 +2,44 @@
 #include "IO/muat.h"
 #include "IO/simpan.h"
 
+void help(boolean isLogin) {
+    printf("\nFungsi yang dapat diakses saat ini:\n\n");
+    printf("- DAFTAR\n");
+    printf("- MASUK\n");
+    printf("- SIMPAN\n");
+    printf("- MUAT\n");
+    printf("- KELUAR\n");
+    printf("- HELP\n");
+    printf("- TUTUP_PROGRAM\n");
+
+    if (isLogin) {
+        printf("- GANTI_PROFIL\n");
+        printf("- LIHAT_PROFIL [namaUser]\n");
+        printf("- ATUR_JENIS_AKUN\n");
+        printf("- UBAH_FOTO_PROFIL\n");
+        printf("- TAMBAH_TEMAN\n");
+        printf("- DAFTAR_PERMINTAAN_PERTEMANAN\n");
+        printf("- DAFTAR_TEMAN\n");
+        printf("- HAPUS_TEMAN\n");
+        printf("- SETUJUI_PERTEMANAN\n");
+        printf("- KICAU\n");
+        printf("- KICAUAN\n");
+        printf("- SUKA_KICAUAN [Id_Kicau]\n");
+        printf("- UBAH_KICAUAN [Id_Kicau]\n");
+        printf("- BALAS [Id_Kicau] [Id_Balasan]\n");
+        printf("- BALASAN [Id_Kicau]\n");
+        printf("- HAPUS_BALASAN [Id_Kicau] [Id_Balasan]\n");
+        printf("- BUAT_DRAF\n");
+        printf("- LIHAT_DRAF\n");
+        printf("- UTAS [Id_Kicau]\n");
+        printf("- SAMBUNG_UTAS [Id_Utas] [Index_Utas]\n");
+        printf("- HAPUS_UTAS [Id_Utas ] [Index_Utas]\n");
+        printf("- CETAK_UTAS [Id_Utas]\n");
+    } 
+
+    printf("\n");
+}
+
 int main(){
 
     // ASCII ART BURBIR
@@ -38,6 +76,7 @@ int main(){
     while (!muat);
 
     printf("Selamat berkicau!\n\n");
+    printf("\nUntuk melihat daftar perintah yang dapat diakses, ketik 'HELP'.\n");
 
     while (!CheckInput("TUTUP_PROGRAM")) {
         printf(">> ");
@@ -158,8 +197,12 @@ int main(){
             int IdUtas = WordToInt(currentWord);
             cetakUtas(IdUtas);
 
-        } else {
+        } else if (CheckInput("HELP")) {
+            help(isLogin);
+        } 
+        else {
             printf("\nPerintah tidak dikenali.\n");
+            printf("Untuk melihat daftar perintah yang dapat diakses, ketik 'HELP'.\n");
         }
     }   
 
