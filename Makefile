@@ -53,14 +53,6 @@ OBJ_LISTDIN = $(SRC_LISTDIN:.c=.o)
 SRC_PRIOQUEUE = ADT/PrioQue/prioqueuefriendrequest.c
 OBJ_PRIOQUEUE = $(SRC_PRIOQUEUE:.c=.o)
 
-# # Linked List
-# SRC_LINKEDLIST = ADT/LinkedList/LinkedList.c
-# OBJ_LINKEDLIST = $(SRC_LINKEDLIST:.c=.o)
-
-# # Tagar
-# SRC_TAGAR = ADT/Tagar/tagar.c
-# OBJ_TAGAR = $(SRC_TAGAR:.c=.o)
-
 # Graf
 SRC_GRAF = ADT/Graf/graf.c
 OBJ_GRAF = $(SRC_GRAF:.c=.o)
