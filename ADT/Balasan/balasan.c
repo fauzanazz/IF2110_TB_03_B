@@ -152,20 +152,36 @@ int FindKicauan(int ID_kicau){
     }
     return IDX_UNDEF;
 }
-
-void deleteNode(Node* node) {
-    if (node == NULL) {
+void deleteNodeHelper(Node* root, int ID_balasan, Node** parent, int childIndex) {
+    if (root == NULL) {
         return;
     }
 
-    for (int i = 0; i < node->childCount; i++) {
-        deleteNode(node->child[i]);
+    // Check if the current node matches the deletion criteria
+    if (root->key.ID_balasan == ID_balasan) {
+        // Delete the node and adjust the child pointers of the parent
+        free(root);
+        if (parent != NULL) {
+            (*parent)->child[childIndex] = NULL;
+            (*parent)->childCount--;
+        }
+        return;
     }
 
-    free(node->child);
-
-    free(node);
+    // Recurse for each child
+    for (int i = 0; i < root->childCount; i++) {
+        deleteNodeHelper(root->child[i], ID_balasan, &root, i);
+    }
 }
+
+void deleteNode(Tree* tree, int ID_balasan) {
+    if (tree == NULL || tree->root == NULL) {
+        return;
+    }
+
+    deleteNodeHelper(tree->root, ID_balasan, NULL, -1);
+}
+
 
 void Balas(int ID_kicau, int IDBalasan){
     int idxKicauan = cariKicauan(dataKicau, ID_kicau);
@@ -239,6 +255,7 @@ void Balasan(int idKicau){
         printf("Wah, akun tersebut merupakan akun privat dan anda belum berteman akun tersebut!\n");
         return;
     }
+    printf("%d", listBalasan.T[Idxkicauan].root->childCount);
 
     printBalasan(listBalasan.T[Idxkicauan].root, 0);
 }
@@ -250,20 +267,26 @@ void HapusBalasan(int ID_kicauan, int ID_balasan){
         return;
     }
 
-    if (!isConnected(GFriend , ActiveUser , dataKicau.buffer[cariKicauan(dataKicau, ID_kicauan)].IdProfile )){
-        printf("Wah, akun tersebut merupakan akun privat dan anda belum berteman akun tersebu!\n");
-        return;
-    }
+    
 
     if (ID_balasan != -1){
         Node* idxBalasan = findNode(listBalasan.T[idxKicauan].root, ID_balasan);
         if (idxBalasan == NULL){
             printf("Wah, tidak terdapat balasan yang ingin Anda balas!\n");
             return;
+        } else if (ActiveUser != idxBalasan->key.ID_Author ){
+            printf("Hei, ini balasan punya siapa? Jangan dihapus ya!\n");
+            return;
         } else {
-            deleteNode(idxBalasan);
+            deleteNode(&listBalasan.T[idxKicauan], ID_balasan);
         }
     } else {
-        deleteNode(listBalasan.T[idxKicauan].root);
+        deleteNode(&listBalasan.T[idxKicauan], ID_balasan);
+    }
+
+    printf("Balasan berhasil dihapus!\n");
+
+    if (listBalasan.T[idxKicauan].root->childCount == 0){
+        deleteLastBalasan(&listBalasan);
     }
 }
