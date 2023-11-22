@@ -18,6 +18,23 @@ We only provide 8 colors. Feel free to modify/add colors if you want to.
 #define GREEN "\x1B[32m"
 #define BLUE "\x1B[34m"
 
+/**
+ * Mencetak karakter dengan warna merah.
+ *
+ * @param c Karakter yang akan dicetak.
+ */
 void print_red(char c);
+
+/**
+ * Mencetak karakter dengan warna hijau.
+ *
+ * @param c Karakter yang akan dicetak.
+ */
 void print_green(char c);
+
+/**
+ * Mencetak karakter dengan warna biru.
+ *
+ * @param c Karakter yang akan dicetak.
+ */
 void print_blue(char c);

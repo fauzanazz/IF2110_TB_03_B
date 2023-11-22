@@ -4,19 +4,36 @@
 #include "../Database/database.h"
 
 /**
- * Saves the user data to a file.
+ * Menyimpan data pengguna ke dalam file.
  *
- * @param file_path The path of the file to save the data to.
+ * @param file_path Path file untuk menyimpan data.
  */
-
 void SimpanPengguna(char* file_path);
 
+/**
+ * Menyimpan data kicauan ke dalam file.
+ *
+ * @param file_path Path file untuk menyimpan data.
+ */
 void SimpanKicauan(char* file_path);
 
+/**
+ * Menyimpan data utas ke dalam file.
+ *
+ * @param file_path Path file untuk menyimpan data.
+ */
 void SimpanUtas(char* file_path);
 
+/**
+ * Menyimpan data draf ke dalam folder.
+ *
+ * @param folder_path Path folder untuk menyimpan data.
+ */
 void SimpanDraf(char* folder_path);
 
+/**
+ * Menyimpan data.
+ */
 void Simpan();
 
 #endif

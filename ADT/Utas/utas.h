@@ -132,10 +132,27 @@ void cetakUtas(int idUtas);
 
 
 /****************** FUNGSI UTAS ******************/
+/**
+ * Membuat utas baru dengan ID kicau yang diberikan.
+ *
+ * @param idKicau ID kicau untuk utas baru.
+ */
 void BuatUtas(int idKicau);
 
+/**
+ * Menyambungkan utas dengan ID tertentu ke indeks yang ditentukan.
+ *
+ * @param idUtas ID utas yang akan disambungkan.
+ * @param idx Indeks tempat utas akan disambungkan.
+ */
 void SambungUtas(int idUtas, int idx);
 
+/**
+ * Menghapus utas dengan ID tertentu pada indeks yang ditentukan.
+ *
+ * @param idUtas ID utas yang akan dihapus.
+ * @param idx Indeks tempat utas akan dihapus.
+ */
 void HapusUtas(int idUtas, int idx);
 
 #endif

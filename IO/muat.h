@@ -8,23 +8,53 @@
 #include <sys/types.h>
 
 /**
- * Reads user data from a file.
+ * Membaca data pengguna dari sebuah file.
  *
- * @param file_path The path to the file containing user data.
+ * @param file_path Path ke file yang berisi data pengguna.
  */
-
+ 
 int idPengguna(char *nama);
 
+/**
+ * Memuat data pengguna dari file.
+ *
+ * @param file_path Path ke file yang berisi data pengguna.
+ */
 void MuatPengguna(char* file_path);
 
+/**
+ * Memuat data kicauan dari file.
+ *
+ * @param file_path Path ke file yang berisi data kicauan.
+ */
 void MuatKicauan(char* file_path);
 
+/**
+ * Memuat data utas dari file.
+ *
+ * @param file_path Path ke file yang berisi data utas.
+ */
 void MuatUtas(char* file_path);
 
+/**
+ * Memuat data draf dari file.
+ *
+ * @param file_path Path ke file yang berisi data draf.
+ */
 void MuatDraf(char* file_path);
 
+/**
+ * Memuat data balasan dari file.
+ *
+ * @param file_path Path ke file yang berisi data balasan.
+ */
 void MuatBalasan(char* file_path);
 
+/**
+ * Memuat data dari file.
+ *
+ * @return 0 jika berhasil memuat data, -1 jika gagal.
+ */
 int Muat();
 
 #endif
