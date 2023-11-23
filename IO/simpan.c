@@ -3,13 +3,24 @@
 #include <sys/stat.h>
 
 
+/**
+ * Checks if a directory exists at the specified path.
+ * 
+ * @param path The path to the directory.
+ * @return 1 if the directory exists, 0 otherwise.
+ */
 int isDirectoryExists(const char *path) {
     struct stat st;
     return stat(path, &st) == 0 && S_ISDIR(st.st_mode);
 }
 
+/**
+ * Creates a directory at the specified path.
+ * 
+ * @param path The path to the directory.
+ * @return 0 if the directory is created successfully, 1 otherwise.
+ */
 int createDirectory(char *path) {
-    // Use a loop to create parent directories if they don't exist
     char *temp = (char *) malloc (stringLength(path) + 1);
     char *tempIter = temp;
     const char *pathIter = path;
@@ -19,7 +30,7 @@ int createDirectory(char *path) {
             *tempIter = '\0';
             if (!isDirectoryExists(temp) && mkdir(temp, 0777) != 0) {
                 free(temp);
-                return 1;  // Return an error code
+                return 1; 
             }
             *tempIter = '/';
         } else {
@@ -32,14 +43,13 @@ int createDirectory(char *path) {
 
     *tempIter = '\0';
 
-    // Create the final directory
     if (mkdir(path, 0777) != 0) {
         free(temp);
-        return 1;  // Return an error code
+        return 1;  
     }
 
     free(temp);
-    return 0;  // Return success
+    return 0; 
 }
 
 int totalChild(Node* root) {
