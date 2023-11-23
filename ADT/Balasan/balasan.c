@@ -82,7 +82,18 @@ void printBalasan(Node* root, int depth) {
     if (root == NULL) {
         return;
     }
-    if (depth > 0) {
+    if (depth > 0 && !databasePengguna.user[root->key.ID_Author].Publik){
+        printIndent(depth-1);
+        printf("| PRIVATE\n");
+        printIndent(depth-1);
+        printf("| PRIVATE\n");
+        printIndent(depth-1);
+        printf("| PRIVATE\n");
+        printIndent(depth-1);
+        printf("| PRIVATE\n");
+        printf("\n");
+        return;
+    } else if (depth > 0) {
         printIndent(depth-1);
         printf("| ID = %d\n", root->key.ID_balasan);
         printIndent(depth-1);
