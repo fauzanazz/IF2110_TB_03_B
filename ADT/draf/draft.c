@@ -58,7 +58,7 @@ void buatDraft(){
     // Konfirmasi apa yang ingin dilakukan dengan draf
     valid = false;
     while (!valid){
-        printf("Apakah anda ingin menghapus, menyimpan, atau menerbitkan draf ini?\n");
+        printf("Apakah anda ingin menghapus (HAPUS), menyimpan (SIMPAN), atau menerbitkan (TERBIT) draf ini?\n");
         STARTWORD();
         input = currentWord;
         
@@ -138,7 +138,7 @@ void lihatDraft(){
         // Konfirmasi apa yang ingin dilakukan dengan draf
         valid = false;
         while (!valid){
-            printf("Apakah Anda ingin mengubah, menghapus, atau menerbitkan draf ini? (KEMBALI jika ingin kembali)\n");
+            printf("Apakah Anda ingin mengubah (UBAH), menghapus (HAPUS), atau menerbitkan (TERBIT) draf ini? (KEMBALI jika ingin kembali)\n");
             STARTWORD();
             input = currentWord;
 
@@ -208,7 +208,7 @@ void editDraft(){
     // Konfirmasi apa yang ingin dilakukan dengan draf
     valid = false;
     while (!valid){
-        printf("Apakah anda ingin menghapus, menyimpan, atau menerbitkan draf ini?\n");
+        printf("Apakah anda ingin menghapus (HAPUS), menyimpan (SIMPAN), atau menerbitkan (TERBIT) draf ini?\n");
         STARTWORD();
         input = currentWord;
 
