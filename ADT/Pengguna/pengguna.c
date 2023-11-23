@@ -162,7 +162,6 @@ void Daftar(ListPengguna *lp){
         }
         USER(*lp, cnt).Pass.Length=currentWord.Length;
         COUNT(*lp)++;
-        (*lp).usercount++;
         printf("Pengguna telah berhasil terdaftar. Masuk untuk menikmati fitur-fitur BurBir.\n");
     }
 
