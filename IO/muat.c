@@ -340,7 +340,13 @@ void MuatUtas(char *file_path){
         IgnoreSpace();
 
         //BANYAK UTAS
-        int j = currentCharF - '0';
+        int j = 0;
+        while (!EOPF)
+        {
+            j *= 10;
+            j += currentCharF - '0';
+            ADVFILE();
+        }
 
         ADVFILE();
         while (j > 0){
