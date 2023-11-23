@@ -21,6 +21,12 @@ void buatDraft(){
     simpan = createWordfromString("SIMPAN");
     terbit = createWordfromString("TERBIT");
 
+    // Pengecekan Stack Draft penuh atau tidak
+    if ((isUserDraft(dataDraf, databasePengguna.user[ActiveUser].Nama)) && (ADDR_TOPSD(LUD_IDX(dataDraf, ActiveUser)) == MaxElS - 1)){ // Jika Stack Draft penuh
+        printf("Draf Anda penuh.\n");
+        return;
+    }
+
     printf("Masukkan draf:\n");
     CreateEmptyDraft(&content);
 
@@ -170,26 +176,9 @@ void editDraft(){
 
     /* ALGORITMA */
     // Siapkan Word hapus, simpan, terbit
-    hapus.TabWord[0] = 'H';
-    hapus.TabWord[1] = 'A';
-    hapus.TabWord[2] = 'P';
-    hapus.TabWord[3] = 'U';
-    hapus.TabWord[4] = 'S';
-    hapus.Length = 5;
-    simpan.TabWord[0] = 'S';
-    simpan.TabWord[1] = 'I';
-    simpan.TabWord[2] = 'M';
-    simpan.TabWord[3] = 'P';
-    simpan.TabWord[4] = 'A';
-    simpan.TabWord[5] = 'N';
-    simpan.Length = 6;
-    terbit.TabWord[0] = 'T';
-    terbit.TabWord[1] = 'E';
-    terbit.TabWord[2] = 'R';
-    terbit.TabWord[3] = 'B';
-    terbit.TabWord[4] = 'I';
-    terbit.TabWord[5] = 'T';
-    terbit.Length = 6;
+    hapus = createWordfromString("HAPUS");
+    simpan = createWordfromString("SIMPAN");
+    terbit = createWordfromString("TERBIT");
 
     // Data index user pada list pengguna draft dan draft pada top stack
     idxInLUD = indexInLUD(dataDraf, databasePengguna.user[ActiveUser].Nama);
