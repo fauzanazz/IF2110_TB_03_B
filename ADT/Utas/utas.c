@@ -265,7 +265,7 @@ void BuatUtas(int idKicau){
         tempKicauan.IdProfile = ActiveUser;
         tempKicauan.TanggalTerbit = current_time2;
         tempKicauan.IsiKicauan = isi;
-        tempKicauan.Tagar = dataKicau.buffer[idxIdKicau].Tagar;
+        // tempKicauan.Tagar = dataKicau.buffer[idxIdKicau].Tagar;
         tempKicauan.JumlahLike = 0;
 
         insertLastUtas(&tempUtas, tempKicauan);
