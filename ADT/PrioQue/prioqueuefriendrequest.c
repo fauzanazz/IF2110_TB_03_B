@@ -301,7 +301,7 @@ void PrintPrioQueueFriendRequest(PrioQueueFriendRequest Q) {
     temp = Q;
 
     if (!IsEmpty(Q)) {
-        printf("Terdapat %d permintaan pertemanan untuk Anda.\n", MaxElement(Q));
+        printf("Terdapat %d permintaan pertemanan untuk Anda.\n", NBElmt(Q));
         while (!IsEmpty(temp)) {
             Dequeue(&temp, &val);
             //! Sambungkan dengan database

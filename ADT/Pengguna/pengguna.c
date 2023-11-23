@@ -245,7 +245,7 @@ void Masuk(ListPengguna *lp){
                 }
             }   
         }
-        printf("Anda telah berhasil masuk dengan nama pengguna ");
+        printf("\n\nAnda telah berhasil masuk dengan nama pengguna ");
         for (i=0;i<USER(*lp, ActiveUser).Nama.Length;i++){
             printf("%c",USER(*lp, ActiveUser).Nama.TabWord[i]);
         }
