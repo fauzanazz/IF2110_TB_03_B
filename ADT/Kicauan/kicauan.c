@@ -160,12 +160,17 @@ void Kicau(ListDin * listKicauan){
 }
 
 void Kicauan(ListDin listKicau){
+    int count = 0;
     for(int i = 0; i < listKicau.nEff; i++){
-        // Ubah ke global variable
         if (listKicau.buffer[i].IdProfile == ActiveUser || isConnected(GFriend, ActiveUser, listKicau.buffer[i].IdProfile)) {
             ShowKicau(listKicau.buffer[i]);
+            count++;
             printf("\n");
         }
+    }
+
+    if (count == 0){
+        printf("Belum ada kicauan yang dapat ditampilkan.\n");
     }
 }
 
