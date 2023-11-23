@@ -146,6 +146,7 @@ void lihatDraft(){
 
             if (isWordEqual(input, hapus)){ // Jika draft ingin dihapus
                 hapusDraft();
+                printf("\nDraf telah berhasil dihapus!\n");
                 valid = true;
             } else if (isWordEqual(input, ubah)){ // Jika draft ingin diedit
                 editDraft();
@@ -191,6 +192,8 @@ void editDraft(){
     blank = false;
     draftNewLength = 0;
     START();
+    IgnoreBlanks();
+    ignoreNewLine();
     while (currentChar != MARK){
         if (currentChar != BLANK){
             blank = true;
@@ -260,8 +263,6 @@ void hapusDraft(){
     if (ADDR_TOPSD(LUD_IDX(dataDraf, idxInLUD)) == NilS){ // Jika stack draft menjadi kosong, artinya user tidak lagi menjadi pengguna draft dan dihapus dari list pengguna draft
         deleteDraftUser(&dataDraf, databasePengguna.user[ActiveUser].Nama);
     }
-
-    printf("\nDraf telah berhasil dihapus!\n");
 }
 
 void terbitDraft(){
