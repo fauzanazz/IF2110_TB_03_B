@@ -1,5 +1,46 @@
 #include "simpan.h"
+#include <sys/types.h>
 #include <sys/stat.h>
+
+
+int isDirectoryExists(const char *path) {
+    struct stat st;
+    return stat(path, &st) == 0 && S_ISDIR(st.st_mode);
+}
+
+int createDirectory(char *path) {
+    // Use a loop to create parent directories if they don't exist
+    char *temp = (char *) malloc (stringLength(path) + 1);
+    char *tempIter = temp;
+    const char *pathIter = path;
+
+    while (*pathIter != '\0') {
+        if (*pathIter == '/') {
+            *tempIter = '\0';
+            if (!isDirectoryExists(temp) && mkdir(temp, 0777) != 0) {
+                free(temp);
+                return 1;  // Return an error code
+            }
+            *tempIter = '/';
+        } else {
+            *tempIter = *pathIter;
+        }
+
+        tempIter++;
+        pathIter++;
+    }
+
+    *tempIter = '\0';
+
+    // Create the final directory
+    if (mkdir(path, 0777) != 0) {
+        free(temp);
+        return 1;  // Return an error code
+    }
+
+    free(temp);
+    return 0;  // Return success
+}
 
 int totalChild(Node* root) {
     if (root == NULL) {
@@ -285,10 +326,10 @@ void Simpan(){
 
     char *folder_path = concatString("IO/Output/", WordToString(currentWord));
 
-    if (mkdir(folder_path, 0777) != 0) {
-        printf("\nFolder sudah tersedia.\n");
-    } else {
+    if (createDirectory(folder_path) == 0) {
         printf("\nFolder %s berhasil dibuat.\n", folder_path);
+    } else {
+        printf("\nFolder %s sudah tersedia.\n", folder_path);
     }
 
     SimpanPengguna(folder_path);
