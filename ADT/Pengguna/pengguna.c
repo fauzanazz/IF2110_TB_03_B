@@ -166,7 +166,7 @@ void Daftar(ListPengguna *lp){
         printf("Pengguna telah berhasil terdaftar. Masuk untuk menikmati fitur-fitur BurBir.\n");
     }
 
-    else if (!isLogin){
+    else if (isLogin){
         printf("Anda sudah masuk. Keluar terlebih dahulu untuk melakukan daftar.\n");
     }
         
