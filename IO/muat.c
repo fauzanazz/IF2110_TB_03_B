@@ -748,7 +748,8 @@ void MuatBalasan(char* file_path){
 }
 
 int Muat(){
-    printf("\nMasukkan folder konfigurasi untuk dimuat:\n");
+    printf("=================================================================== ⊹⋛⋋(◐⊝◑)⋌⋚⊹ ==========================================================================");
+    printf("\nMasukkan folder konfigurasi untuk dimuat: ");
 
     STARTWORD();
 
@@ -766,15 +767,27 @@ int Muat(){
         MuatBalasan(inputFolder);
 
         printf("Mohon tunggu...\n");
-        printf("1..\n");
-        printf("2..\n");
-        printf("3..\n");
 
-        printf("\nFolder konfigurasi berhasil dimuat!\n");
+        printf("1..\n");
+        await(1);
+        printf("2..\n");
+        await(1);
+        printf("3..\n");
+        await(1);
+
+        printf("\nFolder konfigurasi berhasil dimuat!\n\n");
 
         return 1;
     } else {
-        printf("Folder tidak ditemukan.\n");
+        printf("Folder tidak ditemukan.\n\n\n");
     }
     return 0;
+}
+
+void await(int seconds){
+    time_t start_time = time(NULL);
+    time_t current_time = time(NULL);
+    while (current_time - start_time < seconds){
+        current_time = time(NULL);
+    }
 }

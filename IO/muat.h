@@ -57,4 +57,11 @@ void MuatBalasan(char* file_path);
  */
 int Muat();
 
+/**
+ * Suspends the execution of the program for the specified number of seconds.
+ *
+ * @param seconds The number of seconds to wait.
+ */
+void await(int seconds);
+
 #endif

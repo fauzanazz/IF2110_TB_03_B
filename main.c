@@ -3,6 +3,7 @@
 #include "IO/simpan.h"
 
 void help(boolean isLogin) {
+    printf("\n=================================================================== ⊹⋛⋋(◐⊝◑)⋌⋚⊹ ==========================================================================\n");
     printf("\nFungsi yang dapat diakses saat ini:\n\n");
     printf("- DAFTAR\n");
     printf("- MASUK\n");
@@ -74,7 +75,8 @@ int main(){
     }
     while (!muat);
 
-    printf("Selamat berkicau!\n\n");
+    printf("=================================================================== ⊹⋛⋋(◐⊝◑)⋌⋚⊹ ==========================================================================");
+    printf("                                                                    Selamat berkicau!\n\n");
     printf("\nUntuk melihat daftar perintah yang dapat diakses, ketik 'HELP'.\n");
 
     while (!CheckInput("TUTUP_PROGRAM")) {
