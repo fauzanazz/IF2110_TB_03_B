@@ -34,6 +34,8 @@ void buatDraft(){
     blank = false;
     draftLength = 0;
     START();
+    IgnoreBlanks();
+    ignoreNewLine();
     while (currentChar != MARK){
         if (currentChar != BLANK){
             blank = true;
@@ -50,7 +52,7 @@ void buatDraft(){
     draftContent.Length = draftLength;
 
     if (draftLength == 0){
-        printf("Draft tidak boleh kosong!\n");
+        printf("Draf tidak boleh kosong!\n");
         return;
     }
     DCONTENT(content) = draftContent;
