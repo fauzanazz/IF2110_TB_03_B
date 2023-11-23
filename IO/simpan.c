@@ -145,8 +145,7 @@ void SimpanKicauan(char *folder_path){
         writeWord(dataKicau.buffer[i].IsiKicauan, file, '\n');
         fprintf(file, "%d\n", dataKicau.buffer[i].JumlahLike);
         writeWord(databasePengguna.user[dataKicau.buffer[i].IdProfile].Nama, file, '\n');
-        writeWord(dataKicau.buffer[i].Tagar, file, '\n');
-
+ 
         //DATE TIME
         DATETIME tempDate = dataKicau.buffer[i].TanggalTerbit;
         fprintf(file, "%02d/", tempDate.DD);
