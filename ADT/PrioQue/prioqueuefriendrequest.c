@@ -281,7 +281,7 @@ void SetujuiPertemanan(PrioQueueFriendRequest *Q) {
 //* Fungsi tambahan DRY
 int CekQueuePermintaanPertemanan(PrioQueueFriendRequest Q, int id_pengguna, int id_target){
     friendRequest temp;
-    int ditemukan = Nil;
+    int ditemukan = 0;
     int count = Nil;
     while (!IsEmpty(Q))
     {

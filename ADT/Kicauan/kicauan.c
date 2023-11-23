@@ -161,7 +161,7 @@ void Kicau(ListDin * listKicauan){
 
 void Kicauan(ListDin listKicau){
     int count = 0;
-    for(int i = 0; i < listKicau.nEff; i++){
+    for(int i = listKicau.nEff-1; i > -1; i--){
         if (listKicau.buffer[i].IdProfile == ActiveUser || isConnected(GFriend, ActiveUser, listKicau.buffer[i].IdProfile)) {
             ShowKicau(listKicau.buffer[i]);
             count++;
@@ -176,15 +176,23 @@ void Kicauan(ListDin listKicau){
 
 void Suka_Kicau(ListDin * ListKicauan, int idKicauan){
     int indexKicau = cariKicauan(*ListKicauan, idKicauan);
-    
-    if (indexKicau != -1) {
-        ListKicauan->buffer[indexKicau].JumlahLike++;
-        printf("Selamat! kicauan telah disukai!\n");
-        printf("Detil kicauan:\n");
-        ShowKicau(ListKicauan->buffer[indexKicau]);
-    } else {
+
+    if (indexKicau == -1 ){
         printf("Tidak ditemukan kicauan dengan ID = %d!\n", idKicauan);
+        return;
     }
+
+    int IdPengguna = (*ListKicauan).buffer[indexKicau].IdProfile;
+    if (!isConnected(GFriend, ActiveUser, IdPengguna) &&  IdPengguna != ActiveUser && !databasePengguna.user[IdPengguna].Publik) {
+        printf("Anda tidak dapat menyukai kicauan ini\n");
+        return;
+    }
+    
+    ListKicauan->buffer[indexKicau].JumlahLike++;
+    printf("Selamat! kicauan telah disukai!\n");
+    printf("Detil kicauan:\n");
+    ShowKicau(ListKicauan->buffer[indexKicau]);
+
     printf("\n");
 }
 
