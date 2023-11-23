@@ -100,7 +100,6 @@ void printBalasan(Node* root, int depth) {
         printf("| ");
         displayWord(databasePengguna.user[root->key.ID_Author].Nama);
         printIndent(depth-1);
-        printf("| ");
         printf("| %d-%02d-%02d %02d:%02d:%02d\n", root->key.DT.YYYY, root->key.DT.MM, root->key.DT.DD, root->key.DT.T.HH, root->key.DT.T.MM, root->key.DT.T.SS);
         printIndent(depth-1);
         printf("| ");
