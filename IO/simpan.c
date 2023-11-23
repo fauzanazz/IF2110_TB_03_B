@@ -136,7 +136,7 @@ void SimpanPengguna(char *folder_path){
             for (k = 0; k < 10; k++){
                 fprintf(file, "%c", (char) foto.pix[j][k]);
 
-                if (k != 10){
+                if (k != 9){
                     fprintf(file, " ");
                 }
             }
