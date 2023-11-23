@@ -13,19 +13,22 @@ void gantiProfil(Pengguna *user){
         int i = 0;
         printf("Masukkan Bio:\n");
         START();
+        char *temp= "";
         while (currentChar != MARK /* && currentChar != LINEFEED */){
             if(currentChar != LINEFEED){
-                currentWord.TabWord[i]=currentChar;
+                // currentWord.TabWord[i]=currentChar;
+                temp = stringConcatChar(temp, currentChar);
             }
             ADV();
             i++;
         }
         ADV();
-        currentWord.Length=i;
+        // currentWord.Length=i;
         if(i>135){
             printf("Bio Terlalu Panjang!\n");
         }
         else{
+            currentWord = createWordfromString(temp);
             Valid=true;
         }
     }

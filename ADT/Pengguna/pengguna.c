@@ -104,20 +104,21 @@ void Daftar(ListPengguna *lp){
             printf("Masukkan nama:\n");
             START();
             i=0;
+            char *temp = "";
             while (currentChar != MARK /* && currentChar != LINEFEED */){
                 if(currentChar != LINEFEED){
-                    currentWord.TabWord[i]=currentChar;
+                    temp = stringConcatChar(temp, currentChar);
                 }
                 ADV();
                 i++;
             }
             ADV();
             if (i > 20){
-                currentWord.Length = i;
+                // currentWord.Length = i;
                 printf("Nama Terlalu Panjang!\n");
             }
             else{
-                currentWord.Length = i;
+                currentWord= createWordfromString(temp);
                 i=0;
                 while(i<COUNT(*lp) && identik(currentWord,USER(*lp, i).Nama)==false){
                     i++;
@@ -140,19 +141,21 @@ void Daftar(ListPengguna *lp){
             printf("Masukkan kata sandi:\n");
             i=0;
             START();
+            char *temp = "";
             while (currentChar != MARK /* && currentChar != LINEFEED */){
                 if(currentChar != LINEFEED){
-                    currentWord.TabWord[i]=currentChar;
+                    temp = stringConcatChar(temp, currentChar);
                 }
                 ADV();
                 i++;
             }
             ADV();
             if (i > 20){
-                currentWord.Length = NMax;
+                // currentWord.Length = NMax;
                 printf("Password Terlalu Panjang!\n");
             }
             else{
+                currentWord= createWordfromString(temp);
                 Valid=true;
             }   
         }
