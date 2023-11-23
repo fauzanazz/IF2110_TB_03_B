@@ -96,7 +96,7 @@ void inisialisasiPengguna(Pengguna *user){
 }
 
 void Daftar(ListPengguna *lp){
-    if (!isLogin){
+    if (!isLogin && (*lp).usercount<=20){
         int i;
         boolean Valid=false;
         int cnt = COUNT(*lp);
@@ -162,13 +162,17 @@ void Daftar(ListPengguna *lp){
         }
         USER(*lp, cnt).Pass.Length=currentWord.Length;
         COUNT(*lp)++;
+        (*lp).usercount++;
         printf("Pengguna telah berhasil terdaftar. Masuk untuk menikmati fitur-fitur BurBir.\n");
     }
 
-    else{
+    else if (!isLogin){
         printf("Anda sudah masuk. Keluar terlebih dahulu untuk melakukan daftar.\n");
     }
-
+        
+    else{
+        printf("Jumlah pengguna sudah 20.\n");
+    }
 }
 
 void Masuk(ListPengguna *lp){
