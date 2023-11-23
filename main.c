@@ -200,7 +200,7 @@ int main(){
         } else if (CheckInput("HELP")) {
             help(isLogin);
         } 
-        else {
+        else if (!CheckInput("TUTUP_PROGRAM")){
             printf("\nPerintah tidak dikenali.\n");
             printf("Untuk melihat daftar perintah yang dapat diakses, ketik 'HELP'.\n");
         }
