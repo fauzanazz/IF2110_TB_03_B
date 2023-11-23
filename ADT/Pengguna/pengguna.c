@@ -96,7 +96,7 @@ void inisialisasiPengguna(Pengguna *user){
 }
 
 void Daftar(ListPengguna *lp){
-    if (!isLogin && (*lp).usercount<=20){
+    if (!isLogin && (*lp).usercount < 20){
         int i;
         boolean Valid=false;
         int cnt = COUNT(*lp);
@@ -165,6 +165,7 @@ void Daftar(ListPengguna *lp){
         }
         USER(*lp, cnt).Pass.Length=currentWord.Length;
         COUNT(*lp)++;
+        addEdge(&GFriend, cnt, cnt);
         printf("Pengguna telah berhasil terdaftar. Masuk untuk menikmati fitur-fitur BurBir.\n");
     }
 
@@ -219,14 +220,17 @@ void Masuk(ListPengguna *lp){
         while (!Valid){
             printf("Masukkan kata sandi:\n");
             i=0;
-            STARTWORD();
-            // while (currentChar != MARK /* && currentChar != LINEFEED */){
-            //     if(currentChar != LINEFEED){
-            //         currentWord.TabWord[i]=currentChar;
-            //     }
-            //     ADV();
-            //     i++;
-            // }
+            // STARTWORD();
+
+            char *tempInputPass = "";
+            while (currentChar != MARK /* && currentChar != LINEFEED */){
+                if(currentChar != LINEFEED){
+                    tempInputPass = stringConcatChar(tempInputPass, currentChar);
+                }
+                ADV();
+                i++;
+            }
+            currentWord = createWordfromString(tempInputPass);
             // ADV();
             i = currentWord.Length;
             if (i > 20){
