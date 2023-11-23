@@ -8,7 +8,6 @@ void help(boolean isLogin) {
     printf("- MASUK\n");
     printf("- SIMPAN\n");
     printf("- MUAT\n");
-    printf("- KELUAR\n");
     printf("- HELP\n");
     printf("- TUTUP_PROGRAM\n");
 
