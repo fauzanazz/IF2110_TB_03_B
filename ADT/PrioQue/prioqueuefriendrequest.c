@@ -87,18 +87,37 @@ void TambahTeman(PrioQueueFriendRequest *Q){
 
     // Sambungkan dengan database
     int id_pengguna = ActiveUser;
-    int popularity = 0;
+    int popularity = hitungTeman(ActiveUser);
     int id_target = -1;
 
     // Inisialiasi penyimpanan queue
     PrioQueueFriendRequest Qtemp;
+    PrioQueueFriendRequest Quser;
+    MakeEmpty(&Quser, MaxElement(*Q));
     Qtemp = *Q;
     friendRequest temp;
     char *tempUser = "";
-    //* Algoritma
+
+    while (!IsEmpty(Qtemp))
+    {
+        Dequeue(&Qtemp, &temp);
+
+        if (Target(temp) == id_pengguna)
+        {
+            Enqueue(&Quser, temp);
+        }
+    }
+
+    // Cek apakah sudah diminta pertemanan
+    if (!IsEmpty(Quser)) {
+        printf("Terdapat permintaan pertemanan yang belum Anda setujui. Silakan kosongkan daftar permintaan pertemanan untuk Anda terlebih dahulu.\n");
+        return;
+    }
+
     do {
         printf("Masukkan nama pengguna:\n");
 
+        tempUser = "";
         START();
         IgnoreBlanks();
         while (!EOP)
@@ -115,21 +134,22 @@ void TambahTeman(PrioQueueFriendRequest *Q){
 
     } while (id_target == -1);
     
-    // Cek Pengguna dengan id ke berapa dalam database
-
-    // Jika id ke berapa cek ada atau tidak
 
     // Jika sudah ada, maka tidak perlu dimasukkan
-    if (CekQueuePermintaanPertemanan(Qtemp, id_pengguna, id_target)) {
+    if(isConnected(GFriend, id_pengguna, id_target)){
+        printf("Anda sudah berteman dengan %s.\n", tempUser);
+        return;
+    }
+
+    if (CekQueuePermintaanPertemanan(Quser, id_pengguna, id_target) != Nil) {
         //! Belum di implementasikan karena belum ada database
         printf("Anda sudah mengirimkan permintaan pertemanan kepada %s. Silakan tunggu hingga permintaan Anda disetujui.\n", tempUser);
     } else {
-        // Buat infotypenya
         User(temp) = id_pengguna;
         Target(temp) = id_target;
         Popularity(temp) = popularity;
-        // Jika tidak ada, maka masukkan ke prioqueue
         Enqueue(Q,temp);
+        printf("Permintaan pertemanan kepada %s telah dikirim. Tunggu beberapa saat hingga permintaan Anda disetujui.\n", tempUser);
     }
 }
 
@@ -236,6 +256,7 @@ void SetujuiPertemanan(PrioQueueFriendRequest *Q) {
         }
     }
     // Ambil dari data base data peminta
+
     if (!IsEmpty(Quser)){
         Dequeue(&Quser, &temp);
         char *Namapeminta = WordToString(databasePengguna.user[User(temp)].Nama);
@@ -245,9 +266,9 @@ void SetujuiPertemanan(PrioQueueFriendRequest *Q) {
         //! Sambungkan dengan database
         
         // char Jumlah teman = ....
-        printf("| %s\n", Namapeminta);
+        printf("\n| %s\n", Namapeminta);
         printf("| Jumlah teman: %d\n", popularity);
-        printf("Apakah Anda ingin menyetujui permintaan pertemanan ini?\n");
+        printf("Apakah Anda ingin menyetujui permintaan pertemanan ini?\n(YA/TIDAK) ");
         
         //! Mesin kata
         STARTWORD();
@@ -281,7 +302,7 @@ void SetujuiPertemanan(PrioQueueFriendRequest *Q) {
 //* Fungsi tambahan DRY
 int CekQueuePermintaanPertemanan(PrioQueueFriendRequest Q, int id_pengguna, int id_target){
     friendRequest temp;
-    int ditemukan = 0;
+    int ditemukan = Nil;
     int count = Nil;
     while (!IsEmpty(Q))
     {
