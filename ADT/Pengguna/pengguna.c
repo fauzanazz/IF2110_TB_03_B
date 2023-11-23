@@ -220,7 +220,7 @@ void Masuk(ListPengguna *lp){
         while (!Valid){
             printf("Masukkan kata sandi:\n");
             i=0;
-            // STARTWORD();
+            START();
 
             char *tempInputPass = "";
             while (currentChar != MARK /* && currentChar != LINEFEED */){
