@@ -191,6 +191,8 @@ void editDraft(){
     blank = false;
     draftNewLength = 0;
     START();
+    IgnoreBlanks();
+    ignoreNewLine();
     while (currentChar != MARK){
         if (currentChar != BLANK){
             blank = true;
