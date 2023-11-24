@@ -1,4 +1,3 @@
-<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a name="readme-top"></a>
 
 <!-- PROJECT SHIELDS -->
@@ -75,7 +74,7 @@ BurBir adalah aplikasi media sosial berbasis CLI yang memungkinkan pengguna untu
 
 ### Built With
 
-* ![C](https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white)
+![C](https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white)
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -85,10 +84,29 @@ BurBir adalah aplikasi media sosial berbasis CLI yang memungkinkan pengguna untu
 <!-- GETTING STARTED -->
 ## Getting Started
 
+Untuk menjalankan program ini kamu harus mempunyai environment unix atau mac. Lalu dalam environment tersebut kamu harus mempunyai Library GCC dan Makefile. Jika kamu sudah memenuhi persyaratan tersebut, kamu dapat mengikuti langkah-langkah berikut ini.
+
 ### Prerequisites
+
+* GCC
+* Makefile
 
 ### Installation
 
+1. Clone the repo
+   ```sh
+   git clone
+    ```
+
+2. Compile the program
+    ```sh
+    make
+    ```
+
+3. Run the program
+    ```sh
+    ./main
+    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -96,8 +114,10 @@ BurBir adalah aplikasi media sosial berbasis CLI yang memungkinkan pengguna untu
 
 <!-- USAGE EXAMPLES -->
 ## Usage
-
-
+```
+make
+./main
+```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -135,5 +155,3 @@ Project Link: [https://github.com/fauzanazz/IF2110_TB_03_B](https://github.com/f
 [stars-url]: https://github.com/fauzanazz/IF2110_TB_03_B/stargazers
 [issues-shield]: https://img.shields.io/github/issues/fauzanazz/IF2110_TB_03_B.svg?style=for-the-badge
 [issues-url]: https://github.com/fauzanazz/IF2110_TB_03_B/issues
-[JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
-[JQuery-url]: https://jquery.com 
