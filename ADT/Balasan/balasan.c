@@ -92,7 +92,6 @@ void printBalasan(Node* root, int depth) {
         printIndent(depth-1);
         printf("| PRIVATE\n");
         printf("\n");
-        return;
     } else if (depth > 0) {
         printIndent(depth-1);
         printf("| ID = %d\n", root->key.ID_balasan);
