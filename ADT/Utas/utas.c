@@ -232,7 +232,7 @@ void BuatUtas(int idKicau){
 
     int idxUtas;
     if (findUtasWithIdKicau(dataUtas, idKicau, &idxUtas)){
-        printf("\nUtas sudah dibuat dengan Id!%d\n", idxUtas);
+        printf("\nUtas sudah dibuat dengan Id %d!\n", idxUtas);
         return;
     }
 
@@ -298,6 +298,8 @@ void BuatUtas(int idKicau){
         }
 
     } while (CheckInput("YA"));
+
+    printf("\nUtas selesai!\n");
 
     insertLastListUtas(&dataUtas, tempUtas);
 }
