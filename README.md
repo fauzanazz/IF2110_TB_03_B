@@ -95,7 +95,7 @@ Untuk menjalankan program ini kamu harus mempunyai environment unix atau mac. La
 
 1. Clone the repo
    ```sh
-   git clone
+   git clone https://github.com/fauzanazz/IF2110_TB_03_B
     ```
 
 2. Compile the program
