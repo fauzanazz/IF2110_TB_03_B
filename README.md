@@ -85,12 +85,7 @@ BurBir adalah aplikasi media sosial berbasis CLI yang memungkinkan pengguna untu
 <!-- GETTING STARTED -->
 ## Getting Started
 
-
-
-
 ### Prerequisites
-
-
 
 ### Installation
 
@@ -120,10 +115,11 @@ Project Link: [https://github.com/fauzanazz/IF2110_TB_03_B](https://github.com/f
 ## Acknowledgments
 
 * [Maulvi Ziadinda Maulana](https://github.com/maulvi-zm)
+* [Muhammad Fauzan Azhim](https://github.com/fauzanazz)
 * [Maulana Muhamad Susetyo](https://github.com/LastPrism7)
-* [Nicholas Reymond Sihite](github.com/nicholasrs05)
+* [Nicholas Reymond Sihite](https://github.com/nicholasrs05)
 * [Muhammad Zaidan Sa'dun Robbani](https://github.com/zaidanav)
-* [Chelvadinda]()
+* [Chelvadinda](https://github.com/chelvadinda)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
