@@ -82,7 +82,7 @@ void printBalasan(Node* root, int depth) {
     if (root == NULL) {
         return;
     }
-    if (depth > 0 && !databasePengguna.user[root->key.ID_Author].Publik){
+    if ((depth > 0 && !databasePengguna.user[root->key.ID_Author].Publik) && !isConnected(GFriend , ActiveUser , root->key.ID_Author)){
         printIndent(depth-1);
         printf("| PRIVATE\n");
         printIndent(depth-1);
@@ -267,8 +267,6 @@ void Balasan(int idKicau){
         printf("Wah, akun tersebut merupakan akun privat dan anda belum berteman akun tersebut!\n");
         return;
     }
-    printf("%d", listBalasan.T[Idxkicauan].root->childCount);
-
     printBalasan(listBalasan.T[Idxkicauan].root, 0);
 }
 
