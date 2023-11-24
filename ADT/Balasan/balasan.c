@@ -205,7 +205,7 @@ void Balas(int ID_kicau, int IDBalasan){
 
     
     if (idxKicauan == IDX_UNDEF){
-        printf("Wah, tidak terdapat kicauan yang ingin Anda hapus\n");
+        printf("Wah, tidak terdapat kicauan yang ingin Anda balas!\n");
         return;
     }
 
@@ -237,7 +237,7 @@ void Balas(int ID_kicau, int IDBalasan){
         Node* idxBalasan = findNode(listBalasan.T[idxKicauanDalamList].root, IDBalasan);
         int IDTarget = idxBalasan->key.ID_balasan; 
         if (idxBalasan == NULL){
-            printf("Wah, tidak terdapat balasan yang ingin Anda hapus!\n");
+            printf("Wah, tidak terdapat balasan yang ingin Anda balas!\n");
             return;
         } else {
             BalasanStruct newBalasan;
@@ -282,7 +282,7 @@ void Balasan(int idKicau){
 void HapusBalasan(int ID_kicauan, int ID_balasan){
     int idxKicauan = FindKicauan(ID_kicauan);
     if (idxKicauan == IDX_UNDEF){
-        printf("Wah, tidak terdapat kicauan yang ingin Anda balas!\n");
+        printf("Wah, tidak terdapat kicauan yang ingin Anda hapus!\n");
         return;
     }
 
@@ -291,7 +291,7 @@ void HapusBalasan(int ID_kicauan, int ID_balasan){
     if (ID_balasan != -1){
         Node* idxBalasan = findNode(listBalasan.T[idxKicauan].root, ID_balasan);
         if (idxBalasan == NULL){
-            printf("Wah, tidak terdapat balasan yang ingin Anda balas!\n");
+            printf("Wah, tidak terdapat balasan yang ingin Anda hapus!\n");
             return;
         } else if (ActiveUser != idxBalasan->key.ID_Author ){
             printf("Hei, ini balasan punya siapa? Jangan dihapus ya!\n");
