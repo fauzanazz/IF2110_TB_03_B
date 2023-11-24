@@ -205,7 +205,7 @@ void Balas(int ID_kicau, int IDBalasan){
 
     
     if (idxKicauan == IDX_UNDEF){
-        printf("Wah, tidak terdapat kicauan yang ingin Anda balas!\n");
+        printf("Wah, tidak terdapat kicauan yang ingin Anda hapus\n");
         return;
     }
 
@@ -237,7 +237,7 @@ void Balas(int ID_kicau, int IDBalasan){
         Node* idxBalasan = findNode(listBalasan.T[idxKicauanDalamList].root, IDBalasan);
         int IDTarget = idxBalasan->key.ID_balasan; 
         if (idxBalasan == NULL){
-            printf("Wah, tidak terdapat balasan yang ingin Anda balas!\n");
+            printf("Wah, tidak terdapat balasan yang ingin Anda hapus!\n");
             return;
         } else {
             BalasanStruct newBalasan;
