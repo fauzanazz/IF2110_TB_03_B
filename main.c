@@ -99,9 +99,9 @@ int main(){
         } else if (CheckInput("MUAT")) {
             if (isLogin){
                 printf("Anda harus keluar terlebih dahulu.\n");
+            } else {
+                Muat();
             }
-            
-            Muat();
         } else if (CheckInput("KELUAR")) {
             Keluar();
         } else if (CheckInput("GANTI_PROFIL")) {
