@@ -141,6 +141,99 @@ Project Link: [https://github.com/fauzanazz/IF2110_TB_03_B](https://github.com/f
 * [Muhammad Zaidan Sa'dun Robbani](https://github.com/zaidanav)
 * [Chelvadinda](https://github.com/chelvadinda)
 
+| No   |             Fitur            | Selesai / Tidak Selesai |
+|------|:----------------------------:|:-----------------------:|
+|   1  |          Inisialisi          |            ✔            |
+|   2  |           Perintah           |            ✔            |
+|   3  |           Pengguna           |            ✔            |
+|  3.1 |            Daftar            |            ✔            |
+|  3.2 |             Masuk            |            ✔            |
+|  3.3 |            Keluar            |            ✔            |
+|   4  |            Profil            |            ✔            |
+|  4.1 |         Ganti Profile        |            ✔            |
+|  4.2 |         Lihat Profile        |            ✔            |
+|  4.3 |        Atur Jenis Akun       |            ✔            |
+|  4.4 |       Ubah Foto Profile      |            ✔            |
+|   5  |             Teman            |            ✔            |
+|  5.1 |         Daftar Teman         |            ✔            |
+|  5.2 |          Hapus Teman         |            ✔            |
+|   6  |     Permintaan Pertemanan    |            ✔            |
+|  6.1 |         Tambah Teman         |            ✔            |
+|  6.3 | Daftar Permintaan Pertemanan |            ✔            |
+|  6.4 |      Setujui Pertemanan      |            ✔            |
+|   7  |            Kicauan           |            ✔            |
+|  7.1 |             Kicau            |            ✔            |
+|  7.3 |          Suka kicau          |            ✔            |
+|  7.4 |          Ubah Kicau          |            ✔            |
+|   8  |            Balasan           |            ✔            |
+|  8.1 |             Balas            |            ✔            |
+|  8.3 |         Hapus Balasan        |            ✔            |
+|   9  |         Draf Kicauan         |            ✔            |
+|  9.1 |           Buat Draf          |            ✔            |
+|  9.2 |          Lihat Draf          |            ✔            |
+|  10  |             Utas             |            ✔            |
+| 10.2 |         Sambung Utas         |            ✔            |
+| 10.3 |          Hapus Utas          |            ✔            |
+| 10.4 |          Cetak Utas          |            ✔            |
+|  11  |        Simpan dan Muat       |            ✔            |
+| 11.1 |            Simpan            |            ✔            |
+| 11.2 |             Muat             |            ✔            |
+
+
+
+| No   |             Fitur            |        Penanggung Jawab        |
+|------|:----------------------------:|:------------------------------:|
+|   1  |          Inisialisi          |     Maulvi Ziadinda Maulana    |
+|   2  |           Perintah           |     Maulvi Ziadinda Maulana    |
+|   3  |           Pengguna           |     Maulana Muhamad Susetyo    |
+|  3.1 |            Daftar            |                                |
+|  3.2 |             Masuk            |                                |
+|  3.3 |            Keluar            |                                |
+|   4  |            Profil            |     Maulana Muhamad Susetyo    |
+|  4.1 |         Ganti Profile        |                                |
+|  4.2 |         Lihat Profile        |                                |
+|  4.3 |        Atur Jenis Akun       |                                |
+|  4.4 |       Ubah Foto Profile      |                                |
+|   5  |             Teman            |     Nicholas Reymond Sihite    |
+|  5.1 |         Daftar Teman         |                                |
+|  5.2 |          Hapus Teman         |                                |
+|   6  |     Permintaan Pertemanan    |      Muhammad Fauzan Azhim     |
+|  6.1 |         Tambah Teman         |                                |
+|  6.2 |      Batal Tambah Teman      |                                |
+|  6.3 | Daftar Permintaan Pertemanan |                                |
+|  6.4 |      Setujui Pertemanan      |                                |
+|   7  |            Kicauan           |      Muhammad Fauzan Azhim     |
+|  7.1 |             Kicau            |                                |
+|  7.2 |            Kicauan           |                                |
+|  7.3 |          Suka kicau          |                                |
+|  7.4 |          Ubah Kicau          |                                |
+|   8  |            Balasan           |      Muhammad Fauzan Azhim     |
+|      |                              | Muhammad Zaidan Sa'dun Robbani |
+|  8.1 |             Balas            |                                |
+|  8.2 |            Balasan           |                                |
+|  8.3 |         Hapus Balasan        |                                |
+|   9  |         Draf Kicauan         |     Nicholas Reymond Sihite    |
+|  9.1 |           Buat Draf          |                                |
+|  9.2 |          Lihat Draf          |                                |
+|  10  |             Utas             |     Maulvi Ziadinda Maulana    |
+| 10.1 |             Utas             |                                |
+| 10.2 |         Sambung Utas         |                                |
+| 10.3 |          Hapus Utas          |                                |
+| 10.4 |          Cetak Utas          |                                |
+|  11  |        Simpan dan Muat       |     Maulvi Ziadinda Maulana    |
+| 11.1 |            Simpan            |                                |
+| 11.2 |             Muat             |                                |
+|  12  |            Merging           |     Maulvi Ziadinda Maulana    |
+|      |                              |      Muhammad Fauzan Azhim     |
+|  13  |           Debugging          |     Maulvi Ziadinda Maulana    |
+|      |                              |      Muhammad Fauzan Azhim     |
+|      |                              |     Nicholas Reymond Sihite    |
+|  14  |            Laporan           |           Chelvadinda          |
+|      |                              |     Nicholas Reymond Sihite    |
+|      |                              |     Maulvi Ziadinda Maulana    |
+|      |                              | Muhammad Zaidan Sa’dun Robbani |
+|      |                              |     Maulana Muhamad Susetyo    |
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
