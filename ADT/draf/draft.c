@@ -22,7 +22,7 @@ void buatDraft(){
     terbit = createWordfromString("TERBIT");
 
     // Pengecekan Stack Draft penuh atau tidak
-    if ((isUserDraft(dataDraf, databasePengguna.user[ActiveUser].Nama)) && (ADDR_TOPSD(LUD_IDX(dataDraf, ActiveUser)) == MaxElS - 1)){ // Jika Stack Draft penuh
+    if ((isUserDraft(dataDraf, databasePengguna.user[ActiveUser].Nama)) && (ADDR_TOPSD(LUD_IDX(dataDraf, indexInLUD(dataDraf, databasePengguna.user[ActiveUser].Nama))) == MaxElS - 1)){ // Jika Stack Draft penuh
         printf("Draf Anda penuh.\n");
         return;
     }
