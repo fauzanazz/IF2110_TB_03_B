@@ -247,11 +247,10 @@ void BuatUtas(int idKicau){
         Kicau_struct tempKicauan;
         Word isi = createWordfromString("");
 
-        START();
-        IgnoreBlanks();
-
         int i;
         do {
+            START();
+            IgnoreBlanks();
             i = 0;
             while (currentChar != MARK ){
                 if(currentChar != LINEFEED && i < 280) {
@@ -264,8 +263,8 @@ void BuatUtas(int idKicau){
             currentWord.Length = (i > 280) ? 280 : i;
 
             if (i == 0){
-                printf("Kicauan tidak boleh kosong!\n");
-                return;
+                printf("Kicauan dalam utas tidak boleh kosong!\n");
+                printf("\nMasukkan kicauan:\n");
             }
             
         } while (i == 0);
@@ -325,14 +324,29 @@ void SambungUtas(int idUtas, int idx){
     printf("\nMasukkan kicauan: \n");
     Word isi = createWordfromString("");
 
-    START();
-    IgnoreBlanks();
-    int i = 0;
-    while (!EOP){
-        isi.TabWord[i++] = currentChar;
-        isi.Length++;
-        ADV();
-    }
+    int i;
+    do {
+        START();
+        IgnoreBlanks();
+        i = 0;
+        while (currentChar != MARK ){
+            if(currentChar != LINEFEED && i < 280) {
+                currentWord.TabWord[i]=currentChar;
+            }
+            ADV();
+            i++;
+        }
+        
+        currentWord.Length = (i > 280) ? 280 : i;
+
+        if (i == 0){
+            printf("Kicauan dalam utas tidak boleh kosong!\n");
+            printf("\nMasukkan kicauan:\n");
+        }
+        
+    } while (i == 0);
+
+    isi = currentWord;
 
     Kicau_struct tempKicauan;
 
