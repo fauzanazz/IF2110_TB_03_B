@@ -197,6 +197,7 @@ void deleteNode(Tree* tree, int ID_balasan) {
 void Balas(int ID_kicau, int IDBalasan){
     int idxKicauan = cariKicauan(dataKicau, ID_kicau);
 
+    
     if (idxKicauan == IDX_UNDEF){
         printf("Wah, tidak terdapat kicauan yang ingin Anda balas!\n");
         return;
@@ -257,16 +258,17 @@ void Balasan(int idKicau){
         return;
     }
 
+    if (!isConnected(GFriend , ActiveUser , dataKicau.buffer[idxKicauan].IdProfile) && !databasePengguna.user[dataKicau.buffer[idxKicauan].IdProfile].Publik){
+        printf("Wah, akun tersebut merupakan akun privat dan anda belum berteman akun tersebut!\n");
+        return;
+    }
+    
     int Idxkicauan = FindKicauan(idKicau);
     if (Idxkicauan == IDX_UNDEF){
         printf("Belum terdapat balasan apapun pada kicauan tersebut. Yuk balas kicauan tersebut!\n");
         return;
     }
 
-    if (!isConnected(GFriend , ActiveUser , dataKicau.buffer[idxKicauan].IdProfile) && !databasePengguna.user[dataKicau.buffer[idxKicauan].IdProfile].Publik){
-        printf("Wah, akun tersebut merupakan akun privat dan anda belum berteman akun tersebut!\n");
-        return;
-    }
 
     printBalasan(listBalasan.T[Idxkicauan].root, 0);
 }
