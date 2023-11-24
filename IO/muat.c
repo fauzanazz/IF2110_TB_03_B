@@ -2,6 +2,7 @@
 #include "simpan.h"
 #include "../ADT/draf/stackDraft.h"
 #include <sys/stat.h>
+#include "../ADT/Pcolor/pcolor.h"
 
 int idPengguna(char *nama){
     int i = 0;
@@ -692,6 +693,7 @@ void MuatBalasan(char* file_path){
             }
             int id_balasan = WordToInt(currentWordF);
             tempBalasan.ID_balasan = id_balasan;
+            tempBalasan.ID_Target = idTarget_;
 
             Word isi = createWordfromString("");
             int j = 0;
@@ -797,7 +799,7 @@ void MuatBalasan(char* file_path){
 }
 
 int Muat(){
-    printf("=================================================================== ⊹⋛⋋(◐⊝◑)⋌⋚⊹ ==========================================================================");
+    printColorfulLine( BLUE,"\n=================================================================== ⊹⋛⋋(◐⊝◑)⋌⋚⊹ ==========================================================================\n");
     printf("\nMasukkan folder konfigurasi untuk dimuat: ");
 
     STARTWORD();

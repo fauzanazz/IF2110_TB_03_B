@@ -73,12 +73,8 @@ void writeBalasan(Node* root, int idx,  FILE *file) {
 
     if (idx != -2) {
 
-        if (idx > -1){
-            fprintf(file, "%d ", idx + 1);
-        } else {
-            fprintf(file, "%d ", idx);
-        }
         
+        fprintf(file, "%d ", root->key.ID_Target);
         fprintf(file, "%d\n", root->key.ID_balasan);
         fprintf(file, "%s\n", WordToString(root->key.TextBalasan));
         fprintf(file, "%s\n", WordToString(databasePengguna.user[root->key.ID_Author].Nama));
@@ -316,7 +312,7 @@ void SimpanBalasan(char *folder_path){
 
     int i;
 
-    for ( i = 0; i < banyakKicauDenganBalasan; i++){
+    for ( i = 0; i < banyakKicauDenganBalasan; i++) {
         fprintf(file, "%d\n", listBalasan.T[i].ID_Kicau);
 
         int banyakBalasan;

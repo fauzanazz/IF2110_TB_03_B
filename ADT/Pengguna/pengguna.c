@@ -101,7 +101,7 @@ void Daftar(ListPengguna *lp){
         boolean Valid=false;
         int cnt = COUNT(*lp);
         while (!Valid){
-            printf("Masukkan nama:\n");
+            printf("\nMasukkan nama:\n");
             START();
             i=0;
             char *temp = "";

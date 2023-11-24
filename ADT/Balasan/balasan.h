@@ -21,6 +21,7 @@
  * Struktur data untuk menyimpan informasi sebuah balasan.
  */
 typedef struct {
+    int ID_Target; // ID kicauan yang dibalas
     int ID_balasan; // ID balasan
     int ID_Author; // ID penulis balasan
     DATETIME DT; // Waktu balasan
