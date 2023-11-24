@@ -17,11 +17,13 @@ int idPengguna(char *nama){
 }
 
 int CheckFiles(char* folder_path){
+    boolean valid = true;
+    
     FILE *file = fopen(concatString(folder_path, "/pengguna.config"), "r");
 
     if (file == NULL){
         printf("File pengguna.config tidak ditemukan.\n");
-        return 0;
+        valid = false;
     }
     fclose(file);
 
@@ -29,7 +31,7 @@ int CheckFiles(char* folder_path){
 
     if (file == NULL){
         printf("File kicauan.config tidak ditemukan.\n");
-        return 0;
+        valid = false;
     }
 
     fclose(file);
@@ -38,7 +40,7 @@ int CheckFiles(char* folder_path){
 
     if (file == NULL){
         printf("File utas.config tidak ditemukan.\n");
-        return 0;
+        valid = false;
     }
 
     fclose(file);
@@ -47,7 +49,7 @@ int CheckFiles(char* folder_path){
 
     if (file == NULL){
         printf("File draf.config tidak ditemukan.\n");
-        return 0;
+        valid = false;
     }
 
     fclose(file);
@@ -56,10 +58,10 @@ int CheckFiles(char* folder_path){
 
     if (file == NULL){
         printf("File balasan.config tidak ditemukan.\n");
-        return 0;
+        valid = false;
     }
 
-    return 1;
+    return valid;
 }
 
 void MuatPengguna(char* file_path){
