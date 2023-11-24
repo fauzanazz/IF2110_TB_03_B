@@ -114,19 +114,26 @@ void printBalasan(Node* root, int depth) {
 }
 
 void ReadBalasan(BalasanStruct *newBalasan, int ID_Target){
-    printf("Masukkan balasan:\n");
-        START();
-        IgnoreBlanks();
-        ignoreNewLine();
         int i = 0;
-        while (currentChar != MARK){
-            if(currentChar != LINEFEED) {
-                currentWord.TabWord[i]=currentChar;
+        do {
+            printf("\nMasukkan balasan:\n");
+            START();
+            IgnoreBlanks();
+            ignoreNewLine();
+            i = 0;
+            while (currentChar != MARK ){
+                if(currentChar != LINEFEED && i < 280) {
+                    currentWord.TabWord[i]=currentChar;
+                }
+                ADV();
+                i++;
             }
-            ADV();
-            i++;
-        }
-        currentWord.Length = i;
+            currentWord.Length = (i > 280) ? 280 : i;
+            
+            if (i == 0){
+                printf("Kicauan tidak boleh kosong!\n");
+            }
+        } while (i == 0);
         
         // Ambil waktu sekarang
         time_t current_time;
