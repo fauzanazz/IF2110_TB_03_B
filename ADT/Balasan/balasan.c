@@ -263,7 +263,7 @@ void Balasan(int idKicau){
         return;
     }
 
-    if (!isConnected(GFriend , ActiveUser , dataKicau.buffer[cariKicauan(dataKicau, idKicau)].IdProfile || !databasePengguna.user[dataKicau.buffer[cariKicauan(dataKicau, idKicau)].IdProfile].Publik)){
+    if (!isConnected(GFriend , ActiveUser , dataKicau.buffer[cariKicauan(dataKicau, idKicau)].IdProfile && !databasePengguna.user[dataKicau.buffer[cariKicauan(dataKicau, idKicau)].IdProfile].Publik)){
         printf("Wah, akun tersebut merupakan akun privat dan anda belum berteman akun tersebut!\n");
         return;
     }
