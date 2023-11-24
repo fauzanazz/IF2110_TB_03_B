@@ -113,7 +113,7 @@ void printBalasan(Node* root, int depth) {
     }
 }
 
-void ReadBalasan(BalasanStruct *newBalasan){
+void ReadBalasan(BalasanStruct *newBalasan, int ID_Target){
     printf("Masukkan balasan:\n");
         START();
         IgnoreBlanks();
@@ -135,6 +135,7 @@ void ReadBalasan(BalasanStruct *newBalasan){
 
         newBalasan->ID_balasan = listBalasan.LastID + 1;
         listBalasan.LastID++;
+        newBalasan->ID_Target = ID_Target;
         newBalasan->ID_Author = ActiveUser;
         newBalasan->TextBalasan = currentWord;
 }
@@ -227,19 +228,20 @@ void Balas(int ID_kicau, int IDBalasan){
 
     if (IDBalasan != -1){
         Node* idxBalasan = findNode(listBalasan.T[idxKicauanDalamList].root, IDBalasan);
+        int IDTarget = idxBalasan->key.ID_balasan; 
         if (idxBalasan == NULL){
             printf("Wah, tidak terdapat balasan yang ingin Anda balas!\n");
             return;
         } else {
             BalasanStruct newBalasan;
-            ReadBalasan(&newBalasan);
+            ReadBalasan(&newBalasan, IDTarget);
             addChild(idxBalasan, newNodeBalasan(newBalasan));
             printf("Balasan berhasil ditambahkan!\n");
             displayBalasan(newBalasan);
         }
     } else {
         BalasanStruct newBalasan;
-        ReadBalasan(&newBalasan);
+        ReadBalasan(&newBalasan, -1);
         addChild(listBalasan.T[idxKicauanDalamList].root, newNodeBalasan(newBalasan));
         printf("Balasan berhasil ditambahkan!\n");
         displayBalasan(newBalasan);

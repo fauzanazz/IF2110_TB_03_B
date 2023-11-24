@@ -152,7 +152,13 @@ void printBalasan(Node* root, int depth);
  * Membaca informasi sebuah balasan dari input pengguna.
  * @param newBalasan Pointer ke data balasan baru
  */
-void ReadBalasan(BalasanStruct *newBalasan);
+/**
+ * Reads the balasan data for a specific target ID.
+ *
+ * @param newBalasan A pointer to the BalasanStruct where the data will be stored.
+ * @param ID_Target The ID of the target for which the balasan data will be read.
+ */
+void ReadBalasan(BalasanStruct *newBalasan, int ID_Target);
 
 /**
  * Mencari node dengan ID balasan tertentu dalam pohon balasan.
