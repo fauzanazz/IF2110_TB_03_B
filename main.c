@@ -8,7 +8,9 @@ void help(boolean isLogin) {
     printf("- DAFTAR\n");
     printf("- MASUK\n");
     printf("- SIMPAN\n");
-    printf("- MUAT\n");
+    if (!isLogin) {
+        printf("- MUAT\n");
+    }
     printf("- HELP\n");
     printf("- TUTUP_PROGRAM\n");
 
@@ -95,6 +97,10 @@ int main(){
         } else if (CheckInput("SIMPAN")) {
             Simpan();
         } else if (CheckInput("MUAT")) {
+            if (isLogin){
+                printf("Anda harus keluar terlebih dahulu.\n");
+            }
+            
             Muat();
         } else if (CheckInput("KELUAR")) {
             Keluar();

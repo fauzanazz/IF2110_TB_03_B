@@ -249,12 +249,28 @@ void BuatUtas(int idKicau){
 
         START();
         IgnoreBlanks();
-        int i = 0;
-        while (!EOP){
-            isi.TabWord[i++] = currentChar;
-            isi.Length++;
-            ADV();
-        }
+
+        int i;
+        do {
+            i = 0;
+            while (currentChar != MARK ){
+                if(currentChar != LINEFEED && i < 280) {
+                    currentWord.TabWord[i]=currentChar;
+                }
+                ADV();
+                i++;
+            }
+            
+            currentWord.Length = (i > 280) ? 280 : i;
+
+            if (i == 0){
+                printf("Kicauan tidak boleh kosong!\n");
+                return;
+            }
+            
+        } while (i == 0);
+        
+        isi = currentWord;
 
         time_t current_time;
         DATETIME current_time2;

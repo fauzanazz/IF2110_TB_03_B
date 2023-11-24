@@ -1,4 +1,5 @@
 #include "muat.h"
+#include "simpan.h"
 #include "../ADT/draf/stackDraft.h"
 #include <sys/stat.h>
 
@@ -13,6 +14,52 @@ int idPengguna(char *nama){
         i++;
     }
     return -1;
+}
+
+int CheckFiles(char* folder_path){
+    FILE *file = fopen(concatString(folder_path, "/pengguna.config"), "r");
+
+    if (file == NULL){
+        printf("File pengguna.config tidak ditemukan.\n");
+        return 0;
+    }
+    fclose(file);
+
+    file = fopen(concatString(folder_path, "/kicauan.config"), "r"); 
+
+    if (file == NULL){
+        printf("File kicauan.config tidak ditemukan.\n");
+        return 0;
+    }
+
+    fclose(file);
+
+    file = fopen(concatString(folder_path, "/utas.config"), "r"); 
+
+    if (file == NULL){
+        printf("File utas.config tidak ditemukan.\n");
+        return 0;
+    }
+
+    fclose(file);
+
+    file = fopen(concatString(folder_path, "/draf.config"), "r"); 
+
+    if (file == NULL){
+        printf("File draf.config tidak ditemukan.\n");
+        return 0;
+    }
+
+    fclose(file);
+
+    file = fopen(concatString(folder_path, "/balasan.config"), "r"); 
+
+    if (file == NULL){
+        printf("File balasan.config tidak ditemukan.\n");
+        return 0;
+    }
+
+    return 1;
 }
 
 void MuatPengguna(char* file_path){
@@ -759,6 +806,11 @@ int Muat(){
     char *inputFolder = concatWordCharToString(currentWord, "");
     if (stat(inputFolder, &st) == 0 && S_ISDIR(st.st_mode)) {
         printf("\nAnda akan melakukan pemuatan dari folder %s\n", inputFolder);
+
+        if (!CheckFiles(inputFolder)){
+            printf("Mohon pastikan semua file konfigurasi berada di folder yang sama.\n\n\n");
+            return 0;
+        }
 
         MuatPengguna(inputFolder);
         MuatKicauan(inputFolder);

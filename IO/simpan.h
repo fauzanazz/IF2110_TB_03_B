@@ -4,6 +4,13 @@
 #include "../Database/database.h"
 
 /**
+ * Fungsi untuk memeriksa apakah direktori dengan path yang diberikan ada atau tidak.
+ * 
+ * @param path Path direktori yang akan diperiksa keberadaannya.
+ */
+int isDirectoryExists(const char *path);
+
+/**
  * Menyimpan data pengguna ke dalam file.
  *
  * @param file_path Path file untuk menyimpan data.

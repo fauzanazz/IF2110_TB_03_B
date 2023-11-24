@@ -349,9 +349,13 @@ void Simpan(){
     SimpanBalasan(folder_path);
 
     printf("Mohon tunggu...\n");
+    await(1);
     printf("1..\n");
+    await(1);
     printf("2..\n");
+    await(1);
     printf("3..\n");
+    await(1);
 
     printf("\nKonfigurasi berhasil disimpan di %s!\n", folder_path);
     
